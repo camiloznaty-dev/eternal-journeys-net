@@ -74,6 +74,13 @@ export type Database = {
             foreignKeyName: "casos_servicios_funeraria_id_fkey"
             columns: ["funeraria_id"]
             isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
+          {
+            foreignKeyName: "casos_servicios_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
             referencedRelation: "funerarias"
             referencedColumns: ["id"]
           },
@@ -179,6 +186,13 @@ export type Database = {
             foreignKeyName: "cotizaciones_funeraria_id_fkey"
             columns: ["funeraria_id"]
             isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
+          {
+            foreignKeyName: "cotizaciones_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
             referencedRelation: "funerarias"
             referencedColumns: ["id"]
           },
@@ -235,6 +249,13 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "empleados_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
           {
             foreignKeyName: "empleados_funeraria_id_fkey"
             columns: ["funeraria_id"]
@@ -313,6 +334,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "cotizaciones"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "facturas_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
           },
           {
             foreignKeyName: "facturas_funeraria_id_fkey"
@@ -455,12 +483,15 @@ export type Database = {
         Row: {
           assigned_to: string | null
           comuna: string | null
+          converted_to_caso_id: string | null
           created_at: string
           email: string | null
           estimated_value: number | null
           funeraria_id: string
           id: string
+          last_contact_date: string | null
           name: string
+          next_followup_date: string | null
           notes: string | null
           phone: string
           priority: string | null
@@ -471,12 +502,15 @@ export type Database = {
         Insert: {
           assigned_to?: string | null
           comuna?: string | null
+          converted_to_caso_id?: string | null
           created_at?: string
           email?: string | null
           estimated_value?: number | null
           funeraria_id: string
           id?: string
+          last_contact_date?: string | null
           name: string
+          next_followup_date?: string | null
           notes?: string | null
           phone: string
           priority?: string | null
@@ -487,12 +521,15 @@ export type Database = {
         Update: {
           assigned_to?: string | null
           comuna?: string | null
+          converted_to_caso_id?: string | null
           created_at?: string
           email?: string | null
           estimated_value?: number | null
           funeraria_id?: string
           id?: string
+          last_contact_date?: string | null
           name?: string
+          next_followup_date?: string | null
           notes?: string | null
           phone?: string
           priority?: string | null
@@ -501,6 +538,20 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "leads_converted_to_caso_id_fkey"
+            columns: ["converted_to_caso_id"]
+            isOneToOne: false
+            referencedRelation: "casos_servicios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leads_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
           {
             foreignKeyName: "leads_funeraria_id_fkey"
             columns: ["funeraria_id"]
@@ -622,6 +673,13 @@ export type Database = {
             foreignKeyName: "obituarios_funeraria_id_fkey"
             columns: ["funeraria_id"]
             isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
+          {
+            foreignKeyName: "obituarios_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
             referencedRelation: "funerarias"
             referencedColumns: ["id"]
           },
@@ -665,6 +723,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "pedidos_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
           {
             foreignKeyName: "pedidos_funeraria_id_fkey"
             columns: ["funeraria_id"]
@@ -724,6 +789,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "productos_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
           {
             foreignKeyName: "productos_funeraria_id_fkey"
             columns: ["funeraria_id"]
@@ -815,6 +887,13 @@ export type Database = {
             foreignKeyName: "proveedores_funeraria_id_fkey"
             columns: ["funeraria_id"]
             isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
+          {
+            foreignKeyName: "proveedores_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
             referencedRelation: "funerarias"
             referencedColumns: ["id"]
           },
@@ -870,6 +949,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "servicios_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
           {
             foreignKeyName: "servicios_funeraria_id_fkey"
             columns: ["funeraria_id"]
@@ -997,7 +1083,17 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      dashboard_stats: {
+        Row: {
+          casos_activos: number | null
+          empleados_activos: number | null
+          funeraria_id: string | null
+          ingresos_mes: number | null
+          leads_mes: number | null
+          leads_nuevos: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {

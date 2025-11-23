@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Search, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import siriusLogo from "@/assets/sirius-logo.png";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const Header = () => {
   const navItems = [
@@ -44,6 +45,7 @@ export const Header = () => {
 
           {/* Derecha: acciones */}
           <div className="ml-auto flex items-center gap-3">
+            <ThemeToggle />
             <Button variant="ghost" size="icon" className="hidden lg:flex">
               <Search className="h-5 w-5" />
             </Button>
@@ -73,6 +75,10 @@ export const Header = () => {
                     </Link>
                   ))}
                   <div className="mt-4 flex flex-col gap-2">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">Tema</span>
+                      <ThemeToggle />
+                    </div>
                     <Button variant="ghost" className="w-full" asChild>
                       <Link to="/auth?tab=login">Iniciar Sesión</Link>
                     </Button>

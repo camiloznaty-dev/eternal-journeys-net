@@ -159,21 +159,8 @@ const Index = () => {
                       />
                     </span>
                     <br />
-                    <span className="text-accent inline-flex items-center gap-3">
-                      estamos contigo 
-                      <motion.span
-                        animate={{ 
-                          scale: [1, 1.2, 1],
-                        }}
-                        transition={{ 
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                        className="inline-block"
-                      >
-                        💜
-                      </motion.span>
+                    <span className="text-accent">
+                      estamos contigo
                     </span>
                   </h1>
                   

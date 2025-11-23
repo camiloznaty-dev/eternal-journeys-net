@@ -25,19 +25,36 @@ const Auth = () => {
   // Signup state
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [userType, setUserType] = useState<"cliente" | "funeraria">("cliente");
   const [showPassword, setShowPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
 
   // Password validation
   const passwordValidations = {
     minLength: signupPassword.length >= 8,
     hasUpperCase: /[A-Z]/.test(signupPassword),
     hasLowerCase: /[a-z]/.test(signupPassword),
-    hasNumber: /[0-9]/.test(signupPassword),
-    hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(signupPassword),
+    hasSpecial: /[!@#$%^&*]/.test(signupPassword),
+  };
+
+  // Phone validation for Chilean numbers
+  const validateChileanPhone = (phoneNumber: string): boolean => {
+    // Format: +569 followed by 8 digits
+    const chileanPhoneRegex = /^\+569\d{8}$/;
+    return chileanPhoneRegex.test(phoneNumber);
+  };
+
+  const handlePhoneChange = (value: string) => {
+    setPhone(value);
+    if (value && !validateChileanPhone(value)) {
+      setPhoneError("Formato inválido. Use +569 seguido de 8 dígitos");
+    } else {
+      setPhoneError("");
+    }
   };
 
   useEffect(() => {
@@ -79,6 +96,13 @@ const Auth = () => {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate phone before submitting
+    if (phone && !validateChileanPhone(phone)) {
+      toast.error("Por favor ingrese un número de teléfono válido");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -88,7 +112,7 @@ const Auth = () => {
         options: {
           emailRedirectTo: `${window.location.origin}/`,
           data: {
-            full_name: fullName,
+            full_name: `${firstName} ${lastName}`,
             role: userType,
           },
         },
@@ -203,29 +227,49 @@ const Auth = () => {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="full-name">Nombre completo</Label>
+                      <Label htmlFor="first-name">Nombre</Label>
                       <Input
-                        id="full-name"
+                        id="first-name"
                         type="text"
-                        placeholder="Juan Pérez"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="Juan"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         required
                         className="h-11"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Teléfono</Label>
+                      <Label htmlFor="last-name">Apellidos</Label>
                       <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+56 9 1234 5678"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        id="last-name"
+                        type="text"
+                        placeholder="Pérez González"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
                         className="h-11"
                       />
                     </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Celular</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+56912345678"
+                      value={phone}
+                      onChange={(e) => handlePhoneChange(e.target.value)}
+                      required
+                      className={cn("h-11", phoneError && "border-destructive")}
+                    />
+                    {phoneError && (
+                      <p className="text-sm text-destructive">{phoneError}</p>
+                    )}
+                    <p className="text-xs text-muted-foreground">
+                      Formato: +569 seguido de 8 dígitos (ej: +56912345678)
+                    </p>
                   </div>
 
                   <div className="space-y-2">
@@ -267,10 +311,9 @@ const Auth = () => {
                         <p className="text-muted-foreground mb-2">La contraseña debe contener:</p>
                         <div className="space-y-1.5">
                           <ValidationItem isValid={passwordValidations.minLength} text="Mínimo 8 caracteres" />
-                          <ValidationItem isValid={passwordValidations.hasUpperCase} text="Al menos una letra mayúscula" />
-                          <ValidationItem isValid={passwordValidations.hasLowerCase} text="Al menos una letra minúscula" />
-                          <ValidationItem isValid={passwordValidations.hasNumber} text="Al menos un número" />
-                          <ValidationItem isValid={passwordValidations.hasSpecial} text="Al menos un carácter especial (!@#$%^&*)" />
+                          <ValidationItem isValid={passwordValidations.hasUpperCase} text="Una mayúscula (A-Z)" />
+                          <ValidationItem isValid={passwordValidations.hasLowerCase} text="Una minúscula (a-z)" />
+                          <ValidationItem isValid={passwordValidations.hasSpecial} text="Un carácter especial (!@#$%^&*)" />
                         </div>
                       </div>
                     )}

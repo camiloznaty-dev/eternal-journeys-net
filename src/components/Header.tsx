@@ -43,12 +43,15 @@ export const Header = () => {
           </div>
 
           {/* Derecha: acciones */}
-          <div className="ml-auto flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="hidden md:flex">
+          <div className="ml-auto flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="hidden lg:flex">
               <Search className="h-5 w-5" />
             </Button>
+            <Button variant="ghost" className="hidden md:flex" asChild>
+              <Link to="/auth?tab=login">Iniciar Sesión</Link>
+            </Button>
             <Button variant="default" className="hidden md:flex" asChild>
-              <Link to="/auth">Iniciar Sesión</Link>
+              <Link to="/auth?tab=signup">Registrarse</Link>
             </Button>
 
             {/* Mobile Menu */}
@@ -69,9 +72,14 @@ export const Header = () => {
                       {item.label}
                     </Link>
                   ))}
-                  <Button variant="default" className="mt-4 w-full" asChild>
-                    <Link to="/auth">Iniciar Sesión</Link>
-                  </Button>
+                  <div className="mt-4 flex flex-col gap-2">
+                    <Button variant="ghost" className="w-full" asChild>
+                      <Link to="/auth?tab=login">Iniciar Sesión</Link>
+                    </Button>
+                    <Button variant="default" className="w-full" asChild>
+                      <Link to="/auth?tab=signup">Registrarse</Link>
+                    </Button>
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>

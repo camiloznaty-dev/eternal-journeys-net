@@ -11,6 +11,8 @@ import { Building2, User, Eye, EyeOff, Check, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { comunasPorRegion } from "@/data/comunas";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ const Auth = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [comuna, setComuna] = useState("");
   const [userType, setUserType] = useState<"cliente" | "funeraria">("cliente");
   const [showPassword, setShowPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
@@ -270,6 +273,29 @@ const Auth = () => {
                     <p className="text-xs text-muted-foreground">
                       Formato: +569 seguido de 8 dígitos (ej: +56912345678)
                     </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="comuna">Comuna</Label>
+                    <Select value={comuna} onValueChange={setComuna} required>
+                      <SelectTrigger id="comuna" className="h-11">
+                        <SelectValue placeholder="Seleccione su comuna" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[300px] bg-background">
+                        {Object.entries(comunasPorRegion).map(([region, comunas]) => (
+                          <div key={region}>
+                            <div className="px-2 py-1.5 text-sm font-semibold text-muted-foreground bg-muted/50">
+                              {region}
+                            </div>
+                            {comunas.map((comunaName) => (
+                              <SelectItem key={comunaName} value={comunaName}>
+                                {comunaName}
+                              </SelectItem>
+                            ))}
+                          </div>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">

@@ -183,6 +183,46 @@ const Auth = () => {
     setLoading(true);
 
     try {
+      let logoUrl = null;
+      let heroUrl = null;
+
+      // Upload images if present (only for funerarias)
+      if (userType === "funeraria") {
+        const tempUserId = crypto.randomUUID();
+        
+        if (logoFile) {
+          const logoExt = logoFile.name.split('.').pop();
+          const logoPath = `${tempUserId}/logo.${logoExt}`;
+          const { error: logoError } = await supabase.storage
+            .from('funeraria-images')
+            .upload(logoPath, logoFile);
+          
+          if (logoError) {
+            toast.error("Error al subir el logo");
+            setLoading(false);
+            return;
+          }
+          
+          logoUrl = supabase.storage.from('funeraria-images').getPublicUrl(logoPath).data.publicUrl;
+        }
+
+        if (heroFile) {
+          const heroExt = heroFile.name.split('.').pop();
+          const heroPath = `${tempUserId}/hero.${heroExt}`;
+          const { error: heroError } = await supabase.storage
+            .from('funeraria-images')
+            .upload(heroPath, heroFile);
+          
+          if (heroError) {
+            toast.error("Error al subir la foto de portada");
+            setLoading(false);
+            return;
+          }
+          
+          heroUrl = supabase.storage.from('funeraria-images').getPublicUrl(heroPath).data.publicUrl;
+        }
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email: signupEmail,
         password: signupPassword,
@@ -203,6 +243,8 @@ const Auth = () => {
               legal_rep_name: legalRepName,
               legal_rep_rut: legalRepRut,
               legal_rep_position: legalRepPosition,
+              logo_url: logoUrl,
+              hero_image_url: heroUrl,
               comuna,
             }),
           },
@@ -473,6 +515,36 @@ const Auth = () => {
                           </div>
                         </div>
                       )}
+
+                      <div className="space-y-4 pt-2">
+                        <div>
+                          <Label htmlFor="logo">Logo (opcional)</Label>
+                          <Input
+                            id="logo"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setLogoFile(e.target.files?.[0] || null)}
+                            className="cursor-pointer h-11"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Formatos: JPG, PNG, WEBP, SVG
+                          </p>
+                        </div>
+
+                        <div>
+                          <Label htmlFor="hero">Foto de portada (opcional)</Label>
+                          <Input
+                            id="hero"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setHeroFile(e.target.files?.[0] || null)}
+                            className="cursor-pointer h-11"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Formatos: JPG, PNG, WEBP. Recomendado: 1920x600px
+                          </p>
+                        </div>
+                      </div>
 
                       <div className="space-y-3">
                         <Label className="text-sm font-medium">Colores del Mini Website</Label>

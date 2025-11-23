@@ -17,7 +17,7 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold text-primary">Memorial</h1>
+            <h1 className="text-2xl font-bold text-primary">Sirius</h1>
           </Link>
 
           {/* Desktop Navigation */}

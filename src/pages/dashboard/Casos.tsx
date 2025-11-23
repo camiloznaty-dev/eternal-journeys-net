@@ -75,9 +75,9 @@ export default function Casos() {
 
   const filteredCasos = casos.filter((caso) => {
     const matchesSearch =
-      caso.difunto_nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      caso.difunto_apellido.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      caso.tipo_servicio.toLowerCase().includes(searchTerm.toLowerCase());
+      caso.fallecido_nombre?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      caso.fallecido_apellido?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      caso.tipo_servicio?.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesStatus = statusFilter === "all" || caso.status === statusFilter;
     
@@ -174,7 +174,7 @@ export default function Casos() {
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="font-semibold text-lg">
-                          {caso.difunto_nombre} {caso.difunto_apellido}
+                          {caso.fallecido_nombre} {caso.fallecido_apellido}
                         </h3>
                         <Badge className={getStatusColor(caso.status)}>
                           {getStatusLabel(caso.status)}
@@ -186,6 +186,12 @@ export default function Casos() {
                           <>
                             <span>•</span>
                             <span>Velorio: {new Date(caso.fecha_velorio).toLocaleDateString("es-CL")}</span>
+                          </>
+                        )}
+                        {caso.fecha_funeral && (
+                          <>
+                            <span>•</span>
+                            <span>Funeral: {new Date(caso.fecha_funeral).toLocaleDateString("es-CL")}</span>
                           </>
                         )}
                         {caso.responsable && (

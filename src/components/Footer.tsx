@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import siriusLogo from "@/assets/sirius-logo.png";
 
 export const Footer = () => {
   return (
@@ -6,7 +7,11 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="md:col-span-2">
-            <h3 className="font-bold text-2xl mb-4">Sirius</h3>
+            <img 
+              src={siriusLogo} 
+              alt="Sirius" 
+              className="h-10 w-auto brightness-0 invert mb-4"
+            />
             <p className="text-sm text-muted-foreground mb-4">
               Conectando familias con servicios funerarios de calidad y dignidad. Modernizando la industria funeraria en Latinoamérica.
             </p>

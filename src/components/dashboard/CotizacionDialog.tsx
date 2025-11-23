@@ -15,24 +15,13 @@ import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, us
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ItemSelector } from "./ItemSelector";
+import type { Cotizacion, QuoteItem } from "@/types/cotizaciones";
 
 interface CotizacionDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  cotizacion?: any | null;
+  cotizacion?: Cotizacion | null;
   onSuccess: () => void;
-}
-
-interface QuoteItem {
-  id: string;
-  type: "producto" | "servicio";
-  item_id: string;
-  name: string;
-  description?: string;
-  quantity: number;
-  price: number;
-  discount: number;
-  subtotal: number;
 }
 
 function SortableItem({ item, onUpdate, onRemove }: { item: QuoteItem; onUpdate: (id: string, field: string, value: any) => void; onRemove: (id: string) => void }) {

@@ -47,8 +47,8 @@ export const Header = () => {
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="default" className="hidden md:flex">
-              Soy Funeraria
+            <Button variant="default" className="hidden md:flex" asChild>
+              <Link to="/auth">Iniciar Sesión</Link>
             </Button>
 
             {/* Mobile Menu */}
@@ -69,8 +69,8 @@ export const Header = () => {
                       {item.label}
                     </Link>
                   ))}
-                  <Button variant="default" className="mt-4 w-full">
-                    Soy Funeraria
+                  <Button variant="default" className="mt-4 w-full" asChild>
+                    <Link to="/auth">Iniciar Sesión</Link>
                   </Button>
                 </nav>
               </SheetContent>

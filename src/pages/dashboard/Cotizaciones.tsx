@@ -35,20 +35,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { generateQuotePDF } from "@/lib/quotePDF";
-
-interface Cotizacion {
-  id: string;
-  numero_cotizacion: string;
-  lead_id: string | null;
-  items: any;
-  subtotal: number;
-  impuestos: number | null;
-  total: number;
-  status: string | null;
-  valida_hasta: string | null;
-  notas: string | null;
-  created_at: string;
-}
+import type { Cotizacion } from "@/types/cotizaciones";
 
 const statusLabels: Record<string, string> = {
   borrador: "Borrador",

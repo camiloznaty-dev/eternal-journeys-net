@@ -1,47 +1,7 @@
 import jsPDF from "jspdf";
+import type { QuoteItem, Cotizacion, Funeraria, Vendedor } from "@/types/cotizaciones";
 
-interface QuoteItem {
-  name: string;
-  description?: string;
-  quantity: number;
-  price: number;
-  discount: number;
-  subtotal: number;
-}
-
-interface Quote {
-  numero_cotizacion: string;
-  created_at: string;
-  valida_hasta: string | null;
-  items: QuoteItem[];
-  subtotal: number;
-  impuestos: number | null;
-  total: number;
-  notas: string | null;
-  status: string | null;
-  solicitante_nombre?: string | null;
-  solicitante_empresa?: string | null;
-  solicitante_telefono?: string | null;
-  solicitante_email?: string | null;
-  carta_presentacion?: string | null;
-}
-
-interface Funeraria {
-  name: string;
-  address: string;
-  email: string | null;
-  phone: string | null;
-  logo_url: string | null;
-}
-
-interface Vendedor {
-  nombre: string;
-  apellido: string;
-  email?: string | null;
-  phone?: string | null;
-}
-
-export async function generateQuotePDF(quote: Quote, funeraria: Funeraria, vendedor?: Vendedor | null) {
+export async function generateQuotePDF(quote: Cotizacion, funeraria: Funeraria, vendedor?: Vendedor | null) {
   const doc = new jsPDF();
   
   const primaryColor: [number, number, number] = [0, 0, 0];
@@ -62,16 +22,14 @@ export async function generateQuotePDF(quote: Quote, funeraria: Funeraria, vende
     }
   }
 
-  doc.setFontSize(22);
-  doc.setTextColor(...primaryColor);
-  doc.setFont("helvetica", "bold");
+  const year = new Date().getFullYear();
   doc.text(funeraria.name, 20, yPos);
   
   yPos += 7;
   doc.setFontSize(9);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(...grayColor);
-  doc.text(funeraria.address, 20, yPos);
+  doc.text(funeraria.address || "", 20, yPos);
   
   if (funeraria.phone || funeraria.email) {
     yPos += 4;
@@ -90,7 +48,7 @@ export async function generateQuotePDF(quote: Quote, funeraria: Funeraria, vende
   doc.setFont("helvetica", "normal");
   doc.setTextColor(...grayColor);
   doc.text(`N° ${quote.numero_cotizacion}`, rightMargin, 28);
-  doc.text(`Fecha: ${new Date(quote.created_at).toLocaleDateString("es-CL")}`, rightMargin, 34);
+  doc.text(`Fecha: ${quote.created_at ? new Date(quote.created_at).toLocaleDateString("es-CL") : ""}`, rightMargin, 34);
   
   if (quote.valida_hasta) {
     doc.text(`Válida hasta: ${new Date(quote.valida_hasta).toLocaleDateString("es-CL")}`, rightMargin, 40);

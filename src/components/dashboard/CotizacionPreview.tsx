@@ -4,13 +4,14 @@ import { Download, Image as ImageIcon } from "lucide-react";
 import html2canvas from "html2canvas";
 import { generateQuotePDF } from "@/lib/quotePDF";
 import { toast } from "sonner";
+import type { Cotizacion, Funeraria, Vendedor } from "@/types/cotizaciones";
 
 interface CotizacionPreviewProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  cotizacion: any;
-  funeraria: any;
-  vendedor?: any;
+  cotizacion: Cotizacion;
+  funeraria: Funeraria;
+  vendedor?: Vendedor;
 }
 
 export function CotizacionPreview({ open, onOpenChange, cotizacion, funeraria, vendedor }: CotizacionPreviewProps) {

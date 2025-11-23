@@ -213,7 +213,7 @@ const Auth = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 flex items-center justify-center py-12 px-4">
-        <Card className="w-full max-w-md">
+        <Card className={cn("w-full", userType === "funeraria" ? "max-w-2xl" : "max-w-md")}>
           <CardHeader>
             <CardTitle>Acceso a la plataforma</CardTitle>
             <CardDescription>
@@ -268,7 +268,8 @@ const Auth = () => {
               </TabsContent>
 
               <TabsContent value="signup">
-                <form onSubmit={handleSignup} className="space-y-6 mt-6">
+                <form onSubmit={handleSignup} className="space-y-5 mt-6">
+                  {/* Tipo de cuenta */}
                   <div className="space-y-3">
                     <Label className="text-base">Tipo de cuenta</Label>
                     <div className="grid grid-cols-2 gap-3">
@@ -307,6 +308,7 @@ const Auth = () => {
                     </div>
                   </div>
 
+                  {/* Datos personales */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="first-name">Nombre</Label>
@@ -319,10 +321,24 @@ const Auth = () => {
                         required
                         className="h-11"
                       />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="last-name">Apellidos</Label>
+                      <Input
+                        id="last-name"
+                        type="text"
+                        placeholder="Pérez González"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                        className="h-11"
+                      />
+                    </div>
                   </div>
 
+                  {/* Datos de funeraria */}
                   {userType === "funeraria" && (
-                    <>
+                    <div className="space-y-4 pt-2">
                       <div className="space-y-2">
                         <Label htmlFor="funeraria-name">Nombre de la Funeraria</Label>
                         <Input
@@ -336,7 +352,7 @@ const Auth = () => {
                         />
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="funeraria-rut">RUT Empresa</Label>
                           <Input
@@ -365,81 +381,68 @@ const Auth = () => {
                       </div>
 
                       <div className="space-y-3">
-                        <Label className="text-base">Colores del Mini Website</Label>
-                        <p className="text-xs text-muted-foreground">
-                          Podrás cambiar estos colores después desde tu dashboard
-                        </p>
-                        <div className="grid grid-cols-2 gap-4">
+                        <Label className="text-sm font-medium">Colores del Mini Website</Label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="primary-color">Color Primario</Label>
+                            <Label htmlFor="primary-color" className="text-sm">Color Primario</Label>
                             <div className="flex gap-2">
                               <Input
                                 id="primary-color"
                                 type="color"
                                 value={primaryColor}
                                 onChange={(e) => setPrimaryColor(e.target.value)}
-                                className="w-16 h-11 p-1 cursor-pointer"
+                                className="w-14 h-11 p-1 cursor-pointer"
                               />
                               <Input
                                 value={primaryColor}
                                 onChange={(e) => setPrimaryColor(e.target.value)}
                                 placeholder="#000000"
-                                className="h-11"
+                                className="h-11 flex-1"
                               />
                             </div>
                           </div>
 
                           <div className="space-y-2">
-                            <Label htmlFor="secondary-color">Color Secundario</Label>
+                            <Label htmlFor="secondary-color" className="text-sm">Color Secundario</Label>
                             <div className="flex gap-2">
                               <Input
                                 id="secondary-color"
                                 type="color"
                                 value={secondaryColor}
                                 onChange={(e) => setSecondaryColor(e.target.value)}
-                                className="w-16 h-11 p-1 cursor-pointer"
+                                className="w-14 h-11 p-1 cursor-pointer"
                               />
                               <Input
                                 value={secondaryColor}
                                 onChange={(e) => setSecondaryColor(e.target.value)}
                                 placeholder="#666666"
-                                className="h-11"
+                                className="h-11 flex-1"
                               />
                             </div>
                           </div>
                         </div>
+                        <p className="text-xs text-muted-foreground">
+                          Podrás cambiar estos colores después desde tu dashboard
+                        </p>
                       </div>
 
-                      <div className="rounded-lg border border-border bg-muted/30 p-4">
+                      <div className="rounded-lg border border-border bg-muted/30 p-3">
                         <div className="flex items-start gap-3">
-                          <div className="rounded-full bg-primary/10 p-2">
+                          <div className="rounded-full bg-primary/10 p-2 shrink-0">
                             <Building2 className="h-4 w-4 text-primary" />
                           </div>
                           <div className="flex-1 space-y-1">
                             <p className="text-sm font-medium">Logo y Foto de Portada</p>
                             <p className="text-xs text-muted-foreground">
-                              Podrás subir tu logo y foto de portada después desde tu dashboard en la sección "Mi Funeraria"
+                              Podrás subir tu logo y foto de portada después desde tu dashboard
                             </p>
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   )}
 
-                  <div className="space-y-2">
-                      <Label htmlFor="last-name">Apellidos</Label>
-                      <Input
-                        id="last-name"
-                        type="text"
-                        placeholder="Pérez González"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        required
-                        className="h-11"
-                      />
-                    </div>
-                  </div>
-
+                  {/* Teléfono */}
                   <div className="space-y-2">
                     <Label htmlFor="phone">Celular</Label>
                     <Input

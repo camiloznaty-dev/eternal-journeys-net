@@ -5,6 +5,7 @@ import { CategoryCard } from "@/components/CategoryCard";
 import { HowItWorks } from "@/components/HowItWorks";
 import { ForFunerarias } from "@/components/ForFunerarias";
 import { PricingPlans } from "@/components/PricingPlans";
+import { PricingComparison } from "@/components/PricingComparison";
 import { Testimonials } from "@/components/Testimonials";
 import { Stats } from "@/components/Stats";
 import { FAQ } from "@/components/FAQ";
@@ -400,6 +401,7 @@ const Index = () => {
 
         <HowItWorks />
         <PricingPlans />
+        <PricingComparison />
         <ForFunerarias />
         <FAQ />
       </main>

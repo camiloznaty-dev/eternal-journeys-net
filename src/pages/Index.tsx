@@ -9,10 +9,10 @@ import { Testimonials } from "@/components/Testimonials";
 import { Stats } from "@/components/Stats";
 import { FAQ } from "@/components/FAQ";
 import { Button } from "@/components/ui/button";
-import { Flower2, Truck, Package, Heart } from "lucide-react";
+import { Flower2, Truck, Package, Heart, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-team.jpg";
+import heroImage from "@/assets/hero-memorial-park.jpg";
 
 const Index = () => {
   const categories = [
@@ -49,7 +49,85 @@ const Index = () => {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative py-20 md:py-32 overflow-hidden">
-          <div className="container mx-auto px-4">
+          {/* Floating Emojis Background */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <motion.div
+              animate={{ 
+                y: [0, -20, 0],
+                rotate: [0, 5, 0]
+              }}
+              transition={{ 
+                duration: 5, 
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute top-20 left-[10%] text-4xl opacity-20"
+            >
+              ❤️
+            </motion.div>
+            <motion.div
+              animate={{ 
+                y: [0, -15, 0],
+                rotate: [0, -5, 0]
+              }}
+              transition={{ 
+                duration: 6, 
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1
+              }}
+              className="absolute top-40 right-[15%] text-3xl opacity-20"
+            >
+              💙
+            </motion.div>
+            <motion.div
+              animate={{ 
+                y: [0, -25, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ 
+                duration: 7, 
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2
+              }}
+              className="absolute bottom-40 left-[20%] text-3xl opacity-20"
+            >
+              ✨
+            </motion.div>
+            <motion.div
+              animate={{ 
+                y: [0, -18, 0],
+                rotate: [0, 8, 0]
+              }}
+              transition={{ 
+                duration: 5.5, 
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.5
+              }}
+              className="absolute top-60 left-[5%] text-2xl opacity-15"
+            >
+              🤍
+            </motion.div>
+            <motion.div
+              animate={{ 
+                y: [0, -22, 0],
+                rotate: [0, -8, 0]
+              }}
+              transition={{ 
+                duration: 6.5, 
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.5
+              }}
+              className="absolute bottom-20 right-[10%] text-3xl opacity-20"
+            >
+              🌸
+            </motion.div>
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
               {/* Left Content */}
               <motion.div
@@ -59,6 +137,16 @@ const Index = () => {
                 className="space-y-8"
               >
                 <div className="space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/5 border border-accent/10 mb-2"
+                  >
+                    <Sparkles className="w-4 h-4 text-accent" />
+                    <span className="text-sm font-medium">Plataforma más humana de Chile ❤️</span>
+                  </motion.div>
+                  
                   <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
                     En los momentos{" "}
                     <span className="relative inline-block">
@@ -71,11 +159,26 @@ const Index = () => {
                       />
                     </span>
                     <br />
-                    <span className="text-accent">estamos contigo</span>
+                    <span className="text-accent inline-flex items-center gap-3">
+                      estamos contigo 
+                      <motion.span
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="inline-block"
+                      >
+                        💜
+                      </motion.span>
+                    </span>
                   </h1>
                   
                   <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
-                    Encuentra y compara servicios funerarios con dignidad y transparencia en todo Chile
+                    Encuentra y compara servicios funerarios con dignidad y transparencia en todo Chile 🇨🇱
                   </p>
                 </div>
 
@@ -88,7 +191,7 @@ const Index = () => {
                     className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20"
                   >
                     <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                    <span className="text-sm font-medium">Atención 24/7</span>
+                    <span className="text-sm font-medium">Atención 24/7 💬</span>
                   </motion.div>
                   
                   <motion.div
@@ -97,7 +200,7 @@ const Index = () => {
                     transition={{ delay: 0.4 }}
                     className="px-4 py-2 rounded-full bg-secondary border border-border"
                   >
-                    <span className="text-sm font-medium">+500 Funerarias</span>
+                    <span className="text-sm font-medium">+500 Funerarias 🏢</span>
                   </motion.div>
                   
                   <motion.div
@@ -106,7 +209,7 @@ const Index = () => {
                     transition={{ delay: 0.5 }}
                     className="px-4 py-2 rounded-full bg-secondary border border-border"
                   >
-                    <span className="text-sm font-medium">Cobertura Nacional</span>
+                    <span className="text-sm font-medium">Cobertura Nacional 🗺️</span>
                   </motion.div>
                 </div>
 
@@ -123,7 +226,7 @@ const Index = () => {
                     </motion.span>
                   </Button>
                   <Button size="lg" variant="outline" className="text-base px-8">
-                    Cómo funciona
+                    Cómo funciona ✨
                   </Button>
                 </div>
 
@@ -135,7 +238,7 @@ const Index = () => {
                     transition={{ delay: 0.6 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">24h</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">24h ⚡</div>
                     <div className="text-xs text-muted-foreground">Respuesta rápida</div>
                   </motion.div>
                   
@@ -145,8 +248,8 @@ const Index = () => {
                     transition={{ delay: 0.7 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">100%</div>
-                    <div className="text-xs text-muted-foreground">Gratuito para familias</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">100% 🎁</div>
+                    <div className="text-xs text-muted-foreground">Gratuito familias</div>
                   </motion.div>
                   
                   <motion.div
@@ -155,8 +258,8 @@ const Index = () => {
                     transition={{ delay: 0.8 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">4.9★</div>
-                    <div className="text-xs text-muted-foreground">Calificación promedio</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">4.9★ 💯</div>
+                    <div className="text-xs text-muted-foreground">Calificación</div>
                   </motion.div>
                 </div>
               </motion.div>
@@ -178,7 +281,7 @@ const Index = () => {
                   >
                     <img 
                       src={heroImage} 
-                      alt="Equipo profesional de Sirius brindando apoyo"
+                      alt="Parque memorial con familia, espacio de paz y memoria"
                       className="w-full h-auto object-cover"
                     />
                     
@@ -189,21 +292,33 @@ const Index = () => {
                           <Heart className="w-6 h-6 text-accent" />
                         </div>
                         <div>
-                          <div className="font-semibold text-base">Atención Personalizada</div>
-                          <div className="text-sm text-muted-foreground">Acompañamiento 24/7</div>
+                          <div className="font-semibold text-base">Espacios de Paz 🕊️</div>
+                          <div className="text-sm text-muted-foreground">Para honrar memorias</div>
                         </div>
                       </div>
                     </div>
                   </motion.div>
 
-                  {/* Floating Badge */}
+                  {/* Floating Badge with Heart */}
                   <motion.div
                     initial={{ scale: 0, rotate: -10 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.8, type: "spring" }}
-                    className="absolute -top-4 -right-4 bg-accent text-accent-foreground rounded-full px-6 py-3 font-bold shadow-lg z-10"
+                    className="absolute -top-4 -right-4 bg-accent text-accent-foreground rounded-full px-6 py-3 font-bold shadow-lg z-10 flex items-center gap-2"
                   >
-                    Verificado ✓
+                    <span>Verificado</span>
+                    <motion.span
+                      animate={{ 
+                        scale: [1, 1.3, 1],
+                      }}
+                      transition={{ 
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      ❤️
+                    </motion.span>
                   </motion.div>
 
                   {/* Decorative Elements */}

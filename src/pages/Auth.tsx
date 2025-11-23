@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,9 @@ import { cn } from "@/lib/utils";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "login");
 
   // Login state
   const [loginEmail, setLoginEmail] = useState("");
@@ -113,7 +115,7 @@ const Auth = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="login">
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="login">Iniciar Sesión</TabsTrigger>
                 <TabsTrigger value="signup">Registrarse</TabsTrigger>

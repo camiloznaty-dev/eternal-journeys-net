@@ -10,7 +10,7 @@ export const Footer = () => {
             <img 
               src={siriusLogo} 
               alt="Sirius" 
-              className="h-10 w-auto brightness-0 invert mb-4"
+              className="h-12 w-auto mb-4"
             />
             <p className="text-sm text-muted-foreground mb-4">
               Conectando familias con servicios funerarios de calidad y dignidad. Modernizando la industria funeraria en Latinoamérica.

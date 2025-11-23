@@ -22,7 +22,7 @@ export const Header = () => {
             <img 
               src={siriusLogo} 
               alt="Sirius" 
-              className="h-10 w-auto brightness-0 invert"
+              className="h-12 w-auto"
             />
           </Link>
 

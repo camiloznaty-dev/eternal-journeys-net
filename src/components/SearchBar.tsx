@@ -4,7 +4,15 @@ import { Button } from "@/components/ui/button";
 
 export const SearchBar = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto space-y-4">
+      <div className="text-center space-y-2">
+        <h2 className="text-2xl md:text-3xl font-bold">
+          Encuentra funerarias en todo Chile 🇨🇱
+        </h2>
+        <p className="text-muted-foreground">
+          Compara servicios, precios y reseñas en tu región
+        </p>
+      </div>
       <div className="border border-border rounded-2xl p-2 bg-card shadow-xl backdrop-blur-sm">
         <div className="flex flex-col md:flex-row gap-2">
           <div className="flex-1 relative">

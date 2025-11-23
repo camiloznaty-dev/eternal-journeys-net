@@ -341,7 +341,7 @@ const Index = () => {
         </section>
 
         {/* Quick Search Section */}
-        <section className="py-12 -mt-8 relative z-10">
+        <section className="py-16 -mt-8 relative z-10 bg-gradient-to-b from-background/50 to-background">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

@@ -147,7 +147,7 @@ const Index = () => {
                     <span className="text-sm font-medium">Plataforma más humana de Chile ❤️</span>
                   </motion.div>
                   
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
                     En los momentos{" "}
                     <span className="relative inline-block">
                       difíciles,

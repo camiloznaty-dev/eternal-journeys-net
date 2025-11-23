@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Trash2, Plus, GripVertical } from "lucide-react";
+import { Trash2, Plus, GripVertical, Eye, EyeOff } from "lucide-react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -101,6 +101,7 @@ function SortableItem({ item, onUpdate, onRemove }: { item: QuoteItem; onUpdate:
 export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: CotizacionDialogProps) {
   const [loading, setLoading] = useState(false);
   const [empleados, setEmpleados] = useState<any[]>([]);
+  const [funeraria, setFuneraria] = useState<any>(null);
   const [numeroCotizacion, setNumeroCotizacion] = useState("");
   const [validaHasta, setValidaHasta] = useState("");
   const [notas, setNotas] = useState("");
@@ -113,6 +114,7 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
   const [solicitanteEmail, setSolicitanteEmail] = useState("");
   const [vendedorId, setVendedorId] = useState("");
   const [cartaPresentacion, setCartaPresentacion] = useState("");
+  const [showPreview, setShowPreview] = useState(true);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -150,15 +152,18 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
 
       const { data: empleado } = await supabase
         .from("empleados")
-        .select("funeraria_id")
+        .select("funeraria_id, funerarias(*)")
         .eq("user_id", session.user.id)
         .single();
 
       if (!empleado) return;
 
+      // Guardar datos de la funeraria para el preview
+      setFuneraria(empleado.funerarias);
+
       const { data } = await supabase
         .from("empleados")
-        .select("id, nombre, apellido")
+        .select("id, nombre, apellido, email, phone")
         .eq("funeraria_id", empleado.funeraria_id)
         .eq("activo", true)
         .order("nombre");
@@ -259,6 +264,24 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
   const taxAmount = (subtotal * parseFloat(impuestos)) / 100;
   const total = subtotal + taxAmount;
 
+  const selectedVendedor = empleados.find(emp => emp.id === vendedorId);
+
+  const previewCotizacion = {
+    numero_cotizacion: numeroCotizacion || "COT-XXXX-XXXX",
+    created_at: new Date().toISOString(),
+    valida_hasta: validaHasta || null,
+    items,
+    subtotal,
+    impuestos: taxAmount,
+    total,
+    notas: notas || null,
+    solicitante_nombre: solicitanteNombre || null,
+    solicitante_empresa: solicitanteEmpresa || null,
+    solicitante_telefono: solicitanteTelefono || null,
+    solicitante_email: solicitanteEmail || null,
+    carta_presentacion: cartaPresentacion || null,
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -330,16 +353,29 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-6xl max-h-[95vh]">
+        <DialogContent className="max-w-[95vw] max-h-[95vh]">
           <DialogHeader>
-            <DialogTitle>{cotizacion ? "Editar Cotización" : "Nueva Cotización"}</DialogTitle>
-            <DialogDescription>
-              Arrastra y suelta productos/servicios para crear la cotización
-            </DialogDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <DialogTitle>{cotizacion ? "Editar Cotización" : "Nueva Cotización"}</DialogTitle>
+                <DialogDescription>
+                  Crea tu cotización profesional con vista previa en vivo
+                </DialogDescription>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowPreview(!showPreview)}
+              >
+                {showPreview ? "Ocultar" : "Mostrar"} Vista Previa
+              </Button>
+            </div>
           </DialogHeader>
 
-          <ScrollArea className="max-h-[calc(95vh-8rem)] pr-4">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className={`grid gap-6 ${showPreview ? "grid-cols-2" : "grid-cols-1"}`}>
+            {/* Formulario */}
+            <ScrollArea className="max-h-[calc(95vh-8rem)] pr-4">
+              <form onSubmit={handleSubmit} className="space-y-6">
               {/* Información del Solicitante */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold border-b pb-2">Información del Solicitante</h3>
@@ -514,16 +550,164 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
                 </CardContent>
               </Card>
 
-              <div className="flex gap-2 justify-end pt-4 border-t">
-                <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
-                  Cancelar
-                </Button>
-                <Button type="submit" disabled={loading || items.length === 0}>
-                  {loading ? "Guardando..." : cotizacion ? "Actualizar" : "Crear Cotización"}
-                </Button>
+                <div className="flex gap-2 justify-end pt-4 border-t">
+                  <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+                    Cancelar
+                  </Button>
+                  <Button type="submit" disabled={loading || items.length === 0}>
+                    {loading ? "Guardando..." : cotizacion ? "Actualizar" : "Crear Cotización"}
+                  </Button>
+                </div>
+              </form>
+            </ScrollArea>
+
+            {/* Vista Previa en Vivo */}
+            {showPreview && funeraria && (
+              <div className="border-l pl-6">
+                <div className="sticky top-0">
+                  <h3 className="text-sm font-semibold mb-4 text-muted-foreground">Vista Previa</h3>
+                  <ScrollArea className="h-[calc(95vh-10rem)]">
+                    <div className="bg-white rounded-lg shadow-lg p-8 space-y-6 text-gray-900" style={{ fontSize: "10px" }}>
+                      {/* Header */}
+                      <div className="flex justify-between items-start border-b pb-4">
+                        <div>
+                          {funeraria.logo_url && (
+                            <img src={funeraria.logo_url} alt={funeraria.name} className="h-12 mb-2" />
+                          )}
+                          <h1 className="text-lg font-bold">{funeraria.name}</h1>
+                          <p className="text-xs text-gray-600 mt-1">{funeraria.address}</p>
+                          <p className="text-xs text-gray-600">
+                            {[funeraria.phone, funeraria.email].filter(Boolean).join(" | ")}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <h2 className="text-base font-bold">COTIZACIÓN</h2>
+                          <p className="text-xs text-gray-600 mt-1">N° {previewCotizacion.numero_cotizacion}</p>
+                          <p className="text-xs text-gray-600">
+                            Fecha: {new Date(previewCotizacion.created_at).toLocaleDateString("es-CL")}
+                          </p>
+                          {previewCotizacion.valida_hasta && (
+                            <p className="text-xs text-gray-600">
+                              Válida hasta: {new Date(previewCotizacion.valida_hasta).toLocaleDateString("es-CL")}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Carta de Presentación */}
+                      {previewCotizacion.carta_presentacion && (
+                        <div className="space-y-2 text-xs leading-relaxed">
+                          <p className="whitespace-pre-wrap">{previewCotizacion.carta_presentacion}</p>
+                        </div>
+                      )}
+
+                      {/* Información del Solicitante y Vendedor */}
+                      {(previewCotizacion.solicitante_nombre || selectedVendedor) && (
+                        <div className="grid grid-cols-2 gap-4 py-4 bg-gray-50 px-4 rounded">
+                          {previewCotizacion.solicitante_nombre && (
+                            <div>
+                              <h3 className="text-xs font-semibold mb-1">SOLICITANTE</h3>
+                              <p className="text-xs">{previewCotizacion.solicitante_nombre}</p>
+                              {previewCotizacion.solicitante_empresa && (
+                                <p className="text-xs text-gray-600">{previewCotizacion.solicitante_empresa}</p>
+                              )}
+                              {previewCotizacion.solicitante_telefono && (
+                                <p className="text-xs text-gray-600">{previewCotizacion.solicitante_telefono}</p>
+                              )}
+                              {previewCotizacion.solicitante_email && (
+                                <p className="text-xs text-gray-600">{previewCotizacion.solicitante_email}</p>
+                              )}
+                            </div>
+                          )}
+                          
+                          {selectedVendedor && (
+                            <div>
+                              <h3 className="text-xs font-semibold mb-1">ATENDIDO POR</h3>
+                              <p className="text-xs">{selectedVendedor.nombre} {selectedVendedor.apellido}</p>
+                              {selectedVendedor.email && <p className="text-xs text-gray-600">{selectedVendedor.email}</p>}
+                              {selectedVendedor.phone && <p className="text-xs text-gray-600">{selectedVendedor.phone}</p>}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Tabla de Items */}
+                      {items.length > 0 && (
+                        <div>
+                          <table className="w-full text-xs">
+                            <thead>
+                              <tr className="border-b border-gray-900">
+                                <th className="text-left py-2 font-semibold">ITEM</th>
+                                <th className="text-center py-2 font-semibold">CANT.</th>
+                                <th className="text-right py-2 font-semibold">P. UNIT.</th>
+                                <th className="text-right py-2 font-semibold">DESC.</th>
+                                <th className="text-right py-2 font-semibold">SUBTOTAL</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {items.map((item, index) => (
+                                <tr key={index} className="border-b border-gray-200">
+                                  <td className="py-2">
+                                    <p className="font-medium">{item.name}</p>
+                                    {item.description && (
+                                      <p className="text-[9px] text-gray-600 mt-0.5">{item.description}</p>
+                                    )}
+                                  </td>
+                                  <td className="text-center">{item.quantity}</td>
+                                  <td className="text-right">${item.price.toLocaleString("es-CL")}</td>
+                                  <td className="text-right">{item.discount}%</td>
+                                  <td className="text-right font-semibold">${item.subtotal.toLocaleString("es-CL")}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+
+                      {items.length === 0 && (
+                        <div className="text-center py-8 text-gray-400 border-2 border-dashed rounded">
+                          <p className="text-xs">Agrega items para ver la vista previa</p>
+                        </div>
+                      )}
+
+                      {/* Totales */}
+                      {items.length > 0 && (
+                        <div className="flex justify-end">
+                          <div className="w-48 space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span className="text-gray-600">Subtotal:</span>
+                              <span className="font-medium">${previewCotizacion.subtotal.toLocaleString("es-CL")}</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-gray-600">IVA ({impuestos}%):</span>
+                              <span className="font-medium">${previewCotizacion.impuestos.toLocaleString("es-CL")}</span>
+                            </div>
+                            <div className="flex justify-between text-sm font-bold border-t border-gray-900 pt-1">
+                              <span>TOTAL:</span>
+                              <span>${previewCotizacion.total.toLocaleString("es-CL")}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Notas */}
+                      {previewCotizacion.notas && (
+                        <div className="border-t pt-4">
+                          <h3 className="text-xs font-semibold mb-1">TÉRMINOS Y CONDICIONES</h3>
+                          <p className="text-[9px] text-gray-600 whitespace-pre-wrap">{previewCotizacion.notas}</p>
+                        </div>
+                      )}
+
+                      {/* Footer */}
+                      <div className="text-center text-[9px] text-gray-500 border-t pt-4">
+                        <p>Este documento es una cotización y no constituye un contrato.</p>
+                      </div>
+                    </div>
+                  </ScrollArea>
+                </div>
               </div>
-            </form>
-          </ScrollArea>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
 

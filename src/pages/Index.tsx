@@ -48,7 +48,7 @@ const Index = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-32 overflow-hidden">
+        <section className="relative py-8 md:py-16 overflow-hidden">
           {/* Floating Emojis Background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div

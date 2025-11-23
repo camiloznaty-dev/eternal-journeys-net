@@ -14,6 +14,85 @@ export type Database = {
   }
   public: {
     Tables: {
+      casos_servicios: {
+        Row: {
+          created_at: string
+          difunto_apellido: string
+          difunto_nombre: string
+          fecha_ceremonia: string | null
+          fecha_fallecimiento: string
+          fecha_velorio: string | null
+          funeraria_id: string
+          id: string
+          lead_id: string | null
+          monto_total: number | null
+          notas: string | null
+          responsable_id: string | null
+          status: string | null
+          tipo_servicio: string
+          ubicacion_velorio: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          difunto_apellido: string
+          difunto_nombre: string
+          fecha_ceremonia?: string | null
+          fecha_fallecimiento: string
+          fecha_velorio?: string | null
+          funeraria_id: string
+          id?: string
+          lead_id?: string | null
+          monto_total?: number | null
+          notas?: string | null
+          responsable_id?: string | null
+          status?: string | null
+          tipo_servicio: string
+          ubicacion_velorio?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          difunto_apellido?: string
+          difunto_nombre?: string
+          fecha_ceremonia?: string | null
+          fecha_fallecimiento?: string
+          fecha_velorio?: string | null
+          funeraria_id?: string
+          id?: string
+          lead_id?: string | null
+          monto_total?: number | null
+          notas?: string | null
+          responsable_id?: string | null
+          status?: string | null
+          tipo_servicio?: string
+          ubicacion_velorio?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "casos_servicios_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "casos_servicios_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "casos_servicios_responsable_id_fkey"
+            columns: ["responsable_id"]
+            isOneToOne: false
+            referencedRelation: "empleados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       condolencias: {
         Row: {
           author_name: string
@@ -46,58 +125,435 @@ export type Database = {
           },
         ]
       }
+      cotizaciones: {
+        Row: {
+          creada_por: string | null
+          created_at: string
+          funeraria_id: string
+          id: string
+          impuestos: number | null
+          items: Json
+          lead_id: string | null
+          notas: string | null
+          numero_cotizacion: string
+          status: string | null
+          subtotal: number
+          total: number
+          updated_at: string
+          valida_hasta: string | null
+        }
+        Insert: {
+          creada_por?: string | null
+          created_at?: string
+          funeraria_id: string
+          id?: string
+          impuestos?: number | null
+          items?: Json
+          lead_id?: string | null
+          notas?: string | null
+          numero_cotizacion: string
+          status?: string | null
+          subtotal: number
+          total: number
+          updated_at?: string
+          valida_hasta?: string | null
+        }
+        Update: {
+          creada_por?: string | null
+          created_at?: string
+          funeraria_id?: string
+          id?: string
+          impuestos?: number | null
+          items?: Json
+          lead_id?: string | null
+          notas?: string | null
+          numero_cotizacion?: string
+          status?: string | null
+          subtotal?: number
+          total?: number
+          updated_at?: string
+          valida_hasta?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cotizaciones_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cotizaciones_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      empleados: {
+        Row: {
+          activo: boolean | null
+          apellido: string
+          created_at: string
+          email: string | null
+          fecha_ingreso: string | null
+          funeraria_id: string
+          id: string
+          nombre: string
+          phone: string | null
+          role: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          activo?: boolean | null
+          apellido: string
+          created_at?: string
+          email?: string | null
+          fecha_ingreso?: string | null
+          funeraria_id: string
+          id?: string
+          nombre: string
+          phone?: string | null
+          role: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          activo?: boolean | null
+          apellido?: string
+          created_at?: string
+          email?: string | null
+          fecha_ingreso?: string | null
+          funeraria_id?: string
+          id?: string
+          nombre?: string
+          phone?: string | null
+          role?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "empleados_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      facturas: {
+        Row: {
+          caso_id: string | null
+          cotizacion_id: string | null
+          created_at: string
+          fecha_emision: string
+          fecha_vencimiento: string | null
+          funeraria_id: string
+          id: string
+          impuestos: number | null
+          items: Json
+          metodo_pago: string | null
+          notas: string | null
+          numero_factura: string
+          status: string | null
+          subtotal: number
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          caso_id?: string | null
+          cotizacion_id?: string | null
+          created_at?: string
+          fecha_emision: string
+          fecha_vencimiento?: string | null
+          funeraria_id: string
+          id?: string
+          impuestos?: number | null
+          items?: Json
+          metodo_pago?: string | null
+          notas?: string | null
+          numero_factura: string
+          status?: string | null
+          subtotal: number
+          total: number
+          updated_at?: string
+        }
+        Update: {
+          caso_id?: string | null
+          cotizacion_id?: string | null
+          created_at?: string
+          fecha_emision?: string
+          fecha_vencimiento?: string | null
+          funeraria_id?: string
+          id?: string
+          impuestos?: number | null
+          items?: Json
+          metodo_pago?: string | null
+          notas?: string | null
+          numero_factura?: string
+          status?: string | null
+          subtotal?: number
+          total?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "facturas_caso_id_fkey"
+            columns: ["caso_id"]
+            isOneToOne: false
+            referencedRelation: "casos_servicios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "facturas_cotizacion_id_fkey"
+            columns: ["cotizacion_id"]
+            isOneToOne: false
+            referencedRelation: "cotizaciones"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "facturas_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       funerarias: {
         Row: {
+          about_text: string | null
           address: string
           created_at: string
           description: string | null
           email: string | null
+          facebook_url: string | null
+          gallery_images: string[] | null
+          hero_image_url: string | null
           horarios: string | null
           id: string
+          instagram_url: string | null
           lat: number | null
           lng: number | null
           logo_url: string | null
           name: string
           phone: string | null
+          primary_color: string | null
           rating: number | null
+          secondary_color: string | null
+          slug: string | null
           updated_at: string
+          website_active: boolean | null
         }
         Insert: {
+          about_text?: string | null
           address: string
           created_at?: string
           description?: string | null
           email?: string | null
+          facebook_url?: string | null
+          gallery_images?: string[] | null
+          hero_image_url?: string | null
           horarios?: string | null
           id?: string
+          instagram_url?: string | null
           lat?: number | null
           lng?: number | null
           logo_url?: string | null
           name: string
           phone?: string | null
+          primary_color?: string | null
           rating?: number | null
+          secondary_color?: string | null
+          slug?: string | null
           updated_at?: string
+          website_active?: boolean | null
         }
         Update: {
+          about_text?: string | null
           address?: string
           created_at?: string
           description?: string | null
           email?: string | null
+          facebook_url?: string | null
+          gallery_images?: string[] | null
+          hero_image_url?: string | null
           horarios?: string | null
           id?: string
+          instagram_url?: string | null
           lat?: number | null
           lng?: number | null
           logo_url?: string | null
           name?: string
           phone?: string | null
+          primary_color?: string | null
           rating?: number | null
+          secondary_color?: string | null
+          slug?: string | null
           updated_at?: string
+          website_active?: boolean | null
         }
         Relationships: []
+      }
+      interacciones: {
+        Row: {
+          created_at: string
+          descripcion: string
+          fecha: string
+          id: string
+          lead_id: string
+          realizada_por: string | null
+          tipo: string
+        }
+        Insert: {
+          created_at?: string
+          descripcion: string
+          fecha?: string
+          id?: string
+          lead_id: string
+          realizada_por?: string | null
+          tipo: string
+        }
+        Update: {
+          created_at?: string
+          descripcion?: string
+          fecha?: string
+          id?: string
+          lead_id?: string
+          realizada_por?: string | null
+          tipo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "interacciones_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          assigned_to: string | null
+          comuna: string | null
+          created_at: string
+          email: string | null
+          estimated_value: number | null
+          funeraria_id: string
+          id: string
+          name: string
+          notes: string | null
+          phone: string
+          priority: string | null
+          source: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          comuna?: string | null
+          created_at?: string
+          email?: string | null
+          estimated_value?: number | null
+          funeraria_id: string
+          id?: string
+          name: string
+          notes?: string | null
+          phone: string
+          priority?: string | null
+          source?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          comuna?: string | null
+          created_at?: string
+          email?: string | null
+          estimated_value?: number | null
+          funeraria_id?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string
+          priority?: string | null
+          source?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      movimientos_inventario: {
+        Row: {
+          cantidad: number
+          caso_id: string | null
+          created_at: string
+          id: string
+          motivo: string | null
+          producto_id: string
+          realizado_por: string | null
+          stock_anterior: number
+          stock_nuevo: number
+          tipo: string
+        }
+        Insert: {
+          cantidad: number
+          caso_id?: string | null
+          created_at?: string
+          id?: string
+          motivo?: string | null
+          producto_id: string
+          realizado_por?: string | null
+          stock_anterior: number
+          stock_nuevo: number
+          tipo: string
+        }
+        Update: {
+          cantidad?: number
+          caso_id?: string | null
+          created_at?: string
+          id?: string
+          motivo?: string | null
+          producto_id?: string
+          realizado_por?: string | null
+          stock_anterior?: number
+          stock_nuevo?: number
+          tipo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "movimientos_inventario_caso_id_fkey"
+            columns: ["caso_id"]
+            isOneToOne: false
+            referencedRelation: "casos_servicios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "movimientos_inventario_producto_id_fkey"
+            columns: ["producto_id"]
+            isOneToOne: false
+            referencedRelation: "productos"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       obituarios: {
         Row: {
           biography: string | null
           birth_date: string
+          caso_id: string | null
           created_at: string
           death_date: string
           funeraria_id: string | null
@@ -112,6 +568,7 @@ export type Database = {
         Insert: {
           biography?: string | null
           birth_date: string
+          caso_id?: string | null
           created_at?: string
           death_date: string
           funeraria_id?: string | null
@@ -126,6 +583,7 @@ export type Database = {
         Update: {
           biography?: string | null
           birth_date?: string
+          caso_id?: string | null
           created_at?: string
           death_date?: string
           funeraria_id?: string | null
@@ -138,6 +596,13 @@ export type Database = {
           views?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "obituarios_caso_id_fkey"
+            columns: ["caso_id"]
+            isOneToOne: false
+            referencedRelation: "casos_servicios"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "obituarios_funeraria_id_fkey"
             columns: ["funeraria_id"]
@@ -197,6 +662,7 @@ export type Database = {
       productos: {
         Row: {
           category: Database["public"]["Enums"]["product_category"]
+          costo: number | null
           created_at: string
           description: string | null
           funeraria_id: string | null
@@ -204,11 +670,15 @@ export type Database = {
           images: string[] | null
           name: string
           price: number
+          proveedor_id: string | null
+          sku: string | null
           stock: number | null
+          stock_minimo: number | null
           updated_at: string
         }
         Insert: {
           category: Database["public"]["Enums"]["product_category"]
+          costo?: number | null
           created_at?: string
           description?: string | null
           funeraria_id?: string | null
@@ -216,11 +686,15 @@ export type Database = {
           images?: string[] | null
           name: string
           price: number
+          proveedor_id?: string | null
+          sku?: string | null
           stock?: number | null
+          stock_minimo?: number | null
           updated_at?: string
         }
         Update: {
           category?: Database["public"]["Enums"]["product_category"]
+          costo?: number | null
           created_at?: string
           description?: string | null
           funeraria_id?: string | null
@@ -228,7 +702,10 @@ export type Database = {
           images?: string[] | null
           name?: string
           price?: number
+          proveedor_id?: string | null
+          sku?: string | null
           stock?: number | null
+          stock_minimo?: number | null
           updated_at?: string
         }
         Relationships: [
@@ -237,6 +714,13 @@ export type Database = {
             columns: ["funeraria_id"]
             isOneToOne: false
             referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "productos_proveedor_id_fkey"
+            columns: ["proveedor_id"]
+            isOneToOne: false
+            referencedRelation: "proveedores"
             referencedColumns: ["id"]
           },
         ]
@@ -267,6 +751,59 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      proveedores: {
+        Row: {
+          activo: boolean | null
+          categoria: string | null
+          contacto_nombre: string | null
+          created_at: string
+          direccion: string | null
+          email: string | null
+          funeraria_id: string
+          id: string
+          nombre: string
+          phone: string | null
+          rut: string | null
+          updated_at: string
+        }
+        Insert: {
+          activo?: boolean | null
+          categoria?: string | null
+          contacto_nombre?: string | null
+          created_at?: string
+          direccion?: string | null
+          email?: string | null
+          funeraria_id: string
+          id?: string
+          nombre: string
+          phone?: string | null
+          rut?: string | null
+          updated_at?: string
+        }
+        Update: {
+          activo?: boolean | null
+          categoria?: string | null
+          contacto_nombre?: string | null
+          created_at?: string
+          direccion?: string | null
+          email?: string | null
+          funeraria_id?: string
+          id?: string
+          nombre?: string
+          phone?: string | null
+          rut?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proveedores_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       servicios: {
         Row: {
@@ -305,6 +842,104 @@ export type Database = {
             columns: ["funeraria_id"]
             isOneToOne: false
             referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tareas_caso: {
+        Row: {
+          asignado_a: string | null
+          caso_id: string
+          completada: boolean | null
+          created_at: string
+          descripcion: string | null
+          fecha_limite: string | null
+          id: string
+          prioridad: string | null
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          asignado_a?: string | null
+          caso_id: string
+          completada?: boolean | null
+          created_at?: string
+          descripcion?: string | null
+          fecha_limite?: string | null
+          id?: string
+          prioridad?: string | null
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          asignado_a?: string | null
+          caso_id?: string
+          completada?: boolean | null
+          created_at?: string
+          descripcion?: string | null
+          fecha_limite?: string | null
+          id?: string
+          prioridad?: string | null
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tareas_caso_asignado_a_fkey"
+            columns: ["asignado_a"]
+            isOneToOne: false
+            referencedRelation: "empleados"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tareas_caso_caso_id_fkey"
+            columns: ["caso_id"]
+            isOneToOne: false
+            referencedRelation: "casos_servicios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      turnos: {
+        Row: {
+          created_at: string
+          empleado_id: string
+          fecha: string
+          hora_fin: string
+          hora_inicio: string
+          id: string
+          notas: string | null
+          tipo: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          empleado_id: string
+          fecha: string
+          hora_fin: string
+          hora_inicio: string
+          id?: string
+          notas?: string | null
+          tipo?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          empleado_id?: string
+          fecha?: string
+          hora_fin?: string
+          hora_inicio?: string
+          id?: string
+          notas?: string | null
+          tipo?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "turnos_empleado_id_fkey"
+            columns: ["empleado_id"]
+            isOneToOne: false
+            referencedRelation: "empleados"
             referencedColumns: ["id"]
           },
         ]

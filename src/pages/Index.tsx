@@ -354,6 +354,9 @@ const Index = () => {
           </div>
         </section>
 
+        <Testimonials />
+        <Stats />
+        
         {/* Categories Section */}
         <section className="py-24 border-t border-border">
           <div className="container mx-auto px-4">
@@ -393,10 +396,8 @@ const Index = () => {
         </section>
 
         <HowItWorks />
-        <Stats />
-        <ForFunerarias />
         <PricingPlans />
-        <Testimonials />
+        <ForFunerarias />
         <FAQ />
       </main>
       

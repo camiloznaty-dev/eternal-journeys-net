@@ -8,6 +8,7 @@ import { PricingPlans } from "@/components/PricingPlans";
 import { Testimonials } from "@/components/Testimonials";
 import { Stats } from "@/components/Stats";
 import { FAQ } from "@/components/FAQ";
+import { FeaturedFunerarias } from "@/components/FeaturedFunerarias";
 import { Button } from "@/components/ui/button";
 import { Flower2, Truck, Package, Heart, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -354,6 +355,8 @@ const Index = () => {
           </div>
         </section>
 
+        <FeaturedFunerarias />
+        
         <Testimonials />
         <Stats />
         

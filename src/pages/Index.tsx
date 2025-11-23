@@ -2,8 +2,14 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryCard } from "@/components/CategoryCard";
+import { HowItWorks } from "@/components/HowItWorks";
+import { ForFunerarias } from "@/components/ForFunerarias";
+import { PricingPlans } from "@/components/PricingPlans";
+import { Testimonials } from "@/components/Testimonials";
+import { Stats } from "@/components/Stats";
+import { FAQ } from "@/components/FAQ";
 import { Button } from "@/components/ui/button";
-import { Flower2, Truck, Package, Scale, Heart } from "lucide-react";
+import { Flower2, Truck, Package, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -69,58 +75,46 @@ const Index = () => {
         <section className="py-24 border-t border-border">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16 space-y-2">
-              <h2 className="text-3xl md:text-4xl font-bold">Servicios</h2>
-              <p className="text-muted-foreground">
-                Todo lo que necesitas
-              </p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-3xl md:text-5xl font-bold"
+              >
+                Servicios y productos
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-lg text-muted-foreground"
+              >
+                Todo lo que necesitas en un solo lugar
+              </motion.p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-              {categories.map((category) => (
-                <CategoryCard key={category.title} {...category} />
+              {categories.map((category, index) => (
+                <motion.div
+                  key={category.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <CategoryCard {...category} />
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Comparator CTA */}
-        <section className="py-24 border-t border-border">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center space-y-8">
-              <Scale className="h-12 w-12 text-accent mx-auto" />
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold">Comparador</h2>
-                <p className="text-lg text-muted-foreground">
-                  Compara precios y servicios de funerarias en tu zona
-                </p>
-              </div>
-              <Link to="/comparar">
-                <Button size="lg" className="px-8">
-                  Comparar
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Obituaries Section */}
-        <section className="py-24 border-t border-border">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center space-y-8">
-              <Heart className="h-12 w-12 text-accent mx-auto" />
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold">Obituarios</h2>
-                <p className="text-lg text-muted-foreground">
-                  Un espacio digital para honrar la memoria
-                </p>
-              </div>
-              <Link to="/obituarios">
-                <Button variant="outline" size="lg" className="px-8">
-                  Ver Obituarios
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        <HowItWorks />
+        <Stats />
+        <ForFunerarias />
+        <PricingPlans />
+        <Testimonials />
+        <FAQ />
       </main>
       
       <Footer />

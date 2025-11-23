@@ -9,6 +9,7 @@ export const Header = () => {
     { label: "Funerarias", href: "/funerarias" },
     { label: "Comparador", href: "/comparar" },
     { label: "Obituarios", href: "/obituarios" },
+    { label: "Planificador", href: "/planificador" },
     { label: "Productos", href: "/productos" },
   ];
 

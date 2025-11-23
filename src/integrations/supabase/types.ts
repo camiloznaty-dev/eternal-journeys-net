@@ -822,33 +822,51 @@ export type Database = {
       }
       servicios: {
         Row: {
+          category: Database["public"]["Enums"]["service_category"]
           created_at: string
           description: string | null
           duration: string | null
+          features: Json | null
           funeraria_id: string | null
           id: string
+          images: string[] | null
+          is_featured: boolean | null
           name: string
           price: number
+          sku: string | null
+          stock_available: boolean | null
           updated_at: string
         }
         Insert: {
+          category?: Database["public"]["Enums"]["service_category"]
           created_at?: string
           description?: string | null
           duration?: string | null
+          features?: Json | null
           funeraria_id?: string | null
           id?: string
+          images?: string[] | null
+          is_featured?: boolean | null
           name: string
           price: number
+          sku?: string | null
+          stock_available?: boolean | null
           updated_at?: string
         }
         Update: {
+          category?: Database["public"]["Enums"]["service_category"]
           created_at?: string
           description?: string | null
           duration?: string | null
+          features?: Json | null
           funeraria_id?: string | null
           id?: string
+          images?: string[] | null
+          is_featured?: boolean | null
           name?: string
           price?: number
+          sku?: string | null
+          stock_available?: boolean | null
           updated_at?: string
         }
         Relationships: [
@@ -1007,6 +1025,16 @@ export type Database = {
         | "urna"
         | "lapida"
         | "otro"
+      service_category:
+        | "plan_funerario"
+        | "traslado"
+        | "cremacion"
+        | "arreglo_floral"
+        | "velorio"
+        | "ceremonia"
+        | "lapida"
+        | "urna"
+        | "otro"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1150,6 +1178,17 @@ export const Constants = {
         "servicio_completo",
         "urna",
         "lapida",
+        "otro",
+      ],
+      service_category: [
+        "plan_funerario",
+        "traslado",
+        "cremacion",
+        "arreglo_floral",
+        "velorio",
+        "ceremonia",
+        "lapida",
+        "urna",
         "otro",
       ],
     },

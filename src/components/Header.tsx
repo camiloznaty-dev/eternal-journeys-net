@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Search, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import siriusLogo from "@/assets/sirius-logo.png";
 
 export const Header = () => {
   const navItems = [
@@ -17,8 +18,12 @@ export const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold text-primary">Sirius</h1>
+          <Link to="/" className="flex items-center">
+            <img 
+              src={siriusLogo} 
+              alt="Sirius" 
+              className="h-10 w-auto brightness-0 invert"
+            />
           </Link>
 
           {/* Desktop Navigation */}

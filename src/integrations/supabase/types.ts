@@ -14,6 +14,59 @@ export type Database = {
   }
   public: {
     Tables: {
+      caso_documentos: {
+        Row: {
+          archivo_size: number | null
+          archivo_url: string
+          caso_id: string
+          created_at: string | null
+          descripcion: string | null
+          fecha_subida: string | null
+          id: string
+          mime_type: string | null
+          nombre: string
+          subido_por: string | null
+          tipo: string
+          updated_at: string | null
+        }
+        Insert: {
+          archivo_size?: number | null
+          archivo_url: string
+          caso_id: string
+          created_at?: string | null
+          descripcion?: string | null
+          fecha_subida?: string | null
+          id?: string
+          mime_type?: string | null
+          nombre: string
+          subido_por?: string | null
+          tipo: string
+          updated_at?: string | null
+        }
+        Update: {
+          archivo_size?: number | null
+          archivo_url?: string
+          caso_id?: string
+          created_at?: string | null
+          descripcion?: string | null
+          fecha_subida?: string | null
+          id?: string
+          mime_type?: string | null
+          nombre?: string
+          subido_por?: string | null
+          tipo?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "caso_documentos_caso_id_fkey"
+            columns: ["caso_id"]
+            isOneToOne: false
+            referencedRelation: "casos_servicios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       casos_servicios: {
         Row: {
           cantidad_arreglos_florales: number | null
@@ -32,8 +85,10 @@ export type Database = {
           fecha_funeral: string | null
           fecha_velorio: string | null
           funeraria_id: string
+          hora_llegada: string | null
           id: string
           lead_id: string | null
+          lugar_sepultacion_cremacion: string | null
           monto_total: number | null
           notas: string | null
           responsable_id: string | null
@@ -63,8 +118,10 @@ export type Database = {
           fecha_funeral?: string | null
           fecha_velorio?: string | null
           funeraria_id: string
+          hora_llegada?: string | null
           id?: string
           lead_id?: string | null
+          lugar_sepultacion_cremacion?: string | null
           monto_total?: number | null
           notas?: string | null
           responsable_id?: string | null
@@ -94,8 +151,10 @@ export type Database = {
           fecha_funeral?: string | null
           fecha_velorio?: string | null
           funeraria_id?: string
+          hora_llegada?: string | null
           id?: string
           lead_id?: string | null
+          lugar_sepultacion_cremacion?: string | null
           monto_total?: number | null
           notas?: string | null
           responsable_id?: string | null

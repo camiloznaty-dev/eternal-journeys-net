@@ -239,6 +239,7 @@ export type Database = {
       }
       cotizaciones: {
         Row: {
+          carta_presentacion: string | null
           creada_por: string | null
           created_at: string
           funeraria_id: string
@@ -248,13 +249,19 @@ export type Database = {
           lead_id: string | null
           notas: string | null
           numero_cotizacion: string
+          solicitante_email: string | null
+          solicitante_empresa: string | null
+          solicitante_nombre: string | null
+          solicitante_telefono: string | null
           status: string | null
           subtotal: number
           total: number
           updated_at: string
           valida_hasta: string | null
+          vendedor_id: string | null
         }
         Insert: {
+          carta_presentacion?: string | null
           creada_por?: string | null
           created_at?: string
           funeraria_id: string
@@ -264,13 +271,19 @@ export type Database = {
           lead_id?: string | null
           notas?: string | null
           numero_cotizacion: string
+          solicitante_email?: string | null
+          solicitante_empresa?: string | null
+          solicitante_nombre?: string | null
+          solicitante_telefono?: string | null
           status?: string | null
           subtotal: number
           total: number
           updated_at?: string
           valida_hasta?: string | null
+          vendedor_id?: string | null
         }
         Update: {
+          carta_presentacion?: string | null
           creada_por?: string | null
           created_at?: string
           funeraria_id?: string
@@ -280,11 +293,16 @@ export type Database = {
           lead_id?: string | null
           notas?: string | null
           numero_cotizacion?: string
+          solicitante_email?: string | null
+          solicitante_empresa?: string | null
+          solicitante_nombre?: string | null
+          solicitante_telefono?: string | null
           status?: string | null
           subtotal?: number
           total?: number
           updated_at?: string
           valida_hasta?: string | null
+          vendedor_id?: string | null
         }
         Relationships: [
           {
@@ -306,6 +324,13 @@ export type Database = {
             columns: ["lead_id"]
             isOneToOne: false
             referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cotizaciones_vendedor_id_fkey"
+            columns: ["vendedor_id"]
+            isOneToOne: false
+            referencedRelation: "empleados"
             referencedColumns: ["id"]
           },
         ]

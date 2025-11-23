@@ -111,12 +111,19 @@ function SortableItem({ item, onUpdate, onRemove }: { item: QuoteItem; onUpdate:
 
 export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: CotizacionDialogProps) {
   const [loading, setLoading] = useState(false);
+  const [empleados, setEmpleados] = useState<any[]>([]);
   const [numeroCotizacion, setNumeroCotizacion] = useState("");
   const [validaHasta, setValidaHasta] = useState("");
   const [notas, setNotas] = useState("");
   const [impuestos, setImpuestos] = useState("19");
   const [items, setItems] = useState<QuoteItem[]>([]);
   const [selectorOpen, setSelectorOpen] = useState(false);
+  const [solicitanteNombre, setSolicitanteNombre] = useState("");
+  const [solicitanteEmpresa, setSolicitanteEmpresa] = useState("");
+  const [solicitanteTelefono, setSolicitanteTelefono] = useState("");
+  const [solicitanteEmail, setSolicitanteEmail] = useState("");
+  const [vendedorId, setVendedorId] = useState("");
+  const [cartaPresentacion, setCartaPresentacion] = useState("");
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -126,17 +133,52 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
   );
 
   useEffect(() => {
-    if (cotizacion) {
-      setNumeroCotizacion(cotizacion.numero_cotizacion || "");
-      setValidaHasta(cotizacion.valida_hasta || "");
-      setNotas(cotizacion.notas || "");
-      setImpuestos(((cotizacion.impuestos / cotizacion.subtotal) * 100).toFixed(0));
-      setItems(Array.isArray(cotizacion.items) ? cotizacion.items : []);
-    } else {
-      resetForm();
-      generateQuoteNumber();
+    if (open) {
+      fetchEmpleados();
+      if (cotizacion) {
+        setNumeroCotizacion(cotizacion.numero_cotizacion || "");
+        setValidaHasta(cotizacion.valida_hasta || "");
+        setNotas(cotizacion.notas || "");
+        setImpuestos(((cotizacion.impuestos / cotizacion.subtotal) * 100).toFixed(0));
+        setItems(Array.isArray(cotizacion.items) ? cotizacion.items : []);
+        setSolicitanteNombre(cotizacion.solicitante_nombre || "");
+        setSolicitanteEmpresa(cotizacion.solicitante_empresa || "");
+        setSolicitanteTelefono(cotizacion.solicitante_telefono || "");
+        setSolicitanteEmail(cotizacion.solicitante_email || "");
+        setVendedorId(cotizacion.vendedor_id || "");
+        setCartaPresentacion(cotizacion.carta_presentacion || "");
+      } else {
+        resetForm();
+        generateQuoteNumber();
+      }
     }
   }, [cotizacion, open]);
+
+  const fetchEmpleados = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const { data: empleado } = await supabase
+        .from("empleados")
+        .select("funeraria_id")
+        .eq("user_id", session.user.id)
+        .single();
+
+      if (!empleado) return;
+
+      const { data } = await supabase
+        .from("empleados")
+        .select("id, nombre, apellido")
+        .eq("funeraria_id", empleado.funeraria_id)
+        .eq("activo", true)
+        .order("nombre");
+
+      setEmpleados(data || []);
+    } catch (error) {
+      console.error("Error fetching empleados:", error);
+    }
+  };
 
   const resetForm = () => {
     setNumeroCotizacion("");
@@ -144,6 +186,12 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
     setNotas("");
     setImpuestos("19");
     setItems([]);
+    setSolicitanteNombre("");
+    setSolicitanteEmpresa("");
+    setSolicitanteTelefono("");
+    setSolicitanteEmail("");
+    setVendedorId("");
+    setCartaPresentacion("");
   };
 
   const generateQuoteNumber = async () => {
@@ -255,6 +303,12 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
         status: cotizacion?.status || "borrador",
         funeraria_id: empleado.funeraria_id,
         creada_por: session.user.id,
+        solicitante_nombre: solicitanteNombre || null,
+        solicitante_empresa: solicitanteEmpresa || null,
+        solicitante_telefono: solicitanteTelefono || null,
+        solicitante_email: solicitanteEmail || null,
+        vendedor_id: vendedorId || null,
+        carta_presentacion: cartaPresentacion || null,
       };
 
       if (cotizacion) {
@@ -297,27 +351,104 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
 
           <ScrollArea className="max-h-[calc(95vh-8rem)] pr-4">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="numero">
-                    Número <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="numero"
-                    value={numeroCotizacion}
-                    onChange={(e) => setNumeroCotizacion(e.target.value)}
-                    placeholder="COT-2024-0001"
-                    required
-                  />
+              {/* Información del Solicitante */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold border-b pb-2">Información del Solicitante</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="solicitante_nombre">Nombre del Solicitante</Label>
+                    <Input
+                      id="solicitante_nombre"
+                      value={solicitanteNombre}
+                      onChange={(e) => setSolicitanteNombre(e.target.value)}
+                      placeholder="Nombre completo"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="solicitante_empresa">Empresa (opcional)</Label>
+                    <Input
+                      id="solicitante_empresa"
+                      value={solicitanteEmpresa}
+                      onChange={(e) => setSolicitanteEmpresa(e.target.value)}
+                      placeholder="Nombre de la empresa"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="solicitante_telefono">Teléfono</Label>
+                    <Input
+                      id="solicitante_telefono"
+                      value={solicitanteTelefono}
+                      onChange={(e) => setSolicitanteTelefono(e.target.value)}
+                      placeholder="+56 9 1234 5678"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="solicitante_email">Email</Label>
+                    <Input
+                      id="solicitante_email"
+                      type="email"
+                      value={solicitanteEmail}
+                      onChange={(e) => setSolicitanteEmail(e.target.value)}
+                      placeholder="correo@ejemplo.com"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Información de la Cotización */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold border-b pb-2">Datos de la Cotización</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="numero">
+                      Número <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="numero"
+                      value={numeroCotizacion}
+                      onChange={(e) => setNumeroCotizacion(e.target.value)}
+                      placeholder="COT-2024-0001"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="validaHasta">Válida hasta</Label>
+                    <Input
+                      id="validaHasta"
+                      type="date"
+                      value={validaHasta}
+                      onChange={(e) => setValidaHasta(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="vendedor">Vendedor</Label>
+                    <Select value={vendedorId} onValueChange={setVendedorId}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {empleados.map((emp) => (
+                          <SelectItem key={emp.id} value={emp.id}>
+                            {emp.nombre} {emp.apellido}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="validaHasta">Válida hasta</Label>
-                  <Input
-                    id="validaHasta"
-                    type="date"
-                    value={validaHasta}
-                    onChange={(e) => setValidaHasta(e.target.value)}
+                <div>
+                  <Label htmlFor="carta_presentacion">Carta de Presentación</Label>
+                  <Textarea
+                    id="carta_presentacion"
+                    value={cartaPresentacion}
+                    onChange={(e) => setCartaPresentacion(e.target.value)}
+                    placeholder="Estimado/a [Nombre], nos complace presentarle la siguiente cotización..."
+                    rows={4}
                   />
                 </div>
 

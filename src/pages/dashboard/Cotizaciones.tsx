@@ -163,7 +163,17 @@ export default function Cotizaciones() {
 
       if (!empleado) return;
 
-      await generateQuotePDF(cotizacion, empleado.funerarias);
+      let vendedor = null;
+      if (cotizacion.vendedor_id) {
+        const { data: vendedorData } = await supabase
+          .from("empleados")
+          .select("nombre, apellido, email, phone")
+          .eq("id", cotizacion.vendedor_id)
+          .single();
+        vendedor = vendedorData;
+      }
+
+      await generateQuotePDF(cotizacion, empleado.funerarias, vendedor);
       toast.success("PDF generado");
     } catch (error: any) {
       toast.error("Error al generar PDF");

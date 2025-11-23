@@ -6,11 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { CasoDocumentosTab } from "./CasoDocumentosTab";
 
 interface CasoDialogProps {
   open: boolean;
@@ -620,25 +618,7 @@ export function CasoDialog({ open, onOpenChange, caso, onSuccess }: CasoDialogPr
         <DialogHeader>
           <DialogTitle>{caso ? "Editar Caso" : "Nuevo Caso"}</DialogTitle>
         </DialogHeader>
-        
-        {caso ? (
-          <Tabs defaultValue="info" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="info">Información del Caso</TabsTrigger>
-              <TabsTrigger value="documentos">Documentos</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="info" className="mt-6">
-              {renderForm()}
-            </TabsContent>
-            
-            <TabsContent value="documentos" className="mt-6">
-              <CasoDocumentosTab casoId={caso.id} />
-            </TabsContent>
-          </Tabs>
-        ) : (
-          renderForm()
-        )}
+        {renderForm()}
       </DialogContent>
     </Dialog>
   );

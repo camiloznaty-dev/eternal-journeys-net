@@ -130,7 +130,7 @@ export const FeaturedFunerarias = () => {
                 )}
 
                 <div className="pt-2">
-                  <Link to={`/funerarias?id=${funeraria.id}`}>
+                  <Link to={`/f/${funeraria.slug}`}>
                     <Button variant="outline" className="w-full group-hover:border-accent group-hover:text-accent">
                       Ver detalles →
                     </Button>

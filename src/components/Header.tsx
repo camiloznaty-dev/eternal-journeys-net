@@ -17,27 +17,29 @@ export const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center ml-12">
-            <img 
-              src={siriusLogo} 
-              alt="Sirius" 
-              className="h-12 w-auto"
-            />
-          </Link>
+        <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex items-center gap-8">
+            <Link to="/" className="flex items-center">
+              <img 
+                src={siriusLogo} 
+                alt="Sirius" 
+                className="h-12 w-auto"
+              />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="hidden md:flex">

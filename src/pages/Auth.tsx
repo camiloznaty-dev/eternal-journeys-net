@@ -47,6 +47,11 @@ const Auth = () => {
   const [funerariaAddress, setFunerariaAddress] = useState("");
   const [primaryColor, setPrimaryColor] = useState("#000000");
   const [secondaryColor, setSecondaryColor] = useState("#666666");
+  const [employeeCountRange, setEmployeeCountRange] = useState("");
+  const [registrantType, setRegistrantType] = useState("");
+  const [legalRepName, setLegalRepName] = useState("");
+  const [legalRepRut, setLegalRepRut] = useState("");
+  const [legalRepPosition, setLegalRepPosition] = useState("");
 
   // Password validation
   const passwordValidations = {
@@ -163,8 +168,12 @@ const Auth = () => {
 
     // Validate funeraria fields if user type is funeraria
     if (userType === "funeraria") {
-      if (!funerariaName || !funerariaRut || !funerariaAddress) {
+      if (!funerariaName || !funerariaRut || !funerariaAddress || !employeeCountRange || !registrantType) {
         toast.error("Por favor complete todos los campos de la funeraria");
+        return;
+      }
+      if (registrantType === "representante_legal" && (!legalRepName || !legalRepRut || !legalRepPosition)) {
+        toast.error("Por favor complete los datos del representante legal");
         return;
       }
     }
@@ -187,6 +196,11 @@ const Auth = () => {
               funeraria_address: funerariaAddress,
               primary_color: primaryColor,
               secondary_color: secondaryColor,
+              employee_count_range: employeeCountRange,
+              registrant_type: registrantType,
+              legal_rep_name: legalRepName,
+              legal_rep_rut: legalRepRut,
+              legal_rep_position: legalRepPosition,
               comuna,
             }),
           },
@@ -352,33 +366,111 @@ const Auth = () => {
                         />
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="funeraria-rut">RUT Empresa</Label>
-                          <Input
-                            id="funeraria-rut"
-                            type="text"
-                            placeholder="12.345.678-9"
-                            value={funerariaRut}
-                            onChange={(e) => setFunerariaRut(e.target.value)}
-                            required
-                            className="h-11"
-                          />
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="funeraria-address">Dirección</Label>
-                          <Input
-                            id="funeraria-address"
-                            type="text"
-                            placeholder="Av. Principal 123"
-                            value={funerariaAddress}
-                            onChange={(e) => setFunerariaAddress(e.target.value)}
-                            required
-                            className="h-11"
-                          />
-                        </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="funeraria-rut">RUT Empresa</Label>
+                        <Input
+                          id="funeraria-rut"
+                          type="text"
+                          placeholder="12.345.678-9"
+                          value={funerariaRut}
+                          onChange={(e) => setFunerariaRut(e.target.value)}
+                          required
+                          className="h-11"
+                        />
                       </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="funeraria-address">Dirección</Label>
+                        <Input
+                          id="funeraria-address"
+                          type="text"
+                          placeholder="Av. Principal 123"
+                          value={funerariaAddress}
+                          onChange={(e) => setFunerariaAddress(e.target.value)}
+                          required
+                          className="h-11"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="employee-count">Cantidad de Colaboradores</Label>
+                        <Select value={employeeCountRange} onValueChange={setEmployeeCountRange} required>
+                          <SelectTrigger id="employee-count" className="h-11">
+                            <SelectValue placeholder="Seleccione un rango" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="1-5">1-5 colaboradores</SelectItem>
+                            <SelectItem value="6-10">6-10 colaboradores</SelectItem>
+                            <SelectItem value="11-25">11-25 colaboradores</SelectItem>
+                            <SelectItem value="26-50">26-50 colaboradores</SelectItem>
+                            <SelectItem value="51-100">51-100 colaboradores</SelectItem>
+                            <SelectItem value="100+">Más de 100 colaboradores</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="registrant-type">¿Quién realiza el registro?</Label>
+                        <Select value={registrantType} onValueChange={setRegistrantType} required>
+                          <SelectTrigger id="registrant-type" className="h-11">
+                            <SelectValue placeholder="Seleccione una opción" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="representante_legal">Representante Legal</SelectItem>
+                            <SelectItem value="dueno">Dueño/Propietario</SelectItem>
+                            <SelectItem value="administrador">Administrador</SelectItem>
+                            <SelectItem value="gerente">Gerente</SelectItem>
+                            <SelectItem value="otro">Otro</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {registrantType === "representante_legal" && (
+                        <div className="space-y-4 pt-2 border-t border-border">
+                          <p className="text-sm font-medium text-muted-foreground">Datos del Representante Legal</p>
+                          
+                          <div className="space-y-2">
+                            <Label htmlFor="legal-rep-name">Nombre Completo</Label>
+                            <Input
+                              id="legal-rep-name"
+                              type="text"
+                              placeholder="Juan Pérez González"
+                              value={legalRepName}
+                              onChange={(e) => setLegalRepName(e.target.value)}
+                              required
+                              className="h-11"
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="legal-rep-rut">RUT</Label>
+                              <Input
+                                id="legal-rep-rut"
+                                type="text"
+                                placeholder="12.345.678-9"
+                                value={legalRepRut}
+                                onChange={(e) => setLegalRepRut(e.target.value)}
+                                required
+                                className="h-11"
+                              />
+                            </div>
+
+                            <div className="space-y-2">
+                              <Label htmlFor="legal-rep-position">Cargo</Label>
+                              <Input
+                                id="legal-rep-position"
+                                type="text"
+                                placeholder="Gerente General"
+                                value={legalRepPosition}
+                                onChange={(e) => setLegalRepPosition(e.target.value)}
+                                required
+                                className="h-11"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       <div className="space-y-3">
                         <Label className="text-sm font-medium">Colores del Mini Website</Label>

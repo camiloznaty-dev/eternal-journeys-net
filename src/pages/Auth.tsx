@@ -52,6 +52,8 @@ const Auth = () => {
   const [legalRepName, setLegalRepName] = useState("");
   const [legalRepRut, setLegalRepRut] = useState("");
   const [legalRepPosition, setLegalRepPosition] = useState("");
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [heroFile, setHeroFile] = useState<File | null>(null);
 
   // Password validation
   const passwordValidations = {

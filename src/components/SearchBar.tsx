@@ -4,24 +4,24 @@ import { Button } from "@/components/ui/button";
 
 export const SearchBar = () => {
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="border border-border rounded-lg p-1 bg-card">
-        <div className="flex flex-col md:flex-row gap-1">
+    <div className="w-full max-w-4xl mx-auto">
+      <div className="border border-border rounded-2xl p-2 bg-card shadow-xl backdrop-blur-sm">
+        <div className="flex flex-col md:flex-row gap-2">
           <div className="flex-1 relative">
-            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
-              placeholder="Ubicación"
-              className="pl-9 h-11 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+              placeholder="Ingresa tu ubicación"
+              className="pl-12 h-14 border-0 bg-muted/50 rounded-xl focus-visible:ring-1 focus-visible:ring-accent"
             />
           </div>
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
-              placeholder="Buscar servicio"
-              className="pl-9 h-11 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+              placeholder="¿Qué servicio necesitas?"
+              className="pl-12 h-14 border-0 bg-muted/50 rounded-xl focus-visible:ring-1 focus-visible:ring-accent"
             />
           </div>
-          <Button size="lg" className="h-11 px-6">
+          <Button size="lg" className="h-14 px-8 rounded-xl font-semibold">
             Buscar
           </Button>
         </div>

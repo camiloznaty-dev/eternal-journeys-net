@@ -17,12 +17,13 @@ export const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex items-center gap-8">
+        <div className="relative flex h-16 items-center">
+          {/* Centro: Logo + Barra de navegación */}
+          <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-8">
             <Link to="/" className="flex items-center">
-              <img 
-                src={siriusLogo} 
-                alt="Sirius" 
+              <img
+                src={siriusLogo}
+                alt="Sirius"
                 className="h-12 w-auto"
               />
             </Link>
@@ -41,7 +42,8 @@ export const Header = () => {
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Derecha: acciones */}
+          <div className="ml-auto flex items-center gap-4">
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <Search className="h-5 w-5" />
             </Button>
@@ -57,7 +59,7 @@ export const Header = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px]">
-                <nav className="flex flex-col gap-4 mt-8">
+                <nav className="mt-8 flex flex-col gap-4">
                   {navItems.map((item) => (
                     <Link
                       key={item.href}
@@ -67,7 +69,7 @@ export const Header = () => {
                       {item.label}
                     </Link>
                   ))}
-                  <Button variant="default" className="w-full mt-4">
+                  <Button variant="default" className="mt-4 w-full">
                     Soy Funeraria
                   </Button>
                 </nav>

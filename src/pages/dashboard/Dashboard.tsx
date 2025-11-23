@@ -64,7 +64,7 @@ export default function Dashboard() {
       trend: "up"
     },
     {
-      title: "Casos Activos",
+      title: "Servicios Activos",
       value: stats.casos_activos,
       change: "En proceso",
       icon: Briefcase,

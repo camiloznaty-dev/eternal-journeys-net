@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Flower2, Truck, Package, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import heroImage from "@/assets/hero-team.jpg";
 
 const Index = () => {
   const categories = [
@@ -168,36 +169,28 @@ const Index = () => {
                 className="relative hidden lg:block"
               >
                 <div className="relative">
-                  {/* Main Card */}
+                  {/* Hero Image */}
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="bg-card border border-border rounded-2xl p-8 shadow-2xl"
+                    className="relative rounded-2xl overflow-hidden shadow-2xl"
                   >
-                    <div className="space-y-6">
+                    <img 
+                      src={heroImage} 
+                      alt="Equipo profesional de Sirius brindando apoyo"
+                      className="w-full h-auto object-cover"
+                    />
+                    
+                    {/* Overlay Badge */}
+                    <div className="absolute bottom-6 left-6 right-6 bg-card/95 backdrop-blur-sm border border-border rounded-xl p-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
-                          <Heart className="w-8 h-8 text-accent" />
+                        <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                          <Heart className="w-6 h-6 text-accent" />
                         </div>
                         <div>
-                          <div className="font-semibold text-lg">Apoyo Integral</div>
-                          <div className="text-sm text-muted-foreground">Todo en un solo lugar</div>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3 text-sm">
-                          <div className="w-2 h-2 rounded-full bg-accent" />
-                          <span>Comparación de precios</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm">
-                          <div className="w-2 h-2 rounded-full bg-accent" />
-                          <span>Obituarios digitales</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm">
-                          <div className="w-2 h-2 rounded-full bg-accent" />
-                          <span>Gestión simplificada</span>
+                          <div className="font-semibold text-base">Atención Personalizada</div>
+                          <div className="text-sm text-muted-foreground">Acompañamiento 24/7</div>
                         </div>
                       </div>
                     </div>
@@ -208,9 +201,9 @@ const Index = () => {
                     initial={{ scale: 0, rotate: -10 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.8, type: "spring" }}
-                    className="absolute -top-4 -right-4 bg-accent text-accent-foreground rounded-full px-6 py-3 font-bold shadow-lg"
+                    className="absolute -top-4 -right-4 bg-accent text-accent-foreground rounded-full px-6 py-3 font-bold shadow-lg z-10"
                   >
-                    Verificado
+                    Verificado ✓
                   </motion.div>
 
                   {/* Decorative Elements */}

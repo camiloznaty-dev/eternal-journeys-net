@@ -330,6 +330,7 @@ export type Database = {
           created_at: string
           description: string | null
           email: string | null
+          employee_count_range: string | null
           facebook_url: string | null
           gallery_images: string[] | null
           hero_image_url: string | null
@@ -337,12 +338,16 @@ export type Database = {
           id: string
           instagram_url: string | null
           lat: number | null
+          legal_rep_name: string | null
+          legal_rep_position: string | null
+          legal_rep_rut: string | null
           lng: number | null
           logo_url: string | null
           name: string
           phone: string | null
           primary_color: string | null
           rating: number | null
+          registrant_type: string | null
           secondary_color: string | null
           slug: string | null
           updated_at: string
@@ -354,6 +359,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string | null
+          employee_count_range?: string | null
           facebook_url?: string | null
           gallery_images?: string[] | null
           hero_image_url?: string | null
@@ -361,12 +367,16 @@ export type Database = {
           id?: string
           instagram_url?: string | null
           lat?: number | null
+          legal_rep_name?: string | null
+          legal_rep_position?: string | null
+          legal_rep_rut?: string | null
           lng?: number | null
           logo_url?: string | null
           name: string
           phone?: string | null
           primary_color?: string | null
           rating?: number | null
+          registrant_type?: string | null
           secondary_color?: string | null
           slug?: string | null
           updated_at?: string
@@ -378,6 +388,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string | null
+          employee_count_range?: string | null
           facebook_url?: string | null
           gallery_images?: string[] | null
           hero_image_url?: string | null
@@ -385,12 +396,16 @@ export type Database = {
           id?: string
           instagram_url?: string | null
           lat?: number | null
+          legal_rep_name?: string | null
+          legal_rep_position?: string | null
+          legal_rep_rut?: string | null
           lng?: number | null
           logo_url?: string | null
           name?: string
           phone?: string | null
           primary_color?: string | null
           rating?: number | null
+          registrant_type?: string | null
           secondary_color?: string | null
           slug?: string | null
           updated_at?: string

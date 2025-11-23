@@ -16,11 +16,20 @@ export type Database = {
     Tables: {
       casos_servicios: {
         Row: {
+          cantidad_arreglos_florales: number | null
+          carroza_patente: string | null
+          carroza_tipo: string | null
+          contratante: string | null
+          contratante_email: string | null
+          contratante_telefono: string | null
           created_at: string
-          difunto_apellido: string
-          difunto_nombre: string
-          fecha_ceremonia: string | null
+          direccion_velorio: string | null
+          fallecido_apellido: string
+          fallecido_nombre: string
+          familiar_a_cargo: string | null
+          familiar_telefono: string | null
           fecha_fallecimiento: string
+          fecha_funeral: string | null
           fecha_velorio: string | null
           funeraria_id: string
           id: string
@@ -29,16 +38,29 @@ export type Database = {
           notas: string | null
           responsable_id: string | null
           status: string | null
+          tipo_lugar_velorio: string | null
           tipo_servicio: string
-          ubicacion_velorio: string | null
           updated_at: string
+          usa_cuota_mortuoria: boolean | null
+          vehiculo_acompanamiento: string | null
+          vehiculo_acompanamiento_patente: string | null
+          vendedor_id: string | null
         }
         Insert: {
+          cantidad_arreglos_florales?: number | null
+          carroza_patente?: string | null
+          carroza_tipo?: string | null
+          contratante?: string | null
+          contratante_email?: string | null
+          contratante_telefono?: string | null
           created_at?: string
-          difunto_apellido: string
-          difunto_nombre: string
-          fecha_ceremonia?: string | null
+          direccion_velorio?: string | null
+          fallecido_apellido: string
+          fallecido_nombre: string
+          familiar_a_cargo?: string | null
+          familiar_telefono?: string | null
           fecha_fallecimiento: string
+          fecha_funeral?: string | null
           fecha_velorio?: string | null
           funeraria_id: string
           id?: string
@@ -47,16 +69,29 @@ export type Database = {
           notas?: string | null
           responsable_id?: string | null
           status?: string | null
+          tipo_lugar_velorio?: string | null
           tipo_servicio: string
-          ubicacion_velorio?: string | null
           updated_at?: string
+          usa_cuota_mortuoria?: boolean | null
+          vehiculo_acompanamiento?: string | null
+          vehiculo_acompanamiento_patente?: string | null
+          vendedor_id?: string | null
         }
         Update: {
+          cantidad_arreglos_florales?: number | null
+          carroza_patente?: string | null
+          carroza_tipo?: string | null
+          contratante?: string | null
+          contratante_email?: string | null
+          contratante_telefono?: string | null
           created_at?: string
-          difunto_apellido?: string
-          difunto_nombre?: string
-          fecha_ceremonia?: string | null
+          direccion_velorio?: string | null
+          fallecido_apellido?: string
+          fallecido_nombre?: string
+          familiar_a_cargo?: string | null
+          familiar_telefono?: string | null
           fecha_fallecimiento?: string
+          fecha_funeral?: string | null
           fecha_velorio?: string | null
           funeraria_id?: string
           id?: string
@@ -65,9 +100,13 @@ export type Database = {
           notas?: string | null
           responsable_id?: string | null
           status?: string | null
+          tipo_lugar_velorio?: string | null
           tipo_servicio?: string
-          ubicacion_velorio?: string | null
           updated_at?: string
+          usa_cuota_mortuoria?: boolean | null
+          vehiculo_acompanamiento?: string | null
+          vehiculo_acompanamiento_patente?: string | null
+          vendedor_id?: string | null
         }
         Relationships: [
           {
@@ -94,6 +133,13 @@ export type Database = {
           {
             foreignKeyName: "casos_servicios_responsable_id_fkey"
             columns: ["responsable_id"]
+            isOneToOne: false
+            referencedRelation: "empleados"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "casos_servicios_vendedor_id_fkey"
+            columns: ["vendedor_id"]
             isOneToOne: false
             referencedRelation: "empleados"
             referencedColumns: ["id"]

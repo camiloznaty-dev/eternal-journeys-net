@@ -12,6 +12,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { comunasPorRegion } from "@/data/comunas";
 
 const Auth = () => {
@@ -27,14 +28,18 @@ const Auth = () => {
   // Signup state
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [comuna, setComuna] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [userType, setUserType] = useState<"cliente" | "funeraria">("cliente");
   const [showPassword, setShowPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [phoneError, setPhoneError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   // Password validation
   const passwordValidations = {
@@ -57,6 +62,15 @@ const Auth = () => {
       setPhoneError("Formato inválido. Use +569 seguido de 8 dígitos");
     } else {
       setPhoneError("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (value: string) => {
+    setConfirmPassword(value);
+    if (value && value !== signupPassword) {
+      setPasswordError("Las contraseñas no coinciden");
+    } else {
+      setPasswordError("");
     }
   };
 
@@ -103,6 +117,18 @@ const Auth = () => {
     // Validate phone before submitting
     if (phone && !validateChileanPhone(phone)) {
       toast.error("Por favor ingrese un número de teléfono válido");
+      return;
+    }
+
+    // Validate password match
+    if (signupPassword !== confirmPassword) {
+      toast.error("Las contraseñas no coinciden");
+      return;
+    }
+
+    // Validate terms acceptance
+    if (!acceptTerms) {
+      toast.error("Debe aceptar los términos y condiciones");
       return;
     }
 
@@ -343,6 +369,53 @@ const Auth = () => {
                         </div>
                       </div>
                     )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="confirm-password">Confirmar Contraseña</Label>
+                    <div className="relative">
+                      <Input
+                        id="confirm-password"
+                        type={showConfirmPassword ? "text" : "password"}
+                        value={confirmPassword}
+                        onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+                        required
+                        className={cn("h-11 pr-10", passwordError && "border-destructive")}
+                        placeholder="Confirma tu contraseña"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                    {passwordError && (
+                      <p className="text-sm text-destructive">{passwordError}</p>
+                    )}
+                  </div>
+
+                  <div className="flex items-start space-x-3 py-2">
+                    <Checkbox
+                      id="terms"
+                      checked={acceptTerms}
+                      onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
+                      required
+                    />
+                    <Label
+                      htmlFor="terms"
+                      className="text-sm leading-relaxed cursor-pointer"
+                    >
+                      Acepto los{" "}
+                      <a href="/terminos" target="_blank" className="text-primary underline hover:text-primary/80">
+                        términos y condiciones
+                      </a>
+                      {" "}y la{" "}
+                      <a href="/privacidad" target="_blank" className="text-primary underline hover:text-primary/80">
+                        política de privacidad
+                      </a>
+                    </Label>
                   </div>
 
                   <Button type="submit" className="w-full h-12 text-base" disabled={loading}>

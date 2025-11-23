@@ -12,6 +12,7 @@ export const Header = () => {
     { label: "Comparador", href: "/comparar" },
     { label: "Obituarios", href: "/obituarios" },
     { label: "Planificador", href: "/planificador" },
+    { label: "Asistencia", href: "/asistencia" },
     { label: "Productos", href: "/productos" },
   ];
 

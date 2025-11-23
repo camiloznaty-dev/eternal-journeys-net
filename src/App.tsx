@@ -9,6 +9,7 @@ import Comparar from "./pages/Comparar";
 import Productos from "./pages/Productos";
 import Obituarios from "./pages/Obituarios";
 import Planificador from "./pages/Planificador";
+import Asistencia from "./pages/Asistencia";
 import Auth from "./pages/Auth";
 import FunerariaPublica from "./pages/FunerariaPublica";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/productos" element={<Productos />} />
           <Route path="/obituarios" element={<Obituarios />} />
           <Route path="/planificador" element={<Planificador />} />
+          <Route path="/asistencia" element={<Asistencia />} />
           <Route path="/auth" element={<Auth />} />
           
           {/* Dashboard Routes */}

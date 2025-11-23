@@ -12,6 +12,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function DashboardHeader() {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ export function DashboardHeader() {
         </SidebarTrigger>
 
         <div className="flex-1" />
+
+        <ThemeToggle />
 
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />

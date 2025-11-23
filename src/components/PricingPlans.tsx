@@ -7,7 +7,7 @@ export const PricingPlans = () => {
   const plans = [
     {
       name: "Básico",
-      price: "Gratis",
+      price: "0.5 UF/mes",
       description: "Para empezar a digitalizar tu funeraria",
       features: [
         "Perfil en el marketplace",
@@ -15,12 +15,12 @@ export const PricingPlans = () => {
         "Gestión de pedidos básica",
         "Soporte por email",
       ],
-      cta: "Comenzar",
+      cta: "Contratar",
       highlighted: false,
     },
     {
       name: "Profesional",
-      price: "$49/mes",
+      price: "2 UF/mes",
       description: "Funcionalidades completas para crecer",
       features: [
         "Todo lo del plan Básico",
@@ -30,7 +30,7 @@ export const PricingPlans = () => {
         "Soporte prioritario",
         "Sin comisiones por pedido",
       ],
-      cta: "Probar 30 días gratis",
+      cta: "Contratar",
       highlighted: true,
     },
     {

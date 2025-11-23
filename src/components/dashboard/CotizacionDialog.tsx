@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -114,7 +115,7 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
   const [solicitanteEmail, setSolicitanteEmail] = useState("");
   const [vendedorId, setVendedorId] = useState("");
   const [cartaPresentacion, setCartaPresentacion] = useState("");
-  const [showPreview, setShowPreview] = useState(true);
+  const [activeTab, setActiveTab] = useState("form");
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -353,29 +354,26 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh]">
+        <DialogContent className="max-w-[90vw] max-h-[95vh]">
           <DialogHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <DialogTitle>{cotizacion ? "Editar Cotización" : "Nueva Cotización"}</DialogTitle>
-                <DialogDescription>
-                  Crea tu cotización profesional con vista previa en vivo
-                </DialogDescription>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowPreview(!showPreview)}
-              >
-                {showPreview ? "Ocultar" : "Mostrar"} Vista Previa
-              </Button>
-            </div>
+            <DialogTitle>{cotizacion ? "Editar Cotización" : "Nueva Cotización"}</DialogTitle>
+            <DialogDescription>
+              Crea tu cotización profesional con vista previa en vivo
+            </DialogDescription>
           </DialogHeader>
 
-          <div className={`grid gap-6 ${showPreview ? "grid-cols-2" : "grid-cols-1"}`}>
-            {/* Formulario */}
-            <ScrollArea className="max-h-[calc(95vh-8rem)] pr-4">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-5 mb-4">
+              <TabsTrigger value="form">Datos Básicos</TabsTrigger>
+              <TabsTrigger value="items">Items</TabsTrigger>
+              <TabsTrigger value="terms">Términos</TabsTrigger>
+              <TabsTrigger value="preview">Vista Previa</TabsTrigger>
+              <TabsTrigger value="save" disabled className="opacity-50">Guardar</TabsTrigger>
+            </TabsList>
+
+            <ScrollArea className="max-h-[calc(95vh-12rem)]">
               <form onSubmit={handleSubmit} className="space-y-6">
+                <TabsContent value="form" className="space-y-6 mt-0">
               {/* Información del Solicitante */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold border-b pb-2">Información del Solicitante</h3>
@@ -463,111 +461,100 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
                         ))}
                       </SelectContent>
                     </Select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="carta_presentacion">Carta de Presentación</Label>
+                    <Textarea
+                      id="carta_presentacion"
+                      value={cartaPresentacion}
+                      onChange={(e) => setCartaPresentacion(e.target.value)}
+                      placeholder="Estimado/a [Nombre], nos complace presentarle la siguiente cotización..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="impuestos">IVA %</Label>
+                    <Input
+                      id="impuestos"
+                      type="number"
+                      value={impuestos}
+                      onChange={(e) => setImpuestos(e.target.value)}
+                      min="0"
+                      max="100"
+                    />
                   </div>
                 </div>
+              </TabsContent>
 
-                <div>
-                  <Label htmlFor="carta_presentacion">Carta de Presentación</Label>
-                  <Textarea
-                    id="carta_presentacion"
-                    value={cartaPresentacion}
-                    onChange={(e) => setCartaPresentacion(e.target.value)}
-                    placeholder="Estimado/a [Nombre], nos complace presentarle la siguiente cotización..."
-                    rows={4}
-                  />
-                </div>
+                <TabsContent value="items" className="space-y-4 mt-0">
+                  <div className="flex items-center justify-between mb-4">
+                    <Label>Items de la Cotización</Label>
+                    <Button type="button" variant="outline" size="sm" onClick={() => setSelectorOpen(true)}>
+                      <Plus className="mr-2 h-4 w-4" />
+                      Agregar Items
+                    </Button>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="impuestos">IVA %</Label>
-                  <Input
-                    id="impuestos"
-                    type="number"
-                    value={impuestos}
-                    onChange={(e) => setImpuestos(e.target.value)}
-                    min="0"
-                    max="100"
-                  />
-                </div>
-              </div>
+                  {items.length === 0 ? (
+                    <Card>
+                      <CardContent className="p-12 text-center">
+                        <p className="text-muted-foreground">
+                          No hay items. Haz clic en "Agregar Items" para comenzar
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                      <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
+                        <div className="space-y-3">
+                          {items.map((item) => (
+                            <SortableItem key={item.id} item={item} onUpdate={updateItem} onRemove={removeItem} />
+                          ))}
+                        </div>
+                      </SortableContext>
+                    </DndContext>
+                  )}
 
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Label>Items de la Cotización</Label>
-                  <Button type="button" variant="outline" size="sm" onClick={() => setSelectorOpen(true)}>
-                    <Plus className="mr-2 h-4 w-4" />
-                    Agregar Items
-                  </Button>
-                </div>
-
-                {items.length === 0 ? (
-                  <Card>
-                    <CardContent className="p-12 text-center">
-                      <p className="text-muted-foreground">
-                        No hay items. Haz clic en "Agregar Items" para comenzar
-                      </p>
+                  <Card className="bg-muted/50 mt-6">
+                    <CardContent className="pt-6">
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Subtotal:</span>
+                          <span className="font-medium">${subtotal.toLocaleString("es-CL")}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">IVA ({impuestos}%):</span>
+                          <span className="font-medium">${taxAmount.toLocaleString("es-CL")}</span>
+                        </div>
+                        <div className="flex justify-between text-lg font-bold border-t pt-2">
+                          <span>Total:</span>
+                          <span>${total.toLocaleString("es-CL")}</span>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
-                ) : (
-                  <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                    <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
-                      <div className="space-y-3">
-                        {items.map((item) => (
-                          <SortableItem key={item.id} item={item} onUpdate={updateItem} onRemove={removeItem} />
-                        ))}
-                      </div>
-                    </SortableContext>
-                  </DndContext>
-                )}
-              </div>
+                </TabsContent>
 
-              <div className="space-y-2">
-                <Label htmlFor="notas">Notas / Términos y Condiciones</Label>
-                <Textarea
-                  id="notas"
-                  value={notas}
-                  onChange={(e) => setNotas(e.target.value)}
-                  placeholder="Condiciones de pago, garantías, etc..."
-                  rows={3}
-                />
-              </div>
-
-              <Card className="bg-muted/50">
-                <CardContent className="pt-6">
+                <TabsContent value="terms" className="space-y-4 mt-0">
                   <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Subtotal:</span>
-                      <span className="font-medium">${subtotal.toLocaleString("es-CL")}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">IVA ({impuestos}%):</span>
-                      <span className="font-medium">${taxAmount.toLocaleString("es-CL")}</span>
-                    </div>
-                    <div className="flex justify-between text-lg font-bold border-t pt-2">
-                      <span>Total:</span>
-                      <span>${total.toLocaleString("es-CL")}</span>
-                    </div>
+                    <Label htmlFor="notas">Notas / Términos y Condiciones</Label>
+                    <Textarea
+                      id="notas"
+                      value={notas}
+                      onChange={(e) => setNotas(e.target.value)}
+                      placeholder="Condiciones de pago, garantías, etc..."
+                      rows={10}
+                    />
                   </div>
-                </CardContent>
-              </Card>
+                </TabsContent>
 
-                <div className="flex gap-2 justify-end pt-4 border-t">
-                  <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
-                    Cancelar
-                  </Button>
-                  <Button type="submit" disabled={loading || items.length === 0}>
-                    {loading ? "Guardando..." : cotizacion ? "Actualizar" : "Crear Cotización"}
-                  </Button>
-                </div>
-              </form>
-            </ScrollArea>
+                <TabsContent value="preview" className="mt-0">
 
-            {/* Vista Previa en Vivo */}
-            {showPreview && funeraria && (
-              <div className="border-l pl-6">
-                <div className="sticky top-0">
-                  <h3 className="text-sm font-semibold mb-4 text-muted-foreground">Vista Previa</h3>
-                  <ScrollArea className="h-[calc(95vh-10rem)]">
-                    <div className="bg-white rounded-lg shadow-lg p-8 space-y-6 text-gray-900" style={{ fontSize: "10px" }}>
+                  {funeraria ? (
+                    <div className="bg-white rounded-lg shadow-lg p-8 space-y-6 text-gray-900" style={{ fontSize: "11px" }}>
                       {/* Header */}
                       <div className="flex justify-between items-start border-b pb-4">
                         <div>
@@ -703,11 +690,24 @@ export function CotizacionDialog({ open, onOpenChange, cotizacion, onSuccess }: 
                         <p>Este documento es una cotización y no constituye un contrato.</p>
                       </div>
                     </div>
-                  </ScrollArea>
-                </div>
-              </div>
-            )}
-          </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-64 text-muted-foreground">
+                      <p>Cargando vista previa...</p>
+                    </div>
+                  )}
+                </TabsContent>
+              </form>
+            </ScrollArea>
+
+            <div className="flex gap-2 justify-end pt-4 border-t mt-4">
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+                Cancelar
+              </Button>
+              <Button type="submit" onClick={handleSubmit} disabled={loading || items.length === 0}>
+                {loading ? "Guardando..." : cotizacion ? "Actualizar" : "Crear Cotización"}
+              </Button>
+            </div>
+          </Tabs>
         </DialogContent>
       </Dialog>
 

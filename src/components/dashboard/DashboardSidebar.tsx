@@ -29,7 +29,7 @@ import {
 const menuItems = [
   { title: "Panel Principal", url: "/dashboard", icon: LayoutDashboard },
   { title: "Leads", url: "/dashboard/leads", icon: TrendingUp },
-  { title: "Casos Activos", url: "/dashboard/casos", icon: Briefcase },
+  { title: "Servicios activos", url: "/dashboard/casos", icon: Briefcase },
   { title: "Obituarios", url: "/dashboard/obituarios", icon: FileText },
   { title: "Productos", url: "/dashboard/productos", icon: Package },
   { title: "Servicios", url: "/dashboard/servicios", icon: ClipboardList },

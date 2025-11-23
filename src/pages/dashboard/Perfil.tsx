@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Upload, Loader2 } from "lucide-react";
+import { Upload, Loader2, ExternalLink, Eye } from "lucide-react";
 
 export default function Perfil() {
   const [loading, setLoading] = useState(true);
@@ -180,6 +180,72 @@ export default function Perfil() {
             Configura el perfil público de tu funeraria
           </p>
         </div>
+
+        {/* Vista Previa del Mini Website */}
+        {slug && (
+          <Card className="border-accent/50">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Eye className="h-5 w-5 text-accent" />
+                Vista Previa del Mini Website
+              </CardTitle>
+              <CardDescription>
+                Tu sitio web está disponible en: <strong>sirius.cl/f/{slug}</strong>
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Preview Visual */}
+              <div className="border-2 border-border rounded-lg overflow-hidden bg-muted">
+                <div className="aspect-video w-full relative">
+                  {heroUrl ? (
+                    <img 
+                      src={heroUrl} 
+                      alt="Vista previa" 
+                      className="w-full h-full object-cover opacity-90"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
+                      <p className="text-muted-foreground">Sin imagen de portada</p>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="text-center text-white space-y-2">
+                      {logoUrl && (
+                        <div className="mb-4 flex justify-center">
+                          <div className="w-20 h-20 bg-white rounded-lg p-2">
+                            <img src={logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                          </div>
+                        </div>
+                      )}
+                      <h2 className="text-2xl font-bold">{nombre || "Tu Funeraria"}</h2>
+                      <p className="text-sm opacity-90">{descripcion || "Descripción de tu funeraria"}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botones de Acción */}
+              <div className="flex gap-2">
+                <Button 
+                  onClick={() => window.open(`/f/${slug}`, '_blank')}
+                  className="flex-1"
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Ver Sitio Público
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => {
+                    navigator.clipboard.writeText(`${window.location.origin}/f/${slug}`);
+                    toast.success("Enlace copiado al portapapeles");
+                  }}
+                >
+                  Copiar Enlace
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <Card>
           <CardHeader>

@@ -4,24 +4,24 @@ import { Button } from "@/components/ui/button";
 
 export const SearchBar = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-card rounded-2xl shadow-2xl p-6 md:p-8 elegant-shadow border border-border/50 backdrop-blur-sm hero-glow">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1 relative group">
-            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="border border-border rounded-lg p-1 bg-card">
+        <div className="flex flex-col md:flex-row gap-1">
+          <div className="flex-1 relative">
+            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Ubicación (ciudad, código postal)"
-              className="pl-12 h-14 text-base bg-background/50 border-border/50 focus:border-accent"
+              placeholder="Ubicación"
+              className="pl-9 h-11 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
-          <div className="flex-1 relative group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Buscar servicio o funeraria"
-              className="pl-12 h-14 text-base bg-background/50 border-border/50 focus:border-accent"
+              placeholder="Buscar servicio"
+              className="pl-9 h-11 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
-          <Button size="lg" className="h-14 px-10 text-base hover:scale-105 transition-transform">
+          <Button size="lg" className="h-11 px-6">
             Buscar
           </Button>
         </div>

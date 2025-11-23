@@ -839,6 +839,240 @@ export type Database = {
         }
         Relationships: []
       }
+      proveedor_documentos: {
+        Row: {
+          archivo_size: number | null
+          archivo_url: string
+          created_at: string | null
+          descripcion: string | null
+          fecha_subida: string | null
+          fecha_vencimiento: string | null
+          id: string
+          nombre: string
+          proveedor_id: string
+          subido_por: string | null
+          tipo: string
+          updated_at: string | null
+        }
+        Insert: {
+          archivo_size?: number | null
+          archivo_url: string
+          created_at?: string | null
+          descripcion?: string | null
+          fecha_subida?: string | null
+          fecha_vencimiento?: string | null
+          id?: string
+          nombre: string
+          proveedor_id: string
+          subido_por?: string | null
+          tipo: string
+          updated_at?: string | null
+        }
+        Update: {
+          archivo_size?: number | null
+          archivo_url?: string
+          created_at?: string | null
+          descripcion?: string | null
+          fecha_subida?: string | null
+          fecha_vencimiento?: string | null
+          id?: string
+          nombre?: string
+          proveedor_id?: string
+          subido_por?: string | null
+          tipo?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proveedor_documentos_proveedor_id_fkey"
+            columns: ["proveedor_id"]
+            isOneToOne: false
+            referencedRelation: "proveedores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      proveedor_pagos: {
+        Row: {
+          comprobante_url: string | null
+          created_at: string | null
+          fecha_pago: string
+          fecha_vencimiento: string | null
+          id: string
+          metodo_pago: string | null
+          monto: number
+          notas: string | null
+          numero_referencia: string | null
+          pedido_id: string | null
+          proveedor_id: string
+          registrado_por: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          comprobante_url?: string | null
+          created_at?: string | null
+          fecha_pago?: string
+          fecha_vencimiento?: string | null
+          id?: string
+          metodo_pago?: string | null
+          monto: number
+          notas?: string | null
+          numero_referencia?: string | null
+          pedido_id?: string | null
+          proveedor_id: string
+          registrado_por?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          comprobante_url?: string | null
+          created_at?: string | null
+          fecha_pago?: string
+          fecha_vencimiento?: string | null
+          id?: string
+          metodo_pago?: string | null
+          monto?: number
+          notas?: string | null
+          numero_referencia?: string | null
+          pedido_id?: string | null
+          proveedor_id?: string
+          registrado_por?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proveedor_pagos_pedido_id_fkey"
+            columns: ["pedido_id"]
+            isOneToOne: false
+            referencedRelation: "proveedor_pedidos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "proveedor_pagos_proveedor_id_fkey"
+            columns: ["proveedor_id"]
+            isOneToOne: false
+            referencedRelation: "proveedores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      proveedor_pedidos: {
+        Row: {
+          creado_por: string | null
+          created_at: string | null
+          fecha_entrega_estimada: string | null
+          fecha_entrega_real: string | null
+          fecha_pedido: string
+          id: string
+          impuestos: number | null
+          items: Json | null
+          notas: string | null
+          numero_pedido: string
+          proveedor_id: string
+          status: string | null
+          subtotal: number
+          total: number
+          updated_at: string | null
+        }
+        Insert: {
+          creado_por?: string | null
+          created_at?: string | null
+          fecha_entrega_estimada?: string | null
+          fecha_entrega_real?: string | null
+          fecha_pedido?: string
+          id?: string
+          impuestos?: number | null
+          items?: Json | null
+          notas?: string | null
+          numero_pedido: string
+          proveedor_id: string
+          status?: string | null
+          subtotal?: number
+          total?: number
+          updated_at?: string | null
+        }
+        Update: {
+          creado_por?: string | null
+          created_at?: string | null
+          fecha_entrega_estimada?: string | null
+          fecha_entrega_real?: string | null
+          fecha_pedido?: string
+          id?: string
+          impuestos?: number | null
+          items?: Json | null
+          notas?: string | null
+          numero_pedido?: string
+          proveedor_id?: string
+          status?: string | null
+          subtotal?: number
+          total?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proveedor_pedidos_proveedor_id_fkey"
+            columns: ["proveedor_id"]
+            isOneToOne: false
+            referencedRelation: "proveedores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      proveedor_recordatorios: {
+        Row: {
+          asignado_a: string | null
+          completado: boolean | null
+          creado_por: string | null
+          created_at: string | null
+          descripcion: string | null
+          fecha_recordatorio: string
+          id: string
+          prioridad: string | null
+          proveedor_id: string
+          tipo: string | null
+          titulo: string
+          updated_at: string | null
+        }
+        Insert: {
+          asignado_a?: string | null
+          completado?: boolean | null
+          creado_por?: string | null
+          created_at?: string | null
+          descripcion?: string | null
+          fecha_recordatorio: string
+          id?: string
+          prioridad?: string | null
+          proveedor_id: string
+          tipo?: string | null
+          titulo: string
+          updated_at?: string | null
+        }
+        Update: {
+          asignado_a?: string | null
+          completado?: boolean | null
+          creado_por?: string | null
+          created_at?: string | null
+          descripcion?: string | null
+          fecha_recordatorio?: string
+          id?: string
+          prioridad?: string | null
+          proveedor_id?: string
+          tipo?: string | null
+          titulo?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proveedor_recordatorios_proveedor_id_fkey"
+            columns: ["proveedor_id"]
+            isOneToOne: false
+            referencedRelation: "proveedores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       proveedores: {
         Row: {
           activo: boolean | null

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ProveedorDialog } from "@/components/dashboard/ProveedorDialog";
+import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,6 +29,7 @@ import {
 } from "@/components/ui/table";
 
 export default function Proveedores() {
+  const navigate = useNavigate();
   const [proveedores, setProveedores] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -165,7 +167,7 @@ export default function Proveedores() {
               </TableHeader>
               <TableBody>
                 {filteredProveedores.map((proveedor) => (
-                  <TableRow key={proveedor.id}>
+                  <TableRow key={proveedor.id} className="cursor-pointer hover:bg-muted/50" onClick={() => navigate(`/dashboard/proveedores/${proveedor.id}`)}>
                     <TableCell className="font-medium">{proveedor.nombre}</TableCell>
                     <TableCell>{proveedor.categoria || "-"}</TableCell>
                     <TableCell>
@@ -187,7 +189,8 @@ export default function Proveedores() {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation();
                             setEditingProveedor(proveedor);
                             setDialogOpen(true);
                           }}
@@ -198,7 +201,8 @@ export default function Proveedores() {
                           variant="outline"
                           size="sm"
                           className="text-destructive hover:text-destructive"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation();
                             setProveedorToDelete(proveedor.id);
                             setDeleteDialogOpen(true);
                           }}

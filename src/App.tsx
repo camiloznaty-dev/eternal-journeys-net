@@ -22,6 +22,7 @@ import Facturas from "./pages/dashboard/Facturas";
 import Equipo from "./pages/dashboard/Equipo";
 import Turnos from "./pages/dashboard/Turnos";
 import Proveedores from "./pages/dashboard/Proveedores";
+import ProveedorDetalle from "./pages/dashboard/ProveedorDetalle";
 import Mensajes from "./pages/dashboard/Mensajes";
 import Perfil from "./pages/dashboard/Perfil";
 import Configuracion from "./pages/dashboard/Configuracion";
@@ -38,6 +39,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/funerarias" element={<Funerarias />} />
+          <Route path="/f/:slug" element={<FunerariaPublica />} />
           <Route path="/funerarias/:slug" element={<FunerariaPublica />} />
           <Route path="/comparar" element={<Comparar />} />
           <Route path="/productos" element={<Productos />} />
@@ -57,6 +59,7 @@ const App = () => (
           <Route path="/dashboard/equipo" element={<Equipo />} />
           <Route path="/dashboard/turnos" element={<Turnos />} />
           <Route path="/dashboard/proveedores" element={<Proveedores />} />
+          <Route path="/dashboard/proveedores/:id" element={<ProveedorDetalle />} />
           <Route path="/dashboard/mensajes" element={<Mensajes />} />
           <Route path="/dashboard/perfil" element={<Perfil />} />
           <Route path="/dashboard/configuracion" element={<Configuracion />} />

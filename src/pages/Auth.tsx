@@ -41,6 +41,13 @@ const Auth = () => {
   const [phoneError, setPhoneError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  // Funeraria-specific fields
+  const [funerariaName, setFunerariaName] = useState("");
+  const [funerariaRut, setFunerariaRut] = useState("");
+  const [funerariaAddress, setFunerariaAddress] = useState("");
+  const [primaryColor, setPrimaryColor] = useState("#000000");
+  const [secondaryColor, setSecondaryColor] = useState("#666666");
+
   // Password validation
   const passwordValidations = {
     minLength: signupPassword.length >= 8,
@@ -154,10 +161,18 @@ const Auth = () => {
       return;
     }
 
+    // Validate funeraria fields if user type is funeraria
+    if (userType === "funeraria") {
+      if (!funerariaName || !funerariaRut || !funerariaAddress) {
+        toast.error("Por favor complete todos los campos de la funeraria");
+        return;
+      }
+    }
+
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: signupEmail,
         password: signupPassword,
         options: {
@@ -165,12 +180,28 @@ const Auth = () => {
           data: {
             full_name: `${firstName} ${lastName}`,
             role: userType,
+            phone,
+            ...(userType === "funeraria" && {
+              funeraria_name: funerariaName,
+              funeraria_rut: funerariaRut,
+              funeraria_address: funerariaAddress,
+              primary_color: primaryColor,
+              secondary_color: secondaryColor,
+              comuna,
+            }),
           },
         },
       });
 
       if (error) throw error;
+      
       toast.success("¡Cuenta creada exitosamente!");
+      
+      if (userType === "funeraria") {
+        toast.info("Completa tu perfil desde el dashboard para activar tu mini website", {
+          duration: 5000,
+        });
+      }
     } catch (error: any) {
       toast.error(error.message || "Error al crear la cuenta");
     } finally {
@@ -288,9 +319,114 @@ const Auth = () => {
                         required
                         className="h-11"
                       />
-                    </div>
+                  </div>
 
-                    <div className="space-y-2">
+                  {userType === "funeraria" && (
+                    <>
+                      <div className="space-y-2">
+                        <Label htmlFor="funeraria-name">Nombre de la Funeraria</Label>
+                        <Input
+                          id="funeraria-name"
+                          type="text"
+                          placeholder="Funeraria Los Ángeles"
+                          value={funerariaName}
+                          onChange={(e) => setFunerariaName(e.target.value)}
+                          required
+                          className="h-11"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="funeraria-rut">RUT Empresa</Label>
+                          <Input
+                            id="funeraria-rut"
+                            type="text"
+                            placeholder="12.345.678-9"
+                            value={funerariaRut}
+                            onChange={(e) => setFunerariaRut(e.target.value)}
+                            required
+                            className="h-11"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="funeraria-address">Dirección</Label>
+                          <Input
+                            id="funeraria-address"
+                            type="text"
+                            placeholder="Av. Principal 123"
+                            value={funerariaAddress}
+                            onChange={(e) => setFunerariaAddress(e.target.value)}
+                            required
+                            className="h-11"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        <Label className="text-base">Colores del Mini Website</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Podrás cambiar estos colores después desde tu dashboard
+                        </p>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="primary-color">Color Primario</Label>
+                            <div className="flex gap-2">
+                              <Input
+                                id="primary-color"
+                                type="color"
+                                value={primaryColor}
+                                onChange={(e) => setPrimaryColor(e.target.value)}
+                                className="w-16 h-11 p-1 cursor-pointer"
+                              />
+                              <Input
+                                value={primaryColor}
+                                onChange={(e) => setPrimaryColor(e.target.value)}
+                                placeholder="#000000"
+                                className="h-11"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label htmlFor="secondary-color">Color Secundario</Label>
+                            <div className="flex gap-2">
+                              <Input
+                                id="secondary-color"
+                                type="color"
+                                value={secondaryColor}
+                                onChange={(e) => setSecondaryColor(e.target.value)}
+                                className="w-16 h-11 p-1 cursor-pointer"
+                              />
+                              <Input
+                                value={secondaryColor}
+                                onChange={(e) => setSecondaryColor(e.target.value)}
+                                placeholder="#666666"
+                                className="h-11"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="rounded-lg border border-border bg-muted/30 p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="rounded-full bg-primary/10 p-2">
+                            <Building2 className="h-4 w-4 text-primary" />
+                          </div>
+                          <div className="flex-1 space-y-1">
+                            <p className="text-sm font-medium">Logo y Foto de Portada</p>
+                            <p className="text-xs text-muted-foreground">
+                              Podrás subir tu logo y foto de portada después desde tu dashboard en la sección "Mi Funeraria"
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  <div className="space-y-2">
                       <Label htmlFor="last-name">Apellidos</Label>
                       <Input
                         id="last-name"

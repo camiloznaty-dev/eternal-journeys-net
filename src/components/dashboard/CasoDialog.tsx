@@ -488,18 +488,6 @@ export function CasoDialog({ open, onOpenChange, caso, onSuccess }: CasoDialogPr
               onChange={(e) => setFormData({ ...formData, cantidad_arreglos_florales: e.target.value })}
             />
           </div>
-          <div className="flex items-end">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="usa_cuota_mortuoria"
-                checked={formData.usa_cuota_mortuoria}
-                onCheckedChange={(checked) => setFormData({ ...formData, usa_cuota_mortuoria: checked as boolean })}
-              />
-              <Label htmlFor="usa_cuota_mortuoria" className="cursor-pointer">
-                Usa Cuota Mortuoria
-              </Label>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -590,6 +578,16 @@ export function CasoDialog({ open, onOpenChange, caso, onSuccess }: CasoDialogPr
               placeholder="0"
             />
           </div>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="usa_cuota_mortuoria"
+            checked={formData.usa_cuota_mortuoria}
+            onCheckedChange={(checked) => setFormData({ ...formData, usa_cuota_mortuoria: checked as boolean })}
+          />
+          <Label htmlFor="usa_cuota_mortuoria" className="cursor-pointer">
+            Usa Cuota Mortuoria
+          </Label>
         </div>
       </div>
 

@@ -238,8 +238,8 @@ const Index = () => {
                     transition={{ delay: 0.6 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">24h ⚡</div>
-                    <div className="text-xs text-muted-foreground">Respuesta rápida</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">24/7 🕐</div>
+                    <div className="text-xs text-muted-foreground">365 días del año</div>
                   </motion.div>
                   
                   <motion.div
@@ -248,8 +248,8 @@ const Index = () => {
                     transition={{ delay: 0.7 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">100% 🎁</div>
-                    <div className="text-xs text-muted-foreground">Gratuito familias</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">Gratis 💙</div>
+                    <div className="text-xs text-muted-foreground">Para familias</div>
                   </motion.div>
                   
                   <motion.div
@@ -258,7 +258,7 @@ const Index = () => {
                     transition={{ delay: 0.8 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">4.9★ 💯</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">4.9★ ✨</div>
                     <div className="text-xs text-muted-foreground">Calificación</div>
                   </motion.div>
                 </div>

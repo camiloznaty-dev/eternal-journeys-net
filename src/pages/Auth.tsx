@@ -6,11 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
-import { Building2, User } from "lucide-react";
+import { Building2, User, Eye, EyeOff, Check, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { cn } from "@/lib/utils";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -26,6 +26,17 @@ const Auth = () => {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [userType, setUserType] = useState<"cliente" | "funeraria">("cliente");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showSignupPassword, setShowSignupPassword] = useState(false);
+
+  // Password validation
+  const passwordValidations = {
+    minLength: signupPassword.length >= 8,
+    hasUpperCase: /[A-Z]/.test(signupPassword),
+    hasLowerCase: /[a-z]/.test(signupPassword),
+    hasNumber: /[0-9]/.test(signupPassword),
+    hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(signupPassword),
+  };
 
   useEffect(() => {
     // Check if user is already logged in
@@ -109,7 +120,7 @@ const Auth = () => {
               </TabsList>
 
               <TabsContent value="login">
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-6 mt-6">
                   <div className="space-y-2">
                     <Label htmlFor="login-email">Email</Label>
                     <Input
@@ -119,71 +130,100 @@ const Auth = () => {
                       value={loginEmail}
                       onChange={(e) => setLoginEmail(e.target.value)}
                       required
+                      className="h-12"
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="login-password">Contraseña</Label>
-                    <Input
-                      id="login-password"
-                      type="password"
-                      value={loginPassword}
-                      onChange={(e) => setLoginPassword(e.target.value)}
-                      required
-                    />
+                    <div className="relative">
+                      <Input
+                        id="login-password"
+                        type={showPassword ? "text" : "password"}
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
+                        required
+                        className="h-12 pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
                   </div>
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full h-12" disabled={loading}>
                     {loading ? "Iniciando..." : "Iniciar Sesión"}
                   </Button>
                 </form>
               </TabsContent>
 
               <TabsContent value="signup">
-                <form onSubmit={handleSignup} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label>Tipo de cuenta</Label>
-                    <RadioGroup
-                      value={userType}
-                      onValueChange={(value) => setUserType(value as "cliente" | "funeraria")}
-                      className="flex gap-4"
-                    >
-                      <div className="flex items-center space-x-2 flex-1">
-                        <RadioGroupItem value="cliente" id="cliente" />
-                        <Label htmlFor="cliente" className="flex items-center gap-2 cursor-pointer">
-                          <User className="h-4 w-4" />
-                          Cliente
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2 flex-1">
-                        <RadioGroupItem value="funeraria" id="funeraria" />
-                        <Label htmlFor="funeraria" className="flex items-center gap-2 cursor-pointer">
-                          <Building2 className="h-4 w-4" />
-                          Funeraria
-                        </Label>
-                      </div>
-                    </RadioGroup>
+                <form onSubmit={handleSignup} className="space-y-6 mt-6">
+                  <div className="space-y-3">
+                    <Label className="text-base">Tipo de cuenta</Label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Card
+                        className={cn(
+                          "cursor-pointer transition-all hover:shadow-md",
+                          userType === "cliente"
+                            ? "border-primary bg-primary/5 shadow-sm"
+                            : "border-border hover:border-primary/50"
+                        )}
+                        onClick={() => setUserType("cliente")}
+                      >
+                        <CardContent className="flex flex-col items-center justify-center p-6 gap-2">
+                          <User className={cn("h-8 w-8", userType === "cliente" ? "text-primary" : "text-muted-foreground")} />
+                          <span className={cn("font-medium", userType === "cliente" ? "text-primary" : "text-foreground")}>
+                            Cliente
+                          </span>
+                        </CardContent>
+                      </Card>
+                      <Card
+                        className={cn(
+                          "cursor-pointer transition-all hover:shadow-md",
+                          userType === "funeraria"
+                            ? "border-primary bg-primary/5 shadow-sm"
+                            : "border-border hover:border-primary/50"
+                        )}
+                        onClick={() => setUserType("funeraria")}
+                      >
+                        <CardContent className="flex flex-col items-center justify-center p-6 gap-2">
+                          <Building2 className={cn("h-8 w-8", userType === "funeraria" ? "text-primary" : "text-muted-foreground")} />
+                          <span className={cn("font-medium", userType === "funeraria" ? "text-primary" : "text-foreground")}>
+                            Funeraria
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="full-name">Nombre completo</Label>
-                    <Input
-                      id="full-name"
-                      type="text"
-                      placeholder="Juan Pérez"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      required
-                    />
-                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="full-name">Nombre completo</Label>
+                      <Input
+                        id="full-name"
+                        type="text"
+                        placeholder="Juan Pérez"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        required
+                        className="h-11"
+                      />
+                    </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Teléfono (opcional)</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="+56 9 1234 5678"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Teléfono</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+56 9 1234 5678"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="h-11"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-2">
@@ -195,22 +235,46 @@ const Auth = () => {
                       value={signupEmail}
                       onChange={(e) => setSignupEmail(e.target.value)}
                       required
+                      className="h-11"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Contraseña</Label>
-                    <Input
-                      id="signup-password"
-                      type="password"
-                      value={signupPassword}
-                      onChange={(e) => setSignupPassword(e.target.value)}
-                      required
-                      minLength={6}
-                    />
+                    <div className="relative">
+                      <Input
+                        id="signup-password"
+                        type={showSignupPassword ? "text" : "password"}
+                        value={signupPassword}
+                        onChange={(e) => setSignupPassword(e.target.value)}
+                        required
+                        minLength={8}
+                        className="h-11 pr-10"
+                        placeholder="Ingresa tu contraseña"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowSignupPassword(!showSignupPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {showSignupPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                    {signupPassword && (
+                      <div className="mt-3 space-y-2 text-sm">
+                        <p className="text-muted-foreground mb-2">La contraseña debe contener:</p>
+                        <div className="space-y-1.5">
+                          <ValidationItem isValid={passwordValidations.minLength} text="Mínimo 8 caracteres" />
+                          <ValidationItem isValid={passwordValidations.hasUpperCase} text="Al menos una letra mayúscula" />
+                          <ValidationItem isValid={passwordValidations.hasLowerCase} text="Al menos una letra minúscula" />
+                          <ValidationItem isValid={passwordValidations.hasNumber} text="Al menos un número" />
+                          <ValidationItem isValid={passwordValidations.hasSpecial} text="Al menos un carácter especial (!@#$%^&*)" />
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full h-12 text-base" disabled={loading}>
                     {loading ? "Creando cuenta..." : "Crear Cuenta"}
                   </Button>
                 </form>
@@ -223,5 +287,12 @@ const Auth = () => {
     </div>
   );
 };
+
+const ValidationItem = ({ isValid, text }: { isValid: boolean; text: string }) => (
+  <div className={cn("flex items-center gap-2 transition-colors", isValid ? "text-green-600" : "text-muted-foreground")}>
+    {isValid ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
+    <span>{text}</span>
+  </div>
+);
 
 export default Auth;

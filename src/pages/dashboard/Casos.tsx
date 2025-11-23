@@ -95,7 +95,7 @@ export default function Casos() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Casos Activos</h1>
+            <h1 className="text-3xl font-bold">Servicios Activos</h1>
             <p className="text-muted-foreground">
               Servicios funerarios en gestión
             </p>

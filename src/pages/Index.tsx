@@ -248,8 +248,8 @@ const Index = () => {
                     transition={{ delay: 0.7 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">Gratis 💙</div>
-                    <div className="text-xs text-muted-foreground">Para familias</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">Verificado ✓</div>
+                    <div className="text-xs text-muted-foreground">Funerarias confiables</div>
                   </motion.div>
                   
                   <motion.div

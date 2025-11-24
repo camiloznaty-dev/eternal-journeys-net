@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Search, Menu } from "lucide-react";
+import { Search, Menu, Heart } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -21,13 +21,19 @@ export const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center group">
-            <div className="flex flex-col leading-none transition-transform duration-300 group-hover:scale-105">
-              <span className="font-display text-2xl font-bold text-foreground">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-xl rounded-full transition-opacity duration-300 group-hover:opacity-30" />
+              <div className="relative bg-gradient-primary p-2 rounded-xl shadow-elegant">
+                <Heart className="h-6 w-6 text-white" fill="white" />
+              </div>
+            </div>
+            <div className="flex flex-col leading-none">
+              <span className="font-display text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                 Conecta
               </span>
-              <span className="font-display text-xl font-semibold text-foreground/80">
-                Funerarias
+              <span className="font-display text-sm font-medium text-foreground/70 tracking-wider">
+                FUNERARIAS
               </span>
             </div>
           </Link>

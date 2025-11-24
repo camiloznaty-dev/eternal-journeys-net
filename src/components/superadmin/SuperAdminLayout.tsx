@@ -10,14 +10,14 @@ interface SuperAdminLayoutProps {
 
 export function SuperAdminLayout({ children }: SuperAdminLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col w-full">
+    <div className="min-h-screen w-full">
       <Header />
       <SidebarProvider defaultOpen={true}>
-        <div className="flex flex-1 w-full bg-background">
+        <div className="flex w-full">
           <SuperAdminSidebar />
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col min-h-[calc(100vh-4rem)]">
             <SuperAdminHeader />
-            <main className="flex-1 p-8">
+            <main className="flex-1 p-8 bg-background">
               <div className="max-w-7xl mx-auto">
                 {children}
               </div>

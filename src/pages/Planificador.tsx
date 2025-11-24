@@ -10,6 +10,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import heroImage from "@/assets/hero-planificador.jpg";
 
 const Planificador = () => {
   const [formData, setFormData] = useState({
@@ -73,6 +74,7 @@ const Planificador = () => {
         subtitle="Planifica con Anticipación"
         description="Organiza y planifica tu servicio funeral. Define preferencias concretas y facilita la toma de decisiones para tu familia."
         icon={<Calendar className="w-10 h-10" />}
+        backgroundImage={heroImage}
       />
       
       <main className="flex-1 py-12 bg-muted/30">

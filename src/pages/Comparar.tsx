@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import heroImage from "@/assets/hero-comparador.jpg";
 import {
   Select,
   SelectContent,
@@ -67,6 +68,7 @@ const Comparar = () => {
         subtitle="Comparación Inteligente"
         description="Compara servicios, precios y ubicaciones lado a lado. Toma decisiones informadas con total transparencia."
         icon={<Scale className="w-10 h-10" />}
+        backgroundImage={heroImage}
       >
         <div className="flex flex-wrap justify-center gap-3">
           <Badge variant="secondary" className="text-sm px-4 py-2">Hasta 3 funerarias</Badge>

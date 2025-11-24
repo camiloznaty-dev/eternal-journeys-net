@@ -7,13 +7,51 @@ interface AnimatedHeroProps {
   description?: string;
   icon?: ReactNode;
   children?: ReactNode;
+  backgroundImage?: string;
 }
 
-export function AnimatedHero({ title, subtitle, description, icon, children }: AnimatedHeroProps) {
+export function AnimatedHero({ title, subtitle, description, icon, children, backgroundImage }: AnimatedHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background via-primary/5 to-accent/10 py-20 md:py-32">
-      {/* Floating elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <section className="relative overflow-hidden py-20 md:py-32">
+      {/* Background Image with Overlay */}
+      {backgroundImage && (
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={backgroundImage} 
+            alt="" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/85" />
+        </div>
+      )}
+      
+      {/* Decorative lines and patterns */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Geometric lines */}
+        <svg className="absolute top-0 left-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+        
+        {/* Decorative corner lines */}
+        <motion.div
+          className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-primary/20"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-accent/20"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        />
+
+        {/* Floating elements */}
         <motion.div
           className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl"
           animate={{
@@ -62,7 +100,7 @@ export function AnimatedHero({ title, subtitle, description, icon, children }: A
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, type: "spring" }}
-              className="mb-8 inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary/10 text-primary"
+              className="mb-8 inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary/10 text-primary backdrop-blur-sm border border-primary/20"
             >
               {icon}
             </motion.div>
@@ -76,7 +114,7 @@ export function AnimatedHero({ title, subtitle, description, icon, children }: A
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-4"
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20 backdrop-blur-sm">
                 {subtitle}
               </span>
             </motion.div>
@@ -118,7 +156,7 @@ export function AnimatedHero({ title, subtitle, description, icon, children }: A
       </div>
 
       {/* Bottom wave decoration */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 z-10">
         <svg
           className="w-full h-auto text-background"
           viewBox="0 0 1440 120"

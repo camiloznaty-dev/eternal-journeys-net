@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { todasLasComunas } from "@/data/comunas";
 import { motion } from "framer-motion";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import heroImage from "@/assets/hero-vende-sepultura.jpg";
 
 const tiposSepultura = ["Todos", "Perpetua", "Temporal", "Nicho", "Mausoleo", "Columbario"];
 
@@ -56,6 +57,7 @@ export default function VendeSepultura() {
         subtitle="Marketplace de Sepulturas"
         description="Encuentra o vende sepulturas en los mejores cementerios de Chile. Transparencia y confianza garantizada."
         icon={<Home className="w-10 h-10" />}
+        backgroundImage={heroImage}
       >
         <Link to="/publicar-sepultura">
           <Button size="lg" className="gap-2">

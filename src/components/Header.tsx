@@ -22,9 +22,14 @@ export const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center group">
-            <span className="font-display text-2xl font-bold text-foreground transition-transform duration-300 group-hover:scale-105">
-              ConectaFunerarias
-            </span>
+            <div className="flex flex-col leading-none transition-transform duration-300 group-hover:scale-105">
+              <span className="font-display text-2xl font-bold text-foreground">
+                Conecta
+              </span>
+              <span className="font-display text-xl font-semibold text-foreground/80">
+                Funerarias
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

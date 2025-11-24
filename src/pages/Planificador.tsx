@@ -12,35 +12,40 @@ import { toast } from "sonner";
 
 const Planificador = () => {
   const [formData, setFormData] = useState({
+    // Información Personal
+    nombreCompleto: "",
+    rut: "",
+    fechaNacimiento: "",
+    ciudad: "",
+    region: "",
+    
+    // Preferencia Principal
+    tipoServicio: "",
+    
+    // Sepultura Tradicional
+    cementerio: "",
+    tipoTumba: "",
+    
+    // Cremación
+    destinoCenizas: "",
+    urna: "",
+    
     // Ceremonia
     tipoCeremonia: "",
     lugarCeremonia: "",
-    atmosfera: "",
     
-    // Música
-    cancionesFavoritas: "",
-    musicaAmbiente: "",
+    // Servicios Adicionales
+    velorio: "",
+    flores: "",
+    musica: "",
     
-    // Flores y decoración
-    floresPreferidas: "",
-    colores: "",
+    // Presupuesto
+    presupuestoEstimado: "",
     
-    // Personas importantes
-    personasInvitar: "",
-    personaHablar: "",
-    
-    // Legado
-    mensajeDespedida: "",
-    valoresCompartir: "",
-    historiaContar: "",
-    
-    // Recuerdos
-    fotosCompartir: "",
-    objetosSignificativos: "",
-    
-    // Preferencia final
-    preferenciaFinal: "",
-    lugarDescanso: "",
+    // Contacto Familiar
+    nombreContacto: "",
+    telefonoContacto: "",
+    emailContacto: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -71,11 +76,10 @@ const Planificador = () => {
             className="text-center mb-12"
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Mi Despedida Ideal
+              Planificador Funeral
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Comparte tus deseos, preferencias y cómo quieres ser recordado. 
-              Este es un espacio para expresar lo que realmente importa.
+              Organiza y planifica tu servicio funeral. Define preferencias concretas y facilita la toma de decisiones para tu familia.
             </p>
           </motion.div>
 
@@ -83,23 +87,227 @@ const Planificador = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="space-y-8"
+            className="space-y-6"
           >
-            {/* La Ceremonia */}
-            <Card className="p-8 border-2">
+            {/* Información Personal */}
+            <Card className="p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Heart className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold">La Ceremonia</h2>
-                  <p className="text-sm text-muted-foreground">¿Cómo te gustaría que fuera?</p>
+                  <h2 className="text-xl font-bold">Información Personal</h2>
+                  <p className="text-sm text-muted-foreground">Datos básicos del planificador</p>
                 </div>
               </div>
               
-              <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="tipoCeremonia">Tipo de ceremonia que prefiero</Label>
+                  <Label htmlFor="nombreCompleto">Nombre Completo</Label>
+                  <Input
+                    id="nombreCompleto"
+                    name="nombreCompleto"
+                    value={formData.nombreCompleto}
+                    onChange={handleChange}
+                    placeholder="Nombre completo"
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="rut">RUT</Label>
+                  <Input
+                    id="rut"
+                    name="rut"
+                    value={formData.rut}
+                    onChange={handleChange}
+                    placeholder="12.345.678-9"
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="fechaNacimiento">Fecha de Nacimiento</Label>
+                  <Input
+                    id="fechaNacimiento"
+                    name="fechaNacimiento"
+                    type="date"
+                    value={formData.fechaNacimiento}
+                    onChange={handleChange}
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="ciudad">Ciudad</Label>
+                  <Input
+                    id="ciudad"
+                    name="ciudad"
+                    value={formData.ciudad}
+                    onChange={handleChange}
+                    placeholder="Santiago"
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="region">Región</Label>
+                  <select
+                    id="region"
+                    name="region"
+                    value={formData.region}
+                    onChange={handleChange}
+                    className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
+                  >
+                    <option value="">Seleccionar región...</option>
+                    <option value="metropolitana">Región Metropolitana</option>
+                    <option value="valparaiso">Valparaíso</option>
+                    <option value="biobio">Biobío</option>
+                    <option value="araucania">La Araucanía</option>
+                    <option value="maule">Maule</option>
+                    <option value="los-lagos">Los Lagos</option>
+                    <option value="coquimbo">Coquimbo</option>
+                    <option value="ohiggins">O'Higgins</option>
+                    <option value="antofagasta">Antofagasta</option>
+                    <option value="los-rios">Los Ríos</option>
+                    <option value="tarapaca">Tarapacá</option>
+                    <option value="arica">Arica y Parinacota</option>
+                    <option value="atacama">Atacama</option>
+                    <option value="aysen">Aysén</option>
+                    <option value="magallanes">Magallanes</option>
+                    <option value="nuble">Ñuble</option>
+                  </select>
+                </div>
+              </div>
+            </Card>
+
+            {/* Tipo de Servicio */}
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Heart className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold">Preferencia Principal</h2>
+                  <p className="text-sm text-muted-foreground">¿Sepultura o cremación?</p>
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="tipoServicio">Selecciona tu preferencia</Label>
+                <select
+                  id="tipoServicio"
+                  name="tipoServicio"
+                  value={formData.tipoServicio}
+                  onChange={handleChange}
+                  className="w-full mt-2 p-3 rounded-lg border border-border bg-background text-base"
+                >
+                  <option value="">Seleccionar...</option>
+                  <option value="sepultura">Sepultura Tradicional</option>
+                  <option value="cremacion">Cremación</option>
+                </select>
+              </div>
+            </Card>
+
+            {/* Opciones de Sepultura */}
+            {formData.tipoServicio === "sepultura" && (
+              <Card className="p-6 border-primary/30">
+                <h3 className="text-lg font-bold mb-4">Detalles de Sepultura</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="cementerio">Cementerio preferido</Label>
+                    <Input
+                      id="cementerio"
+                      name="cementerio"
+                      value={formData.cementerio}
+                      onChange={handleChange}
+                      placeholder="Nombre del cementerio o ubicación"
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="tipoTumba">Tipo de tumba</Label>
+                    <select
+                      id="tipoTumba"
+                      name="tipoTumba"
+                      value={formData.tipoTumba}
+                      onChange={handleChange}
+                      className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
+                    >
+                      <option value="">Seleccionar...</option>
+                      <option value="nicho">Nicho</option>
+                      <option value="tumba-tierra">Tumba en tierra</option>
+                      <option value="mausoleo">Mausoleo familiar</option>
+                      <option value="cripta">Cripta</option>
+                    </select>
+                  </div>
+                </div>
+              </Card>
+            )}
+
+            {/* Opciones de Cremación */}
+            {formData.tipoServicio === "cremacion" && (
+              <Card className="p-6 border-primary/30">
+                <h3 className="text-lg font-bold mb-4">Detalles de Cremación</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="destinoCenizas">Destino de las cenizas</Label>
+                    <select
+                      id="destinoCenizas"
+                      name="destinoCenizas"
+                      value={formData.destinoCenizas}
+                      onChange={handleChange}
+                      className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
+                    >
+                      <option value="">Seleccionar...</option>
+                      <option value="urna-familia">Urna entregada a la familia</option>
+                      <option value="nicho">Nicho en cementerio</option>
+                      <option value="esparcir-mar">Esparcir en el mar</option>
+                      <option value="esparcir-montana">Esparcir en la montaña</option>
+                      <option value="esparcir-jardin">Esparcir en jardín memorial</option>
+                      <option value="otro">Otro lugar específico</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="urna">Tipo de urna</Label>
+                    <select
+                      id="urna"
+                      name="urna"
+                      value={formData.urna}
+                      onChange={handleChange}
+                      className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
+                    >
+                      <option value="">Seleccionar...</option>
+                      <option value="madera">Urna de madera</option>
+                      <option value="metal">Urna de metal</option>
+                      <option value="ceramica">Urna de cerámica</option>
+                      <option value="biodegradable">Urna biodegradable</option>
+                      <option value="personalizada">Urna personalizada</option>
+                    </select>
+                  </div>
+                </div>
+              </Card>
+            )}
+
+            {/* Ceremonia */}
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold">Ceremonia</h2>
+                  <p className="text-sm text-muted-foreground">Preferencias para la ceremonia</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="tipoCeremonia">Tipo de ceremonia</Label>
                   <select
                     id="tipoCeremonia"
                     name="tipoCeremonia"
@@ -108,295 +316,165 @@ const Planificador = () => {
                     className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
                   >
                     <option value="">Seleccionar...</option>
-                    <option value="religiosa">Ceremonia religiosa</option>
-                    <option value="laica">Ceremonia laica o humanista</option>
-                    <option value="intima">Ceremonia íntima con familia cercana</option>
-                    <option value="celebracion">Celebración de vida</option>
-                    <option value="sin">Prefiero algo muy simple, sin ceremonia</option>
+                    <option value="catolica">Ceremonia católica</option>
+                    <option value="evangelica">Ceremonia evangélica</option>
+                    <option value="otra-religion">Otra religión</option>
+                    <option value="laica">Ceremonia laica</option>
+                    <option value="sin-ceremonia">Sin ceremonia</option>
                   </select>
                 </div>
 
                 <div>
-                  <Label htmlFor="lugarCeremonia">Lugar especial (opcional)</Label>
+                  <Label htmlFor="lugarCeremonia">Lugar de la ceremonia</Label>
                   <Input
                     id="lugarCeremonia"
                     name="lugarCeremonia"
                     value={formData.lugarCeremonia}
                     onChange={handleChange}
-                    placeholder="Ej: En el jardín de mi casa, junto al mar, en la iglesia..."
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="atmosfera">¿Qué atmósfera te gustaría?</Label>
-                  <Textarea
-                    id="atmosfera"
-                    name="atmosfera"
-                    value={formData.atmosfera}
-                    onChange={handleChange}
-                    placeholder="Describe cómo te imaginas el ambiente: solemne, alegre, reflexivo, con naturaleza..."
-                    rows={3}
+                    placeholder="Ej: Iglesia San Francisco, capilla del cementerio..."
                     className="mt-2"
                   />
                 </div>
               </div>
             </Card>
 
-            {/* Música y Sonidos */}
-            <Card className="p-8 border-2">
+            {/* Servicios Adicionales */}
+            <Card className="p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Music className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Flower2 className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold">Música y Sonidos</h2>
-                  <p className="text-sm text-muted-foreground">Las canciones que te acompañaron</p>
+                  <h2 className="text-xl font-bold">Servicios Adicionales</h2>
+                  <p className="text-sm text-muted-foreground">Opciones complementarias</p>
                 </div>
               </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="cancionesFavoritas">Canciones que me representan</Label>
-                  <Textarea
-                    id="cancionesFavoritas"
-                    name="cancionesFavoritas"
-                    value={formData.cancionesFavoritas}
-                    onChange={handleChange}
-                    placeholder='Ej: "Imagine" de John Lennon, "What a Wonderful World" de Louis Armstrong...'
-                    rows={3}
-                    className="mt-2"
-                  />
-                </div>
 
+              <div className="space-y-4">
                 <div>
-                  <Label htmlFor="musicaAmbiente">Ambiente musical</Label>
-                  <Input
-                    id="musicaAmbiente"
-                    name="musicaAmbiente"
-                    value={formData.musicaAmbiente}
-                    onChange={handleChange}
-                    placeholder="Ej: Música clásica suave, jazz, música de mi tierra..."
-                    className="mt-2"
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Flores y Colores */}
-            <Card className="p-8 border-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Flower2 className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Flores y Colores</h2>
-                  <p className="text-sm text-muted-foreground">Los colores y aromas que amas</p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="floresPreferidas">Mis flores preferidas</Label>
-                  <Input
-                    id="floresPreferidas"
-                    name="floresPreferidas"
-                    value={formData.floresPreferidas}
-                    onChange={handleChange}
-                    placeholder="Ej: Rosas blancas, girasoles, lirios..."
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="colores">Colores que me gustan</Label>
-                  <Input
-                    id="colores"
-                    name="colores"
-                    value={formData.colores}
-                    onChange={handleChange}
-                    placeholder="Ej: Colores pasteles, tonos tierra, mi color favorito es..."
-                    className="mt-2"
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Las Personas */}
-            <Card className="p-8 border-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Las Personas</h2>
-                  <p className="text-sm text-muted-foreground">Quiénes son importantes para ti</p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="personasInvitar">Personas especiales que me gustaría que estuvieran</Label>
-                  <Textarea
-                    id="personasInvitar"
-                    name="personasInvitar"
-                    value={formData.personasInvitar}
-                    onChange={handleChange}
-                    placeholder="Puedes mencionar personas específicas, grupos o simplemente 'mi familia cercana'..."
-                    rows={3}
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="personaHablar">¿Hay alguien especial que quisieras que hable o comparta algo?</Label>
-                  <Input
-                    id="personaHablar"
-                    name="personaHablar"
-                    value={formData.personaHablar}
-                    onChange={handleChange}
-                    placeholder="Ej: Mi mejor amigo, mi hermana..."
-                    className="mt-2"
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Mi Legado */}
-            <Card className="p-8 border-2 bg-primary/5">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Mi Legado</h2>
-                  <p className="text-sm text-muted-foreground">Lo que quiero compartir y ser recordado</p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="mensajeDespedida">Un mensaje de despedida</Label>
-                  <Textarea
-                    id="mensajeDespedida"
-                    name="mensajeDespedida"
-                    value={formData.mensajeDespedida}
-                    onChange={handleChange}
-                    placeholder="Unas palabras para quienes amo..."
-                    rows={4}
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="valoresCompartir">Valores que quiero transmitir</Label>
-                  <Textarea
-                    id="valoresCompartir"
-                    name="valoresCompartir"
-                    value={formData.valoresCompartir}
-                    onChange={handleChange}
-                    placeholder="Ej: La importancia de la familia, la bondad, vivir con pasión..."
-                    rows={3}
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="historiaContar">Una historia o anécdota que me representa</Label>
-                  <Textarea
-                    id="historiaContar"
-                    name="historiaContar"
-                    value={formData.historiaContar}
-                    onChange={handleChange}
-                    placeholder="Un momento especial de mi vida que refleja quién fui..."
-                    rows={4}
-                    className="mt-2"
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Recuerdos */}
-            <Card className="p-8 border-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Camera className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Recuerdos Visuales</h2>
-                  <p className="text-sm text-muted-foreground">Las imágenes que cuentan tu historia</p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="fotosCompartir">Fotos que me gustaría compartir</Label>
-                  <Textarea
-                    id="fotosCompartir"
-                    name="fotosCompartir"
-                    value={formData.fotosCompartir}
-                    onChange={handleChange}
-                    placeholder="Describe qué tipo de fotos: con mi familia, viajando, en momentos felices..."
-                    rows={3}
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="objetosSignificativos">Objetos que tienen significado especial</Label>
-                  <Input
-                    id="objetosSignificativos"
-                    name="objetosSignificativos"
-                    value={formData.objetosSignificativos}
-                    onChange={handleChange}
-                    placeholder="Ej: Un libro, una pintura, mi guitarra..."
-                    className="mt-2"
-                  />
-                </div>
-              </div>
-            </Card>
-
-            {/* Preferencia Final */}
-            <Card className="p-8 border-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Descanso Final</h2>
-                  <p className="text-sm text-muted-foreground">Tus preferencias sobre el destino final</p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="preferenciaFinal">Mi preferencia</Label>
+                  <Label htmlFor="velorio">Velorio</Label>
                   <select
-                    id="preferenciaFinal"
-                    name="preferenciaFinal"
-                    value={formData.preferenciaFinal}
+                    id="velorio"
+                    name="velorio"
+                    value={formData.velorio}
                     onChange={handleChange}
                     className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
                   >
                     <option value="">Seleccionar...</option>
-                    <option value="entierro">Entierro tradicional</option>
-                    <option value="cremacion">Cremación</option>
-                    <option value="cenizas-naturaleza">Cenizas esparcidas en la naturaleza</option>
-                    <option value="cenizas-mar">Cenizas al mar</option>
-                    <option value="mausoleo">Mausoleo o cripta familiar</option>
+                    <option value="sala-funeraria">En sala de funeraria</option>
+                    <option value="hogar">En el hogar</option>
+                    <option value="sin-velorio">Sin velorio</option>
                   </select>
                 </div>
 
                 <div>
-                  <Label htmlFor="lugarDescanso">Lugar especial (si lo hay)</Label>
+                  <Label htmlFor="flores">Preferencia de flores</Label>
                   <Input
-                    id="lugarDescanso"
-                    name="lugarDescanso"
-                    value={formData.lugarDescanso}
+                    id="flores"
+                    name="flores"
+                    value={formData.flores}
                     onChange={handleChange}
-                    placeholder="Ej: Junto a mis padres, en el cementerio de mi pueblo, en las montañas..."
+                    placeholder="Ej: Rosas blancas, o sin flores"
                     className="mt-2"
                   />
+                </div>
+
+                <div>
+                  <Label htmlFor="musica">Música para la ceremonia</Label>
+                  <Input
+                    id="musica"
+                    name="musica"
+                    value={formData.musica}
+                    onChange={handleChange}
+                    placeholder="Ej: Música clásica, Ave María..."
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Presupuesto */}
+            <Card className="p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold">Presupuesto</h2>
+                  <p className="text-sm text-muted-foreground">Rango de presupuesto estimado</p>
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="presupuestoEstimado">Presupuesto aproximado</Label>
+                <select
+                  id="presupuestoEstimado"
+                  name="presupuestoEstimado"
+                  value={formData.presupuestoEstimado}
+                  onChange={handleChange}
+                  className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
+                >
+                  <option value="">Seleccionar...</option>
+                  <option value="500-1000">$500.000 - $1.000.000</option>
+                  <option value="1000-2000">$1.000.000 - $2.000.000</option>
+                  <option value="2000-3000">$2.000.000 - $3.000.000</option>
+                  <option value="3000+">Más de $3.000.000</option>
+                  <option value="flexible">Flexible</option>
+                </select>
+              </div>
+            </Card>
+
+            {/* Contacto Familiar */}
+            <Card className="p-6 bg-muted/30">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold">Contacto Familiar</h2>
+                  <p className="text-sm text-muted-foreground">Persona de contacto principal</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="nombreContacto">Nombre del contacto</Label>
+                  <Input
+                    id="nombreContacto"
+                    name="nombreContacto"
+                    value={formData.nombreContacto}
+                    onChange={handleChange}
+                    placeholder="Nombre completo"
+                    className="mt-2"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="telefonoContacto">Teléfono</Label>
+                    <Input
+                      id="telefonoContacto"
+                      name="telefonoContacto"
+                      type="tel"
+                      value={formData.telefonoContacto}
+                      onChange={handleChange}
+                      placeholder="+56 9 1234 5678"
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="emailContacto">Email</Label>
+                    <Input
+                      id="emailContacto"
+                      name="emailContacto"
+                      type="email"
+                      value={formData.emailContacto}
+                      onChange={handleChange}
+                      placeholder="email@ejemplo.com"
+                      className="mt-2"
+                    />
+                  </div>
                 </div>
               </div>
             </Card>
@@ -413,11 +491,10 @@ const Planificador = () => {
               </Button>
             </div>
 
-            {/* Mensaje Final */}
-            <Card className="p-6 bg-muted/30 border-primary/20 text-center">
-              <p className="text-sm text-muted-foreground">
-                Esta información es personal y privada. Puedes compartirla con tu familia cuando estés listo,
-                o simplemente guardarla como una guía para que en el futuro tus seres queridos conozcan tus deseos.
+            {/* Nota informativa */}
+            <Card className="p-4 bg-muted/30 border-primary/20">
+              <p className="text-sm text-muted-foreground text-center">
+                Esta planificación facilita a tu familia la toma de decisiones. Puedes actualizar esta información en cualquier momento.
               </p>
             </Card>
           </motion.div>

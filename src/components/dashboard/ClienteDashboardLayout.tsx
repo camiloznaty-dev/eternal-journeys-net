@@ -37,14 +37,15 @@ export function ClienteDashboardLayout({ children }: ClienteDashboardLayoutProps
         return;
       }
 
-      // Check if user is cliente type
+      // Check if user has cliente role
       const { data: roles } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", session.user.id)
-        .single();
+        .eq("user_id", session.user.id);
 
-      if (roles?.role !== "cliente") {
+      const hasClienteRole = roles?.some(r => r.role === "cliente");
+      
+      if (!hasClienteRole) {
         navigate("/");
         return;
       }

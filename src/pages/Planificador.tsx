@@ -77,28 +77,27 @@ const Planificador = () => {
         backgroundImage={heroImage}
       />
       
-      <main className="flex-1 py-12 bg-muted/30">
+      <main className="flex-1 py-6 sm:py-8 md:py-12 bg-muted/30">
         <div className="container mx-auto px-4 max-w-4xl">
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="space-y-6"
-          >
+            className="space-y-4 sm:space-y-6">
             {/* Información Personal */}
-            <Card className="p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-primary" />
+            <Card className="p-4 sm:p-6">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold">Información Personal</h2>
-                  <p className="text-sm text-muted-foreground">Datos básicos del planificador</p>
+                  <h2 className="text-lg sm:text-xl font-bold">Información Personal</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Datos básicos del planificador</p>
                 </div>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <Label htmlFor="nombreCompleto">Nombre Completo</Label>
                   <Input

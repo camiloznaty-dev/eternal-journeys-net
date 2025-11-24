@@ -50,21 +50,21 @@ const Asistencia = () => {
         backgroundImage={heroImage}
       />
       
-      <main className="flex-1 py-12 bg-muted/30">
+      <main className="flex-1 py-6 sm:py-8 md:py-12 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {!isLoading && (!memoriales || memoriales.length === 0) && (
-              <Card className="mb-8 border-primary/20">
+              <Card className="mb-6 sm:mb-8 border-primary/20">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Heart className="h-6 w-6 text-primary" />
+                  <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                    <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-primary flex-shrink-0" />
                     Bienvenido a tu espacio de sanación
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">
                     Aquí podrás crear memoriales digitales para tus seres queridos y llevar un diario guiado de tu proceso de duelo
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="grid md:grid-cols-2 gap-4">
+                <CardContent className="grid sm:grid-cols-2 gap-4">
                   <Card>
                     <CardHeader>
                       <Heart className="h-8 w-8 text-primary mb-2" />
@@ -98,9 +98,9 @@ const Asistencia = () => {
               </Card>
             )}
 
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-semibold">Mis Memoriales</h2>
-              <Button onClick={handleCreateMemorial} disabled={isCreating}>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl font-semibold">Mis Memoriales</h2>
+              <Button onClick={handleCreateMemorial} disabled={isCreating} size="sm" className="w-full sm:w-auto">
                 <Plus className="mr-2 h-4 w-4" />
                 Crear Memorial
               </Button>
@@ -118,7 +118,7 @@ const Asistencia = () => {
                 ))}
               </div>
             ) : memoriales && memoriales.length > 0 ? (
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 {memoriales.map((memorial) => (
                   <Card
                     key={memorial.id}

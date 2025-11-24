@@ -240,23 +240,6 @@ export default function ObituarioDetalle() {
                   </div>
                 </div>
               </div>
-
-              {/* Galería */}
-              {obituario.gallery && obituario.gallery.length > 0 && (
-                <div className="px-6 pb-6">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {obituario.gallery.map((img: string, idx: number) => (
-                      <div key={idx} className="h-48 overflow-hidden rounded-lg">
-                        <img
-                          src={img}
-                          alt={`Galería ${idx + 1}`}
-                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </CardContent>
           </Card>
 

@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Loader2, Upload } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { Upload, X, ArrowLeft } from "lucide-react";
 
 interface ObituarioDialogProps {
   open: boolean;
@@ -19,31 +19,42 @@ interface ObituarioDialogProps {
 
 export function ObituarioDialog({ open, onOpenChange, obituario, onSuccess }: ObituarioDialogProps) {
   const [loading, setLoading] = useState(false);
-  const [casos, setCasos] = useState<any[]>([]);
-  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
-    birth_date: "",
+    birth_year: "",
     death_date: "",
     biography: "",
-    photo_url: "",
-    caso_id: "",
-    is_premium: false
+    lugar_velacion: "",
+    direccion_velacion: "",
+    fecha_velacion: "",
+    fecha_funeral: "",
+    cementerio: "",
+    notas_adicionales: "",
+    color_fondo: "verde",
+    publicar_inmediatamente: true,
   });
 
   useEffect(() => {
     if (open) {
-      fetchCasos();
       if (obituario) {
+        const birthYear = obituario.birth_date ? new Date(obituario.birth_date).getFullYear().toString() : "";
         setFormData({
           name: obituario.name || "",
-          birth_date: obituario.birth_date || "",
+          birth_year: birthYear,
           death_date: obituario.death_date || "",
           biography: obituario.biography || "",
-          photo_url: obituario.photo_url || "",
-          caso_id: obituario.caso_id || "",
-          is_premium: obituario.is_premium || false
+          lugar_velacion: "",
+          direccion_velacion: "",
+          fecha_velacion: "",
+          fecha_funeral: "",
+          cementerio: "",
+          notas_adicionales: "",
+          color_fondo: "verde",
+          publicar_inmediatamente: obituario.is_premium || false,
         });
+        setPhotoPreview(obituario.photo_url || null);
       } else {
         resetForm();
       }
@@ -53,66 +64,36 @@ export function ObituarioDialog({ open, onOpenChange, obituario, onSuccess }: Ob
   const resetForm = () => {
     setFormData({
       name: "",
-      birth_date: "",
+      birth_year: "",
       death_date: "",
       biography: "",
-      photo_url: "",
-      caso_id: "",
-      is_premium: false
+      lugar_velacion: "",
+      direccion_velacion: "",
+      fecha_velacion: "",
+      fecha_funeral: "",
+      cementerio: "",
+      notas_adicionales: "",
+      color_fondo: "verde",
+      publicar_inmediatamente: true,
     });
+    setPhotoFile(null);
+    setPhotoPreview(null);
   };
 
-  const fetchCasos = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
-
-      const { data: empleado } = await supabase
-        .from("empleados")
-        .select("funeraria_id")
-        .eq("user_id", session.user.id)
-        .single();
-
-      if (!empleado) return;
-
-      const { data } = await supabase
-        .from("casos_servicios")
-        .select("id, difunto_nombre, difunto_apellido")
-        .eq("funeraria_id", empleado.funeraria_id)
-        .order("created_at", { ascending: false });
-
-      setCasos(data || []);
-    } catch (error) {
-      console.error("Error fetching casos:", error);
-    }
-  };
-
-  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploadingPhoto(true);
-    try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `obituarios/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('funeraria-images')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('funeraria-images')
-        .getPublicUrl(filePath);
-
-      setFormData({ ...formData, photo_url: publicUrl });
-      toast.success("Foto cargada exitosamente");
-    } catch (error: any) {
-      toast.error("Error al cargar la foto");
-    } finally {
-      setUploadingPhoto(false);
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("La imagen debe ser menor a 5MB");
+        return;
+      }
+      
+      setPhotoFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPhotoPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -122,20 +103,80 @@ export function ObituarioDialog({ open, onOpenChange, obituario, onSuccess }: Ob
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) throw new Error("No session");
+      if (!session) throw new Error("No hay sesión");
 
       const { data: empleado } = await supabase
         .from("empleados")
         .select("funeraria_id")
         .eq("user_id", session.user.id)
+        .eq("activo", true)
         .single();
 
-      if (!empleado) throw new Error("No empleado found");
+      if (!empleado) throw new Error("No se encontró la funeraria");
+
+      let photoUrl = obituario?.photo_url || null;
+
+      // Subir foto si hay una nueva
+      if (photoFile) {
+        const fileExt = photoFile.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from('obituarios')
+          .upload(fileName, photoFile);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('obituarios')
+          .getPublicUrl(fileName);
+        
+        photoUrl = publicUrl;
+      }
+
+      // Construir biografía completa
+      let biografiaCompleta = formData.biography || '';
+      
+      if (formData.lugar_velacion || formData.direccion_velacion || formData.fecha_velacion || 
+          formData.fecha_funeral || formData.cementerio || formData.notas_adicionales) {
+        biografiaCompleta += '\n\n';
+        
+        if (formData.lugar_velacion) {
+          biografiaCompleta += `Velación: ${formData.lugar_velacion}`;
+          if (formData.direccion_velacion) {
+            biografiaCompleta += `, ${formData.direccion_velacion}`;
+          }
+          if (formData.fecha_velacion) {
+            const fechaVel = new Date(formData.fecha_velacion);
+            biografiaCompleta += `. ${fechaVel.toLocaleString('es-CL')}`;
+          }
+          biografiaCompleta += '\n';
+        }
+        
+        if (formData.cementerio) {
+          biografiaCompleta += `Cementerio: ${formData.cementerio}`;
+          if (formData.fecha_funeral) {
+            const fechaFun = new Date(formData.fecha_funeral);
+            biografiaCompleta += `. ${fechaFun.toLocaleString('es-CL')}`;
+          }
+          biografiaCompleta += '\n';
+        }
+        
+        if (formData.notas_adicionales) {
+          biografiaCompleta += `\n${formData.notas_adicionales}`;
+        }
+      }
+
+      const birthDate = `${formData.birth_year}-01-01`;
 
       const obituarioData = {
-        ...formData,
         funeraria_id: empleado.funeraria_id,
-        caso_id: formData.caso_id || null
+        name: formData.name,
+        birth_date: birthDate,
+        death_date: formData.death_date,
+        biography: biografiaCompleta,
+        photo_url: photoUrl,
+        is_premium: formData.publicar_inmediatamente,
       };
 
       if (obituario) {
@@ -145,19 +186,21 @@ export function ObituarioDialog({ open, onOpenChange, obituario, onSuccess }: Ob
           .eq("id", obituario.id);
 
         if (error) throw error;
-        toast.success("Obituario actualizado exitosamente");
+        toast.success("Obituario actualizado");
       } else {
         const { error } = await supabase
           .from("obituarios")
           .insert([obituarioData]);
 
         if (error) throw error;
-        toast.success("Obituario creado exitosamente");
+        toast.success("Obituario creado");
       }
 
       onSuccess();
       onOpenChange(false);
+      resetForm();
     } catch (error: any) {
+      console.error("Error:", error);
       toast.error(error.message || "Error al guardar el obituario");
     } finally {
       setLoading(false);
@@ -166,117 +209,243 @@ export function ObituarioDialog({ open, onOpenChange, obituario, onSuccess }: Ob
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{obituario ? "Editar Obituario" : "Nuevo Obituario"}</DialogTitle>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onOpenChange(false)}
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Volver
+            </Button>
+            <DialogTitle>{obituario ? "Editar Obituario" : "Nuevo Obituario"}</DialogTitle>
+          </div>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="name">Nombre Completo *</Label>
-            <Input
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-            />
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Información básica */}
+          <div className="space-y-4">
             <div>
-              <Label htmlFor="birth_date">Fecha de Nacimiento *</Label>
+              <Label htmlFor="name">Nombre completo *</Label>
               <Input
-                id="birth_date"
-                type="date"
-                value={formData.birth_date}
-                onChange={(e) => setFormData({ ...formData, birth_date: e.target.value })}
+                id="name"
+                placeholder="Nombre completo del fallecido"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
               />
             </div>
-            <div>
-              <Label htmlFor="death_date">Fecha de Fallecimiento *</Label>
-              <Input
-                id="death_date"
-                type="date"
-                value={formData.death_date}
-                onChange={(e) => setFormData({ ...formData, death_date: e.target.value })}
-                required
-              />
-            </div>
-          </div>
 
-          <div>
-            <Label htmlFor="photo">Fotografía</Label>
-            <div className="flex items-center gap-4">
-              {formData.photo_url && (
-                <img
-                  src={formData.photo_url}
-                  alt="Preview"
-                  className="w-24 h-24 object-cover rounded"
-                />
-              )}
-              <div className="flex-1">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="birth_year">Año de nacimiento *</Label>
                 <Input
-                  id="photo"
-                  type="file"
-                  accept="image/*"
-                  onChange={handlePhotoUpload}
-                  disabled={uploadingPhoto}
+                  id="birth_year"
+                  type="number"
+                  placeholder="1950"
+                  min="1900"
+                  max={new Date().getFullYear()}
+                  value={formData.birth_year}
+                  onChange={(e) => setFormData({ ...formData, birth_year: e.target.value })}
+                  required
                 />
-                {uploadingPhoto && (
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Cargando foto...
-                  </p>
-                )}
+              </div>
+
+              <div>
+                <Label htmlFor="death_date">Fecha de fallecimiento *</Label>
+                <Input
+                  id="death_date"
+                  type="date"
+                  max={new Date().toISOString().split('T')[0]}
+                  value={formData.death_date}
+                  onChange={(e) => setFormData({ ...formData, death_date: e.target.value })}
+                  required
+                />
               </div>
             </div>
+
+            {/* Foto */}
+            <div className="space-y-2">
+              <Label>Foto del fallecido</Label>
+              <div className="flex items-start gap-4">
+                {photoPreview ? (
+                  <div className="relative w-32 h-32 rounded-lg overflow-hidden border">
+                    <img
+                      src={photoPreview}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      className="absolute top-1 right-1 h-6 w-6"
+                      onClick={() => {
+                        setPhotoFile(null);
+                        setPhotoPreview(null);
+                      }}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50">
+                    <Upload className="h-6 w-6 text-muted-foreground mb-1" />
+                    <span className="text-xs text-muted-foreground text-center px-2">
+                      Seleccionar archivo
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="hidden"
+                      onChange={handlePhotoChange}
+                    />
+                  </label>
+                )}
+                <p className="text-xs text-muted-foreground mt-2">
+                  Ningún archivo seleccionado<br />
+                  Formatos: JPG, PNG, WEBP. Máximo 5MB
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="biography">Biografía</Label>
+              <Textarea
+                id="biography"
+                placeholder="Escribe una breve biografía..."
+                rows={4}
+                value={formData.biography}
+                onChange={(e) => setFormData({ ...formData, biography: e.target.value })}
+              />
+            </div>
           </div>
 
-          <div>
-            <Label htmlFor="biography">Biografía</Label>
-            <Textarea
-              id="biography"
-              value={formData.biography}
-              onChange={(e) => setFormData({ ...formData, biography: e.target.value })}
-              placeholder="Escribe la biografía del difunto"
-              rows={5}
-            />
+          {/* Información del Funeral */}
+          <div className="space-y-4 pt-4 border-t">
+            <h3 className="font-semibold text-lg">Información del Funeral</h3>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="lugar_velacion">Lugar de velación</Label>
+                <Input
+                  id="lugar_velacion"
+                  placeholder="Nombre del lugar"
+                  value={formData.lugar_velacion}
+                  onChange={(e) => setFormData({ ...formData, lugar_velacion: e.target.value })}
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="direccion_velacion">Dirección de velación</Label>
+                <Input
+                  id="direccion_velacion"
+                  placeholder="Dirección completa"
+                  value={formData.direccion_velacion}
+                  onChange={(e) => setFormData({ ...formData, direccion_velacion: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="fecha_velacion">Fecha y hora de velación</Label>
+                <Input
+                  id="fecha_velacion"
+                  type="datetime-local"
+                  value={formData.fecha_velacion}
+                  onChange={(e) => setFormData({ ...formData, fecha_velacion: e.target.value })}
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="fecha_funeral">Fecha y hora del funeral</Label>
+                <Input
+                  id="fecha_funeral"
+                  type="datetime-local"
+                  value={formData.fecha_funeral}
+                  onChange={(e) => setFormData({ ...formData, fecha_funeral: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="cementerio">Cementerio</Label>
+              <Input
+                id="cementerio"
+                placeholder="Nombre del cementerio"
+                value={formData.cementerio}
+                onChange={(e) => setFormData({ ...formData, cementerio: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="notas_adicionales">Notas adicionales</Label>
+              <Textarea
+                id="notas_adicionales"
+                placeholder="Ej: El cortejo saldrá del hospital a las 15:00"
+                rows={2}
+                value={formData.notas_adicionales}
+                onChange={(e) => setFormData({ ...formData, notas_adicionales: e.target.value })}
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Información adicional como detalles del cortejo, ubicación de salida, etc.
+              </p>
+            </div>
           </div>
 
-          <div>
-            <Label htmlFor="caso_id">Caso Relacionado</Label>
-            <Select
-              value={formData.caso_id}
-              onValueChange={(value) => setFormData({ ...formData, caso_id: value })}
+          {/* Estilo del obituario */}
+          <div className="space-y-4 pt-4 border-t">
+            <h3 className="font-semibold text-lg">Estilo del obituario</h3>
+            
+            <div>
+              <Label>Color de fondo</Label>
+              <RadioGroup
+                value={formData.color_fondo}
+                onValueChange={(value) => setFormData({ ...formData, color_fondo: value })}
+                className="flex gap-4 mt-2"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="verde" id="verde" />
+                  <Label htmlFor="verde" className="cursor-pointer">Verde (Hombre)</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="rosado" id="rosado" />
+                  <Label htmlFor="rosado" className="cursor-pointer">Rosado (Mujer)</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="publicar"
+                checked={formData.publicar_inmediatamente}
+                onCheckedChange={(checked) => 
+                  setFormData({ ...formData, publicar_inmediatamente: checked as boolean })
+                }
+              />
+              <Label htmlFor="publicar" className="cursor-pointer">
+                Publicar inmediatamente
+              </Label>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-2 pt-4 border-t">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Seleccionar caso" />
-              </SelectTrigger>
-              <SelectContent>
-                {casos.map((caso) => (
-                  <SelectItem key={caso.id} value={caso.id}>
-                    {caso.difunto_nombre} {caso.difunto_apellido}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="is_premium"
-              checked={formData.is_premium}
-              onCheckedChange={(checked) => setFormData({ ...formData, is_premium: checked })}
-            />
-            <Label htmlFor="is_premium">Obituario Premium (destacado)</Label>
-          </div>
-
-          <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {obituario ? "Actualizar" : "Crear"} Obituario
+            <Button 
+              type="submit"
+              disabled={loading}
+              className="bg-accent hover:bg-accent/90"
+            >
+              {loading ? "Guardando..." : obituario ? "Actualizar" : "Crear obituario"}
             </Button>
           </div>
         </form>

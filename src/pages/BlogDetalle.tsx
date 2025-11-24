@@ -18,7 +18,7 @@ export default function BlogDetalle() {
       autor: "Equipo Sirius",
       fecha: "15 de Marzo, 2024",
       tiempo: "5 min",
-      imagen: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80",
+      imagen: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80",
       contenido: `
         <p>Planificar un servicio funerario con anticipación puede parecer una tarea difícil o incómoda, pero es una de las decisiones más consideradas que puedes tomar por tus seres queridos.</p>
         
@@ -48,7 +48,7 @@ export default function BlogDetalle() {
       autor: "Equipo Sirius",
       fecha: "10 de Marzo, 2024",
       tiempo: "7 min",
-      imagen: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1200&q=80",
+      imagen: "https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?w=1200&q=80",
       contenido: `
         <p>Una de las decisiones más importantes al planificar un servicio funerario es elegir entre cremación y sepultura tradicional. Ambas opciones tienen sus propias ventajas y consideraciones.</p>
         
@@ -99,7 +99,7 @@ export default function BlogDetalle() {
       autor: "Equipo Sirius",
       fecha: "5 de Marzo, 2024",
       tiempo: "4 min",
-      imagen: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80",
+      imagen: "https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=1200&q=80",
       contenido: `
         <p>Los obituarios son mucho más que simples anuncios de fallecimiento. Son tributos que celebran la vida de una persona y cumplen funciones importantes tanto para la familia como para la comunidad.</p>
         
@@ -158,7 +158,7 @@ export default function BlogDetalle() {
       autor: "Equipo Sirius",
       fecha: "1 de Marzo, 2024",
       tiempo: "6 min",
-      imagen: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&q=80",
+      imagen: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1200&q=80",
       contenido: `
         <p>Comparar precios de servicios funerarios puede parecer abrumador, especialmente durante momentos de duelo. Esta guía te ayudará a entender los costos y tomar decisiones informadas.</p>
         
@@ -251,7 +251,7 @@ export default function BlogDetalle() {
       autor: "Equipo Sirius",
       fecha: "25 de Febrero, 2024",
       tiempo: "8 min",
-      imagen: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80",
+      imagen: "https://images.unsplash.com/photo-1495653797063-114787b77b23?w=1200&q=80",
       contenido: `
         <p>La industria funeraria está experimentando una transformación significativa. Las nuevas generaciones están buscando alternativas que reflejen mejor sus valores y creencias personales.</p>
         
@@ -367,7 +367,7 @@ export default function BlogDetalle() {
       autor: "Equipo Sirius",
       fecha: "20 de Febrero, 2024",
       tiempo: "10 min",
-      imagen: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80",
+      imagen: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80",
       contenido: `
         <p>Organizar un servicio funerario requiere una cantidad considerable de documentación. Esta guía te ayudará a entender qué documentos necesitas y cómo obtenerlos.</p>
         

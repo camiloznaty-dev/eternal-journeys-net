@@ -15,7 +15,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "15 de Marzo, 2024",
       tiempo: "5 min",
-      imagen: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80"
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "10 de Marzo, 2024",
       tiempo: "7 min",
-      imagen: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?w=800&q=80"
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "5 de Marzo, 2024",
       tiempo: "4 min",
-      imagen: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=800&q=80"
     },
     {
       id: 4,
@@ -45,7 +45,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "1 de Marzo, 2024",
       tiempo: "6 min",
-      imagen: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=800&q=80"
     },
     {
       id: 5,
@@ -55,7 +55,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "25 de Febrero, 2024",
       tiempo: "8 min",
-      imagen: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1495653797063-114787b77b23?w=800&q=80"
     },
     {
       id: 6,
@@ -65,7 +65,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "20 de Febrero, 2024",
       tiempo: "10 min",
-      imagen: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"
     }
   ];
 

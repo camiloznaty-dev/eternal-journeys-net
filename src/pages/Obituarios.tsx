@@ -20,6 +20,7 @@ const Obituarios = () => {
       const { data, error } = await supabase
         .from("obituarios")
         .select("*, funerarias(name)")
+        .eq("is_premium", false)
         .order("death_date", { ascending: false });
       
       if (error) throw error;

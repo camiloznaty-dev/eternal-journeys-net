@@ -594,7 +594,7 @@ export default function BlogDetalle() {
       
       <main className="flex-1">
         {/* Hero Image */}
-        <div className="h-[400px] relative overflow-hidden">
+        <div className="h-48 sm:h-64 md:h-80 lg:h-[400px] relative overflow-hidden">
           <img
             src={post.imagen}
             alt={post.title}
@@ -604,39 +604,41 @@ export default function BlogDetalle() {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 -mt-32 relative z-10">
+        <div className="container mx-auto px-4 -mt-16 sm:-mt-24 md:-mt-32 relative z-10">
           <div className="max-w-5xl mx-auto">
             <Card className="shadow-elegant bg-background/95 backdrop-blur">
-              <CardContent className="p-8 md:p-16 lg:p-20">
+              <CardContent className="p-4 sm:p-6 md:p-8 lg:p-16 xl:p-20">
                 {/* Back button */}
-                <Button variant="ghost" size="sm" className="mb-6" asChild>
+                <Button variant="ghost" size="sm" className="mb-4 sm:mb-6" asChild>
                   <Link to="/blog">
                     <ArrowLeft className="mr-2 h-4 w-4" />
-                    Volver al Blog
+                    <span className="hidden sm:inline">Volver al Blog</span>
+                    <span className="sm:hidden">Volver</span>
                   </Link>
                 </Button>
 
                 {/* Categoria */}
-                <Badge className="mb-4">{post.categoria}</Badge>
+                <Badge className="mb-3 sm:mb-4 text-xs sm:text-sm">{post.categoria}</Badge>
 
                 {/* Title */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold mb-4 sm:mb-6 md:mb-8 leading-tight">
                   {post.title}
                 </h1>
 
                 {/* Meta information */}
-                <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-12 pb-10 border-b-2 border-border/50">
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4" />
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-muted-foreground mb-6 sm:mb-8 md:mb-12 pb-6 sm:pb-8 md:pb-10 border-b-2 border-border/50">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <User className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span className="font-medium">{post.autor}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    <span>{post.fecha}</span>
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="hidden sm:inline">{post.fecha}</span>
+                    <span className="sm:hidden">{post.fecha.split(',')[0]}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    <span>{post.tiempo} de lectura</span>
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span>{post.tiempo}</span>
                   </div>
                   <Button
                     variant="ghost"
@@ -644,43 +646,45 @@ export default function BlogDetalle() {
                     onClick={handleShare}
                     className="ml-auto hover:bg-primary/10"
                   >
-                    <Share2 className="w-4 h-4 mr-2" />
-                    Compartir
+                    <Share2 className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                    <span className="hidden sm:inline">Compartir</span>
+                    <span className="sm:hidden">📤</span>
                   </Button>
                 </div>
 
                 {/* Content */}
                 <article 
-                  className="prose prose-lg max-w-none
+                  className="prose prose-sm sm:prose-base lg:prose-lg max-w-none
                     prose-headings:font-display prose-headings:font-bold prose-headings:text-foreground
-                    prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:pb-3 prose-h2:border-b prose-h2:border-border
-                    prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6 prose-h3:text-primary
-                    prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-4 prose-h4:font-semibold
-                    prose-p:text-foreground prose-p:mb-8 prose-p:leading-[1.8] prose-p:text-[17px]
-                    prose-ul:my-8 prose-ul:space-y-3 prose-ul:text-foreground
-                    prose-ol:my-8 prose-ol:space-y-3 prose-ol:text-foreground
-                    prose-li:leading-[1.7] prose-li:text-[17px] prose-li:pl-2
+                    prose-h2:text-xl sm:prose-h2:text-2xl lg:prose-h2:text-3xl prose-h2:mt-8 sm:prose-h2:mt-12 lg:prose-h2:mt-16 prose-h2:mb-4 sm:prose-h2:mb-6 lg:prose-h2:mb-8 prose-h2:pb-2 sm:prose-h2:pb-3 prose-h2:border-b prose-h2:border-border
+                    prose-h3:text-lg sm:prose-h3:text-xl lg:prose-h3:text-2xl prose-h3:mt-6 sm:prose-h3:mt-8 lg:prose-h3:mt-12 prose-h3:mb-3 sm:prose-h3:mb-4 lg:prose-h3:mb-6 prose-h3:text-primary
+                    prose-h4:text-base sm:prose-h4:text-lg lg:prose-h4:text-xl prose-h4:mt-4 sm:prose-h4:mt-6 lg:prose-h4:mt-8 prose-h4:mb-3 sm:prose-h4:mb-4 prose-h4:font-semibold
+                    prose-p:text-foreground prose-p:mb-4 sm:prose-p:mb-6 lg:prose-p:mb-8 prose-p:leading-[1.7] sm:prose-p:leading-[1.8] prose-p:text-sm sm:prose-p:text-base lg:prose-p:text-[17px]
+                    prose-ul:my-4 sm:prose-ul:my-6 lg:prose-ul:my-8 prose-ul:space-y-2 sm:prose-ul:space-y-3 prose-ul:text-foreground
+                    prose-ol:my-4 sm:prose-ol:my-6 lg:prose-ol:my-8 prose-ol:space-y-2 sm:prose-ol:space-y-3 prose-ol:text-foreground
+                    prose-li:leading-[1.6] sm:prose-li:leading-[1.7] prose-li:text-sm sm:prose-li:text-base lg:prose-li:text-[17px] prose-li:pl-1 sm:prose-li:pl-2
                     prose-strong:text-foreground prose-strong:font-semibold prose-strong:text-primary/90
                     prose-a:text-primary prose-a:underline prose-a:decoration-primary/30 hover:prose-a:decoration-primary
                     prose-em:text-muted-foreground prose-em:italic
-                    prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:my-8
-                    [&>p:first-of-type]:text-[19px] [&>p:first-of-type]:leading-[1.9] [&>p:first-of-type]:font-normal [&>p:first-of-type]:text-muted-foreground
+                    prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 sm:prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:my-4 sm:prose-blockquote:my-6 lg:prose-blockquote:my-8
+                    [&>p:first-of-type]:text-base sm:[&>p:first-of-type]:text-lg lg:[&>p:first-of-type]:text-[19px] [&>p:first-of-type]:leading-[1.8] sm:[&>p:first-of-type]:leading-[1.9] [&>p:first-of-type]:font-normal [&>p:first-of-type]:text-muted-foreground
                     dark:prose-invert"
                   dangerouslySetInnerHTML={{ __html: post.contenido }}
                 />
 
                 {/* Share section */}
-                <div className="mt-16 pt-10 border-t-2 border-border/50">
+                <div className="mt-8 sm:mt-12 lg:mt-16 pt-6 sm:pt-8 lg:pt-10 border-t-2 border-border/50">
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
-                      <p className="text-lg font-semibold mb-2">¿Te resultó útil este artículo?</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-base sm:text-lg font-semibold mb-2">¿Te resultó útil este artículo?</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         Compártelo con quienes puedan necesitar esta información
                       </p>
                     </div>
-                    <Button onClick={handleShare} size="lg" className="gap-2">
+                    <Button onClick={handleShare} size="sm" className="gap-2 w-full sm:w-auto">
                       <Share2 className="w-4 h-4" />
-                      Compartir artículo
+                      <span className="hidden sm:inline">Compartir artículo</span>
+                      <span className="sm:hidden">Compartir</span>
                     </Button>
                   </div>
                 </div>
@@ -688,9 +692,9 @@ export default function BlogDetalle() {
             </Card>
 
             {/* Related posts */}
-            <div className="mt-16 mb-16">
-              <h2 className="text-3xl font-display font-bold mb-8">Artículos relacionados</h2>
-              <div className="grid md:grid-cols-2 gap-6">
+            <div className="mt-8 sm:mt-12 lg:mt-16 mb-8 sm:mb-12 lg:mb-16">
+              <h2 className="text-2xl sm:text-3xl font-display font-bold mb-6 sm:mb-8">Artículos relacionados</h2>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                 {Object.entries(posts)
                   .filter(([postId]) => postId !== id)
                   .slice(0, 2)

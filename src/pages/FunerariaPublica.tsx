@@ -94,7 +94,7 @@ export default function FunerariaPublica() {
       <main className="flex-1">
         {/* Hero Section */}
         <section
-          className="relative h-96 bg-cover bg-center"
+          className="relative h-64 sm:h-80 md:h-96 bg-cover bg-center"
           style={{
             backgroundImage: funeraria.hero_image_url
               ? `url(${funeraria.hero_image_url})`
@@ -103,15 +103,15 @@ export default function FunerariaPublica() {
         >
           <div className="absolute inset-0 bg-black/50" />
           <div className="container relative mx-auto px-4 h-full flex flex-col justify-center text-white">
-            <h1 className="text-5xl font-bold mb-4">{funeraria.name}</h1>
-            <p className="text-xl max-w-2xl">{funeraria.description}</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">{funeraria.name}</h1>
+            <p className="text-base sm:text-lg md:text-xl max-w-2xl">{funeraria.description}</p>
           </div>
         </section>
 
         {/* Info Section */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               <Card>
                 <CardContent className="p-6 flex items-start gap-4">
                   <MapPin className="h-6 w-6 text-primary flex-shrink-0" />
@@ -170,15 +170,15 @@ export default function FunerariaPublica() {
         )}
 
         {/* Servicios */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">Nuestros Servicios</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center">Nuestros Servicios</h2>
             
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-12">
               {/* Planes Funerarios */}
               <div>
-                <h3 className="text-2xl font-semibold mb-6 text-accent">Planes Funerarios</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-accent">Planes Funerarios</h3>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {servicios?.filter(s => s.category === 'plan_funerario').map((servicio) => (
                     <Card key={servicio.id} className="overflow-hidden hover:shadow-lg transition-all">
                       {servicio.images && servicio.images[0] && (

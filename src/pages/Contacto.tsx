@@ -41,17 +41,17 @@ export default function Contacto() {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-1 py-16">
+      <main className="flex-1 py-8 sm:py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold mb-4">Contáctanos</h1>
-              <p className="text-xl text-muted-foreground">
+            <div className="text-center mb-8 sm:mb-12">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">Contáctanos</h1>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
                 Estamos aquí para ayudarte. Envíanos un mensaje y te responderemos a la brevedad.
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
               {/* Información de Contacto */}
               <div className="space-y-6">
                 <Card>
@@ -123,8 +123,8 @@ export default function Contacto() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-4">
+                     <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                      <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="nombre">Nombre Completo *</Label>
                           <Input
@@ -150,9 +150,9 @@ export default function Contacto() {
                         </div>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="telefono">Teléfono</Label>
+                          <Label htmlFor="telefono" className="text-sm">Teléfono</Label>
                           <Input
                             id="telefono"
                             name="telefono"

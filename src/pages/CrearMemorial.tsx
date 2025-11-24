@@ -60,12 +60,13 @@ const CrearMemorial = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 py-12">
+      <main className="flex-1 container mx-auto px-4 py-6 sm:py-12">
         <div className="max-w-2xl mx-auto">
           <Button
             variant="ghost"
             onClick={() => navigate("/asistencia")}
-            className="mb-6"
+            className="mb-4 sm:mb-6"
+            size="sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Volver
@@ -73,18 +74,18 @@ const CrearMemorial = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Heart className="h-6 w-6 text-primary" />
+              <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl">
+                <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-primary flex-shrink-0" />
                 Crear Memorial
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-xs sm:text-sm">
                 Comienza creando un espacio para honrar la memoria de tu ser querido
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div>
-                  <Label htmlFor="nombre">Nombre completo *</Label>
+                  <Label htmlFor="nombre" className="text-sm">Nombre completo *</Label>
                   <Input
                     id="nombre"
                     required
@@ -96,9 +97,9 @@ const CrearMemorial = () => {
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="nacimiento">Fecha de nacimiento</Label>
+                    <Label htmlFor="nacimiento" className="text-sm">Fecha de nacimiento</Label>
                     <Input
                       id="nacimiento"
                       type="date"

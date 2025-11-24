@@ -130,26 +130,30 @@ const DiarioDuelo = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 py-12">
+      <main className="flex-1 container mx-auto px-4 py-6 sm:py-12">
         <div className="max-w-4xl mx-auto">
           <Button
             variant="ghost"
             onClick={() => navigate(memorialId ? `/asistencia/memorial/${memorialId}` : "/mi-cuenta")}
-            className="mb-6"
+            className="mb-4 sm:mb-6"
+            size="sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            {memorialId ? "Volver al Memorial" : "Volver a Mi Cuenta"}
+            <span className="hidden sm:inline">{memorialId ? "Volver al Memorial" : "Volver a Mi Cuenta"}</span>
+            <span className="sm:hidden">Volver</span>
           </Button>
 
-          <Card className="mb-8">
+          <Card className="mb-6 sm:mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="h-6 w-6 text-primary" />
-                {memorial?.nombre_ser_querido 
-                  ? `Diario de Duelo - ${memorial.nombre_ser_querido}`
-                  : "Mi Diario de Duelo"}
+              <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl">
+                <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-primary flex-shrink-0" />
+                <span className="break-words">
+                  {memorial?.nombre_ser_querido 
+                    ? `Diario de Duelo - ${memorial.nombre_ser_querido}`
+                    : "Mi Diario de Duelo"}
+                </span>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-xs sm:text-sm">
                 {weeksSince > 0 && memorial
                   ? `Han pasado ${weeksSince} semana${weeksSince !== 1 ? 's' : ''} desde su partida`
                   : "Tu espacio personal para reflexionar sobre tu proceso de duelo"}
@@ -204,17 +208,17 @@ const DiarioDuelo = () => {
           )}
 
           {!isWriting ? (
-            <Button onClick={() => setIsWriting(true)} className="mb-8 w-full">
+            <Button onClick={() => setIsWriting(true)} className="mb-6 sm:mb-8 w-full" size="sm">
               <Plus className="mr-2 h-4 w-4" />
               Nueva Entrada Libre
             </Button>
           ) : (
-            <Card className="mb-8">
+            <Card className="mb-6 sm:mb-8">
               <CardHeader>
-                <CardTitle>Nueva Entrada</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Nueva Entrada</CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div>
                     <Label htmlFor="titulo">Título (opcional)</Label>
                     <Input

@@ -33,7 +33,7 @@ export default function Nosotros() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+        <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -41,8 +41,8 @@ export default function Nosotros() {
               transition={{ duration: 0.6 }}
               className="max-w-3xl mx-auto text-center"
             >
-              <h1 className="text-5xl font-bold mb-6">Sobre Sirius</h1>
-              <p className="text-xl text-muted-foreground">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">Sobre Sirius</h1>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
                 Transformando la manera en que las familias encuentran servicios funerarios dignos y accesibles en Latinoamérica.
               </p>
             </motion.div>
@@ -50,16 +50,16 @@ export default function Nosotros() {
         </section>
 
         {/* Misión y Visión */}
-        <section className="py-16 container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <section className="py-8 sm:py-12 md:py-16 container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-card border border-border rounded-lg p-8"
+              className="bg-card border border-border rounded-lg p-6 sm:p-8"
             >
-              <h2 className="text-3xl font-bold mb-4">Nuestra Misión</h2>
-              <p className="text-muted-foreground text-lg">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Nuestra Misión</h2>
+              <p className="text-muted-foreground text-base sm:text-lg">
                 Facilitar el acceso a servicios funerarios de calidad, brindando a las familias herramientas para tomar decisiones informadas en momentos difíciles, mientras apoyamos a las funerarias en su transformación digital.
               </p>
             </motion.div>
@@ -68,10 +68,10 @@ export default function Nosotros() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-card border border-border rounded-lg p-8"
+              className="bg-card border border-border rounded-lg p-6 sm:p-8"
             >
-              <h2 className="text-3xl font-bold mb-4">Nuestra Visión</h2>
-              <p className="text-muted-foreground text-lg">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Nuestra Visión</h2>
+              <p className="text-muted-foreground text-base sm:text-lg">
                 Ser la plataforma líder en Latinoamérica que conecta familias con servicios funerarios, modernizando la industria y estableciendo nuevos estándares de transparencia y accesibilidad.
               </p>
             </motion.div>
@@ -79,7 +79,7 @@ export default function Nosotros() {
         </section>
 
         {/* Historia */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <motion.div
@@ -87,8 +87,8 @@ export default function Nosotros() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-3xl font-bold mb-6 text-center">Nuestra Historia</h2>
-                <div className="space-y-4 text-muted-foreground text-lg">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center">Nuestra Historia</h2>
+                <div className="space-y-3 sm:space-y-4 text-muted-foreground text-sm sm:text-base md:text-lg">
                   <p>
                     Sirius nació de la necesidad de modernizar y transparentar la industria funeraria en Latinoamérica. Observamos que las familias enfrentaban dificultades para encontrar y comparar servicios funerarios en momentos de gran vulnerabilidad emocional.
                   </p>
@@ -105,9 +105,9 @@ export default function Nosotros() {
         </section>
 
         {/* Valores */}
-        <section className="py-16 container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Nuestros Valores</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <section className="py-8 sm:py-12 md:py-16 container mx-auto px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center">Nuestros Valores</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {valores.map((valor, index) => {
               const Icon = valor.icon;
               return (

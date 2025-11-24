@@ -37,14 +37,15 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         return;
       }
 
-      // Check if user is funeraria type
+      // Check if user has funeraria role
       const { data: roles } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", session.user.id)
-        .single();
+        .eq("user_id", session.user.id);
 
-      if (roles?.role !== "funeraria") {
+      const hasFunerariaRole = roles?.some(r => r.role === "funeraria");
+      
+      if (!hasFunerariaRole) {
         navigate("/");
         return;
       }

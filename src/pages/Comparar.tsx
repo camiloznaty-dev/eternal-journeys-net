@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import heroImage from "@/assets/hero-comparador.jpg";
+import { SEO } from "@/components/SEO";
 import {
   Select,
   SelectContent,
@@ -61,6 +62,17 @@ const Comparar = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEO 
+        title="Comparador de Funerarias | Compara Servicios y Precios | ConectaFunerarias"
+        description="Compara funerarias en Chile de forma fácil y transparente. Analiza servicios, precios, ubicaciones y reseñas lado a lado. Toma la mejor decisión informada."
+        keywords={[
+          "comparador funerarias",
+          "comparar servicios funerarios",
+          "precios funerarias chile",
+          "comparación funerarias",
+          "mejores funerarias"
+        ]}
+      />
       <Header />
       
       <AnimatedHero

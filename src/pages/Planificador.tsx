@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import heroImage from "@/assets/hero-planificador.jpg";
+import { SEO } from "@/components/SEO";
 
 const Planificador = () => {
   const [formData, setFormData] = useState({
@@ -67,6 +68,17 @@ const Planificador = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Planificador Funeral | Organiza tu Servicio con Anticipación | ConectaFunerarias"
+        description="Planifica tu servicio funeral con anticipación. Define preferencias, elige servicios y facilita decisiones para tu familia. Planificador digital gratuito en Chile."
+        keywords={[
+          "planificador funeral",
+          "planificar funeral",
+          "servicio funeral anticipado",
+          "organizar funeral",
+          "preferencias funerales"
+        ]}
+      />
       <Header />
       
       <AnimatedHero

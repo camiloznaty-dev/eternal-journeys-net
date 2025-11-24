@@ -15,6 +15,7 @@ import { todasLasComunas } from "@/data/comunas";
 import { motion } from "framer-motion";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import heroImage from "@/assets/hero-vende-sepultura.jpg";
+import { SEO } from "@/components/SEO";
 
 const tiposSepultura = ["Todos", "Perpetua", "Temporal", "Nicho", "Mausoleo", "Columbario"];
 
@@ -50,6 +51,18 @@ export default function VendeSepultura() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Venta de Sepulturas en Chile | Compra y Venta de Tumbas | ConectaFunerarias"
+        description="Marketplace de sepulturas en Chile. Compra o vende sepulturas perpetuas, temporales, nichos y mausoleos en cementerios de todo el país. Transacciones seguras."
+        keywords={[
+          "venta sepulturas chile",
+          "comprar sepultura",
+          "vender tumba",
+          "sepulturas perpetuas",
+          "nichos cementerio",
+          "mausoleos venta"
+        ]}
+      />
       <Header />
       
       <AnimatedHero

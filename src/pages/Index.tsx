@@ -17,6 +17,7 @@ import { Flower2, Truck, Package, Heart, Sparkles, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-memorial-park.jpg";
+import { SEO } from "@/components/SEO";
 
 const Index = () => {
   const categories = [
@@ -48,6 +49,22 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="ConectaFunerarias - Marketplace Funerario en Chile | Compara Servicios y Productos"
+        description="Encuentra y compara servicios funerarios en Chile. Directorio completo de funerarias, productos, obituarios digitales y planes funerarios. Transparencia, calidad y apoyo en momentos difíciles."
+        keywords={[
+          "funerarias chile",
+          "servicios funerarios",
+          "obituarios digitales",
+          "comparador funerarias",
+          "ataúdes",
+          "cremación",
+          "traslados funerarios",
+          "flores funerarias",
+          "planes funerarios",
+          "sepulturas chile"
+        ]}
+      />
       <Header />
       
       <main className="flex-1">

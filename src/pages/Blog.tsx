@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 export default function Blog() {
   const posts = [
@@ -12,7 +13,7 @@ export default function Blog() {
       title: "Cómo planificar un servicio funerario con anticipación",
       excerpt: "Planificar un servicio funerario puede parecer difícil, pero hacerlo con anticipación alivia la carga emocional y financiera de tus seres queridos.",
       categoria: "Guías",
-      autor: "Equipo Sirius",
+      autor: "Equipo ConectaFunerarias",
       fecha: "15 de Marzo, 2024",
       tiempo: "5 min",
       imagen: "https://images.unsplash.com/photo-1513628253939-010e64ac66cd?w=1200&q=80&auto=format&fit=crop" // manos sosteniendo una vela
@@ -22,7 +23,7 @@ export default function Blog() {
       title: "Diferencias entre cremación y sepultura tradicional",
       excerpt: "Entender las opciones disponibles es fundamental para tomar la mejor decisión. Exploramos las diferencias clave entre ambos servicios.",
       categoria: "Educación",
-      autor: "Equipo Sirius",
+      autor: "Equipo ConectaFunerarias",
       fecha: "10 de Marzo, 2024",
       tiempo: "7 min",
       imagen: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b?w=1200&q=80&auto=format&fit=crop" // paisaje de cementerio con luz suave
@@ -32,7 +33,7 @@ export default function Blog() {
       title: "La importancia de los obituarios en el proceso de duelo",
       excerpt: "Los obituarios no solo informan sobre un fallecimiento, sino que también celebran la vida y ayudan en el proceso de sanación.",
       categoria: "Duelo",
-      autor: "Equipo Sirius",
+      autor: "Equipo ConectaFunerarias",
       fecha: "5 de Marzo, 2024",
       tiempo: "4 min",
       imagen: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1200&q=80&auto=format&fit=crop" // flores y luz suave
@@ -42,7 +43,7 @@ export default function Blog() {
       title: "Cómo comparar precios de servicios funerarios",
       excerpt: "Una guía práctica para entender los costos asociados con servicios funerarios y cómo tomar decisiones informadas.",
       categoria: "Guías",
-      autor: "Equipo Sirius",
+      autor: "Equipo ConectaFunerarias",
       fecha: "1 de Marzo, 2024",
       tiempo: "6 min",
       imagen: "https://images.unsplash.com/photo-1518831959410-48a934f51e86?w=1200&q=80&auto=format&fit=crop" // carpeta, lápiz y manos planificando
@@ -52,7 +53,7 @@ export default function Blog() {
       title: "Tendencias modernas en servicios funerarios",
       excerpt: "La industria funeraria está evolucionando. Descubre las nuevas tendencias que están transformando los servicios tradicionales.",
       categoria: "Tendencias",
-      autor: "Equipo Sirius",
+      autor: "Equipo ConectaFunerarias",
       fecha: "25 de Febrero, 2024",
       tiempo: "8 min",
       imagen: "https://images.unsplash.com/photo-1486591038957-19e7c73bdc41?w=1200&q=80&auto=format&fit=crop" // ceremonia íntima con velas
@@ -62,7 +63,7 @@ export default function Blog() {
       title: "Guía completa sobre documentación funeraria necesaria",
       excerpt: "Todo lo que necesitas saber sobre los documentos requeridos para organizar un servicio funerario en Chile.",
       categoria: "Guías",
-      autor: "Equipo Sirius",
+      autor: "Equipo ConectaFunerarias",
       fecha: "20 de Febrero, 2024",
       tiempo: "10 min",
       imagen: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80&auto=format&fit=crop" // documentos y manos escribiendo
@@ -73,6 +74,17 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Blog ConectaFunerarias | Guías, Recursos y Educación Funeraria"
+        description="Blog con guías prácticas sobre servicios funerarios, duelo, planificación y tendencias. Información útil para familias y profesionales del sector en Chile."
+        keywords={[
+          "blog funerario",
+          "guías servicios funerarios",
+          "educación duelo",
+          "recursos funerarios",
+          "tendencias funerarias"
+        ]}
+      />
       <Header />
       
       <main className="flex-1">
@@ -80,7 +92,7 @@ export default function Blog() {
         <section className="py-12 sm:py-16 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">Blog de Sirius</h1>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">Blog de ConectaFunerarias</h1>
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground px-4">
                 Información, guías y recursos para ayudarte en momentos difíciles.
               </p>

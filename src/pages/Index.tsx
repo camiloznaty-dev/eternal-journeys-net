@@ -11,7 +11,7 @@ import { Stats } from "@/components/Stats";
 import { FAQ } from "@/components/FAQ";
 import { FeaturedFunerarias } from "@/components/FeaturedFunerarias";
 import { Button } from "@/components/ui/button";
-import { Flower2, Truck, Package, Heart, Sparkles } from "lucide-react";
+import { Flower2, Truck, Package, Heart, Sparkles, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-memorial-park.jpg";
@@ -204,18 +204,26 @@ const Index = () => {
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="text-base px-8 group">
-                    Buscar Servicios
-                    <motion.span
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                      className="inline-block ml-2"
-                    >
-                      →
-                    </motion.span>
+                  <Button size="lg" className="text-base px-8 group" asChild>
+                    <Link to="/funerarias">
+                      Buscar Servicios
+                      <motion.span
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                        className="inline-block ml-2"
+                      >
+                        →
+                      </motion.span>
+                    </Link>
                   </Button>
                   <Button size="lg" variant="outline" className="text-base px-8">
                     Cómo funciona ✨
+                  </Button>
+                  <Button size="lg" variant="secondary" className="text-base px-8" asChild>
+                    <Link to="/dashboard?demo=true">
+                      <Eye className="mr-2 h-4 w-4" />
+                      Ver Panel Demo
+                    </Link>
                   </Button>
                 </div>
 

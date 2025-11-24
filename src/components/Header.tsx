@@ -11,6 +11,7 @@ export const Header = () => {
     { label: "Funerarias", href: "/funerarias" },
     { label: "Comparador", href: "/comparar" },
     { label: "Obituarios", href: "/obituarios" },
+    { label: "Vende tu Sepultura", href: "/vende-sepultura" },
     { label: "Planificador", href: "/planificador" },
     { label: "Asistencia", href: "/asistencia" },
     { label: "Productos", href: "/productos" },

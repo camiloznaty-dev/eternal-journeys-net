@@ -18,6 +18,8 @@ import Privacidad from "./pages/Privacidad";
 import Nosotros from "./pages/Nosotros";
 import Contacto from "./pages/Contacto";
 import Blog from "./pages/Blog";
+import VendeSepultura from "./pages/VendeSepultura";
+import PublicarSepultura from "./pages/PublicarSepultura";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Leads from "./pages/dashboard/Leads";
 import Casos from "./pages/dashboard/Casos";
@@ -33,6 +35,7 @@ import ProveedorDetalle from "./pages/dashboard/ProveedorDetalle";
 import Mensajes from "./pages/dashboard/Mensajes";
 import Perfil from "./pages/dashboard/Perfil";
 import Configuracion from "./pages/dashboard/Configuracion";
+import AnunciosSepulturas from "./pages/dashboard/AnunciosSepulturas";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -60,6 +63,8 @@ const App = () => (
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/vende-sepultura" element={<VendeSepultura />} />
+          <Route path="/publicar-sepultura" element={<PublicarSepultura />} />
           
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -77,6 +82,7 @@ const App = () => (
           <Route path="/dashboard/mensajes" element={<Mensajes />} />
           <Route path="/dashboard/perfil" element={<Perfil />} />
           <Route path="/dashboard/configuracion" element={<Configuracion />} />
+          <Route path="/dashboard/sepulturas" element={<AnunciosSepulturas />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

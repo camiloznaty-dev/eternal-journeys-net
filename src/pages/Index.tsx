@@ -220,7 +220,7 @@ const Index = () => {
                     Cómo funciona ✨
                   </Button>
                   <Button size="lg" variant="secondary" className="text-base px-8" asChild>
-                    <Link to="/dashboard?demo=true">
+                    <Link to="/mi-cuenta?demo=true">
                       <Eye className="mr-2 h-4 w-4" />
                       Ver Panel Demo
                     </Link>

@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      anuncios_sepulturas: {
+        Row: {
+          cementerio: string
+          comuna: string
+          created_at: string | null
+          descripcion: string | null
+          destacado: boolean | null
+          fotos: string[] | null
+          funeraria_id: string | null
+          id: string
+          precio: number
+          status: string | null
+          tipo_sepultura: string
+          titulo: string
+          updated_at: string | null
+          user_id: string | null
+          vendedor_email: string | null
+          vendedor_nombre: string
+          vendedor_telefono: string
+          views: number | null
+        }
+        Insert: {
+          cementerio: string
+          comuna: string
+          created_at?: string | null
+          descripcion?: string | null
+          destacado?: boolean | null
+          fotos?: string[] | null
+          funeraria_id?: string | null
+          id?: string
+          precio: number
+          status?: string | null
+          tipo_sepultura: string
+          titulo: string
+          updated_at?: string | null
+          user_id?: string | null
+          vendedor_email?: string | null
+          vendedor_nombre: string
+          vendedor_telefono: string
+          views?: number | null
+        }
+        Update: {
+          cementerio?: string
+          comuna?: string
+          created_at?: string | null
+          descripcion?: string | null
+          destacado?: boolean | null
+          fotos?: string[] | null
+          funeraria_id?: string | null
+          id?: string
+          precio?: number
+          status?: string | null
+          tipo_sepultura?: string
+          titulo?: string
+          updated_at?: string | null
+          user_id?: string | null
+          vendedor_email?: string | null
+          vendedor_nombre?: string
+          vendedor_telefono?: string
+          views?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "anuncios_sepulturas_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
+          {
+            foreignKeyName: "anuncios_sepulturas_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       caso_documentos: {
         Row: {
           archivo_size: number | null
@@ -233,6 +311,44 @@ export type Database = {
             columns: ["obituario_id"]
             isOneToOne: false
             referencedRelation: "obituarios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      consultas_sepulturas: {
+        Row: {
+          anuncio_id: string
+          created_at: string | null
+          email: string | null
+          id: string
+          mensaje: string | null
+          nombre: string
+          telefono: string
+        }
+        Insert: {
+          anuncio_id: string
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          mensaje?: string | null
+          nombre: string
+          telefono: string
+        }
+        Update: {
+          anuncio_id?: string
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          mensaje?: string | null
+          nombre?: string
+          telefono?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consultas_sepulturas_anuncio_id_fkey"
+            columns: ["anuncio_id"]
+            isOneToOne: false
+            referencedRelation: "anuncios_sepulturas"
             referencedColumns: ["id"]
           },
         ]

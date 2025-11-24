@@ -11,11 +11,11 @@ interface SuperAdminLayoutProps {
 export function SuperAdminLayout({ children }: SuperAdminLayoutProps) {
   return (
     <div className="min-h-screen w-full">
-      <div className="relative z-10">
+      <div className="relative z-30">
         <Header />
       </div>
       <SidebarProvider defaultOpen={true}>
-        <div className="flex w-full relative z-20">
+        <div className="flex w-full relative z-10">
           <SuperAdminSidebar />
           <div className="flex-1 flex flex-col">
             <SuperAdminHeader />

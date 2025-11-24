@@ -7,7 +7,6 @@ import { Loader2, MapPin, Phone, Mail, Clock, Check, Facebook, Instagram } from 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function FunerariaPublica() {
   const { slug } = useParams<{ slug: string }>();
@@ -36,23 +35,7 @@ export default function FunerariaPublica() {
         .select("*")
         .eq("funeraria_id", funeraria.id)
         .eq("stock_available", true)
-        .order("is_featured", { ascending: false });
-
-      if (error) throw error;
-      return data;
-    },
-    enabled: !!funeraria?.id,
-  });
-
-  const { data: productos } = useQuery({
-    queryKey: ["funeraria-productos", funeraria?.id],
-    queryFn: async () => {
-      if (!funeraria?.id) return [];
-      const { data, error } = await supabase
-        .from("productos")
-        .select("*")
-        .eq("funeraria_id", funeraria.id)
-        .gt("stock", 0)
+        .order("category", { ascending: true })
         .order("price", { ascending: true });
 
       if (error) throw error;
@@ -167,18 +150,17 @@ export default function FunerariaPublica() {
           </section>
         )}
 
-        {/* Servicios y Productos */}
+        {/* Servicios */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <Tabs defaultValue="servicios" className="w-full">
-              <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-                <TabsTrigger value="servicios">Servicios</TabsTrigger>
-                <TabsTrigger value="productos">Productos</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="servicios" className="mt-8">
+            <h2 className="text-3xl font-bold mb-8 text-center">Nuestros Servicios</h2>
+            
+            <div className="space-y-12">
+              {/* Planes Funerarios */}
+              <div>
+                <h3 className="text-2xl font-semibold mb-6 text-accent">Planes Funerarios</h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {servicios?.map((servicio) => (
+                  {servicios?.filter(s => s.category === 'plan_funerario').map((servicio) => (
                     <Card key={servicio.id} className="overflow-hidden hover:shadow-lg transition-all">
                       {servicio.images && servicio.images[0] && (
                         <div className="h-48 overflow-hidden">
@@ -200,14 +182,17 @@ export default function FunerariaPublica() {
                           {servicio.description}
                         </p>
                         {servicio.features && (
-                          <ul className="space-y-2 mb-4">
-                            {(servicio.features as string[]).slice(0, 3).map((feature, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-sm">
-                                <Check className="h-4 w-4 text-accent shrink-0 mt-0.5" />
-                                <span>{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
+                          <div className="mb-4 max-h-48 overflow-y-auto">
+                            <p className="text-xs font-semibold mb-2">Incluye:</p>
+                            <ul className="space-y-1">
+                              {(servicio.features as string[]).map((feature, idx) => (
+                                <li key={idx} className="flex items-start gap-2 text-xs">
+                                  <Check className="h-3 w-3 text-accent shrink-0 mt-0.5" />
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         )}
                         <div className="flex items-center justify-between pt-4 border-t border-border">
                           <div>
@@ -226,38 +211,107 @@ export default function FunerariaPublica() {
                     </Card>
                   ))}
                 </div>
-              </TabsContent>
+              </div>
 
-              <TabsContent value="productos" className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {productos?.map((producto) => (
-                    <Card key={producto.id} className="overflow-hidden hover:shadow-lg transition-all">
-                      {producto.images && producto.images[0] && (
-                        <div className="h-48 overflow-hidden">
-                          <img
-                            src={producto.images[0]}
-                            alt={producto.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-                      <CardContent className="p-4">
-                        <h3 className="font-bold mb-2">{producto.name}</h3>
-                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                          {producto.description}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <p className="text-xl font-bold text-accent">
-                            ${producto.price.toLocaleString('es-CL')}
+              {/* Cremación */}
+              {servicios?.some(s => s.category === 'cremacion') && (
+                <div>
+                  <h3 className="text-2xl font-semibold mb-6 text-accent">Servicios de Cremación</h3>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {servicios?.filter(s => s.category === 'cremacion').map((servicio) => (
+                      <Card key={servicio.id} className="overflow-hidden hover:shadow-lg transition-all">
+                        {servicio.images && servicio.images[0] && (
+                          <div className="h-48 overflow-hidden">
+                            <img
+                              src={servicio.images[0]}
+                              alt={servicio.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <CardContent className="p-6">
+                          <h3 className="text-xl font-bold mb-3">{servicio.name}</h3>
+                          <p className="text-sm text-muted-foreground mb-4">
+                            {servicio.description}
                           </p>
-                          <Badge variant="outline">{producto.stock} en stock</Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                          {servicio.features && (
+                            <ul className="space-y-1 mb-4">
+                              {(servicio.features as string[]).map((feature, idx) => (
+                                <li key={idx} className="flex items-start gap-2 text-xs">
+                                  <Check className="h-3 w-3 text-accent shrink-0 mt-0.5" />
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          <div className="flex items-center justify-between pt-4 border-t border-border">
+                            <div>
+                              <p className="text-2xl font-bold text-accent">
+                                ${servicio.price.toLocaleString('es-CL')}
+                              </p>
+                              {servicio.duration && (
+                                <p className="text-xs text-muted-foreground">
+                                  {servicio.duration}
+                                </p>
+                              )}
+                            </div>
+                            <Button size="sm">Consultar</Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
-              </TabsContent>
-            </Tabs>
+              )}
+
+              {/* Traslados */}
+              {servicios?.some(s => s.category === 'traslado') && (
+                <div>
+                  <h3 className="text-2xl font-semibold mb-6 text-accent">Servicios de Traslado</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {servicios?.filter(s => s.category === 'traslado').map((servicio) => (
+                      <Card key={servicio.id} className="hover:shadow-lg transition-all">
+                        <CardContent className="p-6">
+                          <div className="flex gap-4">
+                            {servicio.images && servicio.images[0] && (
+                              <div className="w-32 h-32 flex-shrink-0 overflow-hidden rounded-lg">
+                                <img
+                                  src={servicio.images[0]}
+                                  alt={servicio.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            )}
+                            <div className="flex-1">
+                              <h3 className="text-lg font-bold mb-2">{servicio.name}</h3>
+                              <p className="text-sm text-muted-foreground mb-3">
+                                {servicio.description}
+                              </p>
+                              {servicio.features && (
+                                <ul className="space-y-1 mb-3">
+                                  {(servicio.features as string[]).slice(0, 3).map((feature, idx) => (
+                                    <li key={idx} className="flex items-start gap-2 text-xs">
+                                      <Check className="h-3 w-3 text-accent shrink-0 mt-0.5" />
+                                      <span>{feature}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                              <div className="flex items-center justify-between">
+                                <p className="text-xl font-bold text-accent">
+                                  ${servicio.price.toLocaleString('es-CL')}
+                                </p>
+                                <Button size="sm" variant="outline">Cotizar</Button>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </section>
 

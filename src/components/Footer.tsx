@@ -30,19 +30,19 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Para Funerarias</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-accent transition-colors">Registrar Funeraria</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Planes y Precios</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Recursos</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Soporte</a></li>
+              <li><Link to="/auth?tab=register" className="hover:text-accent transition-colors">Registrar Funeraria</Link></li>
+              <li><Link to="/planificador" className="hover:text-accent transition-colors">Planes y Precios</Link></li>
+              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Recursos</Link></li>
+              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Soporte</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold mb-4">Empresa</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-accent transition-colors">Nosotros</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Contacto</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Blog</a></li>
+              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Nosotros</Link></li>
+              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Contacto</Link></li>
+              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Blog</Link></li>
               <li><Link to="/privacidad" className="hover:text-accent transition-colors">Privacidad</Link></li>
               <li><Link to="/terminos" className="hover:text-accent transition-colors">Términos</Link></li>
             </ul>

@@ -605,9 +605,9 @@ export default function BlogDetalle() {
 
         {/* Content */}
         <div className="container mx-auto px-4 -mt-32 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <Card className="shadow-elegant">
-              <CardContent className="p-8 md:p-12">
+          <div className="max-w-5xl mx-auto">
+            <Card className="shadow-elegant bg-background/95 backdrop-blur">
+              <CardContent className="p-8 md:p-16 lg:p-20">
                 {/* Back button */}
                 <Button variant="ghost" size="sm" className="mb-6" asChild>
                   <Link to="/blog">
@@ -620,15 +620,15 @@ export default function BlogDetalle() {
                 <Badge className="mb-4">{post.categoria}</Badge>
 
                 {/* Title */}
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">
                   {post.title}
                 </h1>
 
                 {/* Meta information */}
-                <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-8 pb-8 border-b border-border">
+                <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-12 pb-10 border-b-2 border-border/50">
                   <div className="flex items-center gap-2">
                     <User className="w-4 h-4" />
-                    <span>{post.autor}</span>
+                    <span className="font-medium">{post.autor}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
@@ -642,7 +642,7 @@ export default function BlogDetalle() {
                     variant="ghost"
                     size="sm"
                     onClick={handleShare}
-                    className="ml-auto"
+                    className="ml-auto hover:bg-primary/10"
                   >
                     <Share2 className="w-4 h-4 mr-2" />
                     Compartir
@@ -650,38 +650,46 @@ export default function BlogDetalle() {
                 </div>
 
                 {/* Content */}
-                <div 
+                <article 
                   className="prose prose-lg max-w-none
-                    prose-headings:font-display prose-headings:font-bold
-                    prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                    prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                    prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
-                    prose-p:text-foreground prose-p:mb-6 prose-p:leading-relaxed
-                    prose-ul:my-6 prose-ul:text-foreground
-                    prose-ol:my-6 prose-ol:text-foreground
-                    prose-li:mb-2 prose-li:leading-relaxed
-                    prose-strong:text-foreground prose-strong:font-semibold
-                    prose-a:text-primary hover:prose-a:text-primary/80
+                    prose-headings:font-display prose-headings:font-bold prose-headings:text-foreground
+                    prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:pb-3 prose-h2:border-b prose-h2:border-border
+                    prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6 prose-h3:text-primary
+                    prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-4 prose-h4:font-semibold
+                    prose-p:text-foreground prose-p:mb-8 prose-p:leading-[1.8] prose-p:text-[17px]
+                    prose-ul:my-8 prose-ul:space-y-3 prose-ul:text-foreground
+                    prose-ol:my-8 prose-ol:space-y-3 prose-ol:text-foreground
+                    prose-li:leading-[1.7] prose-li:text-[17px] prose-li:pl-2
+                    prose-strong:text-foreground prose-strong:font-semibold prose-strong:text-primary/90
+                    prose-a:text-primary prose-a:underline prose-a:decoration-primary/30 hover:prose-a:decoration-primary
+                    prose-em:text-muted-foreground prose-em:italic
+                    prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:my-8
+                    [&>p:first-of-type]:text-[19px] [&>p:first-of-type]:leading-[1.9] [&>p:first-of-type]:font-normal [&>p:first-of-type]:text-muted-foreground
                     dark:prose-invert"
                   dangerouslySetInnerHTML={{ __html: post.contenido }}
                 />
 
                 {/* Share section */}
-                <div className="mt-12 pt-8 border-t border-border">
-                  <p className="text-sm text-muted-foreground mb-4">
-                    ¿Te gustó este artículo? Compártelo con otros:
-                  </p>
-                  <Button onClick={handleShare}>
-                    <Share2 className="w-4 h-4 mr-2" />
-                    Compartir artículo
-                  </Button>
+                <div className="mt-16 pt-10 border-t-2 border-border/50">
+                  <div className="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                      <p className="text-lg font-semibold mb-2">¿Te resultó útil este artículo?</p>
+                      <p className="text-sm text-muted-foreground">
+                        Compártelo con quienes puedan necesitar esta información
+                      </p>
+                    </div>
+                    <Button onClick={handleShare} size="lg" className="gap-2">
+                      <Share2 className="w-4 h-4" />
+                      Compartir artículo
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Related posts */}
-            <div className="mt-12 mb-12">
-              <h2 className="text-3xl font-bold mb-6">Artículos relacionados</h2>
+            <div className="mt-16 mb-16">
+              <h2 className="text-3xl font-display font-bold mb-8">Artículos relacionados</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {Object.entries(posts)
                   .filter(([postId]) => postId !== id)

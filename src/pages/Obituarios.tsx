@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import heroImage from "@/assets/hero-obituarios.jpg";
+import { SEO } from "@/components/SEO";
 
 const Obituarios = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,6 +37,18 @@ const Obituarios = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Obituarios Digitales en Chile | Esquelas y Memoriales | ConectaFunerarias"
+        description="Obituarios y esquelas digitales en Chile. Honra la memoria de tus seres queridos con obituarios online, condolencias virtuales y memoriales permanentes."
+        keywords={[
+          "obituarios chile",
+          "obituarios digitales",
+          "esquelas online",
+          "memoriales digitales",
+          "condolencias virtuales",
+          "obituarios santiago"
+        ]}
+      />
       <Header />
       
       <AnimatedHero

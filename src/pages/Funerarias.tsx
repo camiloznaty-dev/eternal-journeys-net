@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import heroImage from "@/assets/hero-funerarias.jpg";
+import { SEO } from "@/components/SEO";
 
 const Funerarias = () => {
   const { data: funerarias, isLoading } = useQuery({
@@ -26,6 +27,18 @@ const Funerarias = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Directorio de Funerarias en Chile | ConectaFunerarias"
+        description="Encuentra las mejores funerarias de Chile. Compara servicios, precios, ubicaciones y reseñas. Directorio completo con información verificada de funerarias en todo el país."
+        keywords={[
+          "funerarias en chile",
+          "directorio funerarias",
+          "servicios funerarios chile",
+          "funerarias santiago",
+          "mejores funerarias",
+          "contacto funerarias"
+        ]}
+      />
       <Header />
       
       <AnimatedHero

@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { SEO } from "@/components/SEO";
 
 export default function Contacto() {
   const [formData, setFormData] = useState({
@@ -39,6 +40,16 @@ export default function Contacto() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Contacto | Soporte y Atención | ConectaFunerarias"
+        description="Contacta con ConectaFunerarias. Estamos disponibles para ayudarte con cualquier consulta sobre servicios funerarios, productos y soporte. Email y teléfono de contacto."
+        keywords={[
+          "contacto funerarias",
+          "soporte servicios funerarios",
+          "ayuda funeral",
+          "contacto conectafunerarias"
+        ]}
+      />
       <Header />
       
       <main className="flex-1 py-8 sm:py-12 md:py-16">

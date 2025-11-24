@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Target, Heart, Users, Lightbulb } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 export default function Nosotros() {
   const valores = [
@@ -29,6 +30,16 @@ export default function Nosotros() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Sobre Nosotros | Nuestra Misión y Valores | ConectaFunerarias"
+        description="Conoce ConectaFunerarias. Modernizamos la industria funeraria en Chile conectando familias con servicios de calidad. Transparencia, empatía e innovación."
+        keywords={[
+          "sobre conectafunerarias",
+          "misión funerarias",
+          "valores empresa funeraria",
+          "quienes somos"
+        ]}
+      />
       <Header />
       
       <main className="flex-1">

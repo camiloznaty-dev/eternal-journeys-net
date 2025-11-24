@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ShoppingBag } from "lucide-react";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import heroImage from "@/assets/hero-productos.jpg";
+import { SEO } from "@/components/SEO";
 
 const Productos = () => {
   // Placeholder product data
@@ -46,6 +47,18 @@ const Productos = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Productos y Servicios Funerarios | Ataúdes, Urnas, Flores | ConectaFunerarias"
+        description="Catálogo completo de productos funerarios en Chile: ataúdes, urnas, arreglos florales, servicios de traslado y cremación. Calidad garantizada."
+        keywords={[
+          "productos funerarios",
+          "ataúdes chile",
+          "urnas cremación",
+          "flores funerarias",
+          "servicios de traslado",
+          "productos cementerio"
+        ]}
+      />
       <Header />
       
       <AnimatedHero

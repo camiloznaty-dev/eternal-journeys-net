@@ -7,12 +7,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HeartHandshake, FileText, Phone, ClipboardCheck } from "lucide-react";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import heroImage from "@/assets/hero-asistencia.jpg";
+import { SEO } from "@/components/SEO";
 
 const Asistencia = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Asistencia en el Duelo | Guía Práctica y Apoyo | ConectaFunerarias"
+        description="Guía completa para momentos de duelo. Pasos prácticos, trámites necesarios, recursos útiles y apoyo emocional. Acompañamiento durante procesos difíciles en Chile."
+        keywords={[
+          "asistencia duelo",
+          "guía funeral chile",
+          "trámites fallecimiento",
+          "apoyo duelo",
+          "qué hacer cuando fallece alguien",
+          "certificado defunción"
+        ]}
+      />
       <Header />
       
       <AnimatedHero

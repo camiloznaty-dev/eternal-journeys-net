@@ -1,10 +1,12 @@
 import { ReactNode, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { DashboardHeader } from "./DashboardHeader";
 import { Loader2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Eye } from "lucide-react";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -12,12 +14,19 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [isFuneraria, setIsFuneraria] = useState(false);
+  const isDemoMode = searchParams.get("demo") === "true";
 
   useEffect(() => {
-    checkAuth();
-  }, []);
+    if (isDemoMode) {
+      setIsFuneraria(true);
+      setLoading(false);
+    } else {
+      checkAuth();
+    }
+  }, [isDemoMode]);
 
   const checkAuth = async () => {
     try {
@@ -68,6 +77,21 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="flex flex-1 flex-col">
           <DashboardHeader />
           <main className="flex-1 overflow-y-auto p-6">
+            {isDemoMode && (
+              <Alert className="mb-6 border-primary/50 bg-primary/5">
+                <Eye className="h-4 w-4" />
+                <AlertDescription>
+                  Estás viendo el panel en modo demostración. Los datos mostrados son de ejemplo.{" "}
+                  <button 
+                    onClick={() => navigate("/auth?tab=register")}
+                    className="font-semibold underline hover:text-primary"
+                  >
+                    Crear cuenta
+                  </button>
+                  {" "}para acceder a tu panel real.
+                </AlertDescription>
+              </Alert>
+            )}
             {children}
           </main>
         </div>

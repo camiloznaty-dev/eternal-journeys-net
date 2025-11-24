@@ -4,8 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Briefcase, TrendingUp, DollarSign, FileText, Package } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useSearchParams } from "react-router-dom";
 
 export default function Dashboard() {
+  const [searchParams] = useSearchParams();
+  const isDemoMode = searchParams.get("demo") === "true";
+  
   const [stats, setStats] = useState({
     leads_nuevos: 0,
     leads_mes: 0,
@@ -16,8 +20,20 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchStats();
-  }, []);
+    if (isDemoMode) {
+      // Demo data
+      setStats({
+        leads_nuevos: 12,
+        leads_mes: 45,
+        casos_activos: 8,
+        empleados_activos: 15,
+        ingresos_mes: 8500000,
+      });
+      setLoading(false);
+    } else {
+      fetchStats();
+    }
+  }, [isDemoMode]);
 
   const fetchStats = async () => {
     try {

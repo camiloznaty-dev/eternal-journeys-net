@@ -4,28 +4,32 @@ import { TrendingUp, Users, MapPin, Star } from "lucide-react";
 export const Stats = () => {
   const stats = [
     { 
-      value: "500+", 
-      label: "Funerarias Verificadas",
+      value: "24/7", 
+      label: "Disponibilidad",
       icon: Users,
-      color: "text-primary"
+      color: "text-primary",
+      description: "365 días del año"
     },
     { 
-      value: "10,000+", 
-      label: "Familias Atendidas",
+      value: "100%", 
+      label: "Transparencia",
       icon: TrendingUp,
-      color: "text-accent"
+      color: "text-accent",
+      description: "Precios claros"
     },
     { 
-      value: "50+", 
-      label: "Ciudades en Chile",
+      value: "Digital", 
+      label: "Proceso Simple",
       icon: MapPin,
-      color: "text-primary-glow"
+      color: "text-primary-glow",
+      description: "Totalmente online"
     },
     { 
-      value: "4.9★", 
-      label: "Satisfacción",
+      value: "Gratis", 
+      label: "Comparar",
       icon: Star,
-      color: "text-accent-glow"
+      color: "text-accent-glow",
+      description: "Sin compromiso"
     },
   ];
 
@@ -45,10 +49,10 @@ export const Stats = () => {
           className="text-center mb-12"
         >
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
-            Confianza respaldada por números
+            Nuestro compromiso contigo
           </h2>
           <p className="text-muted-foreground text-lg">
-            Miles de familias confían en nosotros cada día
+            Servicio transparente y accesible cuando más lo necesitas
           </p>
         </motion.div>
 
@@ -83,8 +87,11 @@ export const Stats = () => {
                 </motion.div>
 
                 {/* Label */}
-                <div className="text-sm md:text-base text-muted-foreground font-medium">
+                <div className="text-sm md:text-base text-foreground font-semibold mb-1">
                   {stat.label}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {stat.description}
                 </div>
 
                 {/* Hover Glow Effect */}
@@ -102,10 +109,9 @@ export const Stats = () => {
           transition={{ delay: 0.5 }}
           className="text-center mt-12"
         >
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 border border-accent/20 rounded-full">
-            <Star className="w-5 h-5 text-accent fill-accent" />
-            <span className="text-sm font-medium">Certificados y verificados por familias chilenas</span>
-          </div>
+          <p className="text-sm text-muted-foreground">
+            Plataforma en crecimiento · Compromiso con la transparencia
+          </p>
         </motion.div>
       </div>
     </section>

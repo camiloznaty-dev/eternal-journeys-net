@@ -62,8 +62,8 @@ export default function Contacto() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">contacto@sirius.com</p>
-                    <p className="text-muted-foreground">soporte@sirius.com</p>
+                    <p className="text-muted-foreground">contacto@conectafunerarias.cl</p>
+                    <p className="text-muted-foreground">soporte@conectafunerarias.cl</p>
                   </CardContent>
                 </Card>
 
@@ -75,7 +75,7 @@ export default function Contacto() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">+56 9 1234 5678</p>
+                    <p className="text-muted-foreground">+56 9 6628 4770</p>
                     <p className="text-sm text-muted-foreground mt-2">
                       Lun - Vie: 9:00 - 18:00
                     </p>

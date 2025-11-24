@@ -12,7 +12,7 @@ interface AnimatedHeroProps {
 
 export function AnimatedHero({ title, subtitle, description, icon, children, backgroundImage }: AnimatedHeroProps) {
   return (
-    <section className="relative overflow-hidden py-20 md:py-32">
+    <section className="relative overflow-hidden py-12 sm:py-16 md:py-24 lg:py-32">
       {/* Background Image with Overlay */}
       {backgroundImage && (
         <div className="absolute inset-0 z-0">
@@ -92,7 +92,7 @@ export function AnimatedHero({ title, subtitle, description, icon, children, bac
         />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Icon with animation */}
           {icon && (
@@ -100,7 +100,7 @@ export function AnimatedHero({ title, subtitle, description, icon, children, bac
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, type: "spring" }}
-              className="mb-8 inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-primary/10 text-primary backdrop-blur-sm border border-primary/20"
+              className="mb-6 sm:mb-8 inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-primary/10 text-primary backdrop-blur-sm border border-primary/20"
             >
               {icon}
             </motion.div>
@@ -112,9 +112,9 @@ export function AnimatedHero({ title, subtitle, description, icon, children, bac
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4"
+              className="mb-3 sm:mb-4"
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20 backdrop-blur-sm">
+              <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium border border-primary/20 backdrop-blur-sm">
                 {subtitle}
               </span>
             </motion.div>
@@ -125,7 +125,7 @@ export function AnimatedHero({ title, subtitle, description, icon, children, bac
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 sm:mb-6 leading-tight px-2"
           >
             {title}
           </motion.h1>
@@ -136,7 +136,7 @@ export function AnimatedHero({ title, subtitle, description, icon, children, bac
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto px-4"
             >
               {description}
             </motion.p>

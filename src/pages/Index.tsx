@@ -52,7 +52,7 @@ const Index = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-8 md:py-20 overflow-hidden bg-gradient-hero">
+        <section className="relative py-6 sm:py-12 md:py-16 lg:py-20 overflow-hidden bg-gradient-hero">
           {/* Floating Emojis Background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
@@ -131,8 +131,8 @@ const Index = () => {
             </motion.div>
           </div>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
               {/* Left Content */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -140,18 +140,18 @@ const Index = () => {
                 transition={{ duration: 0.6 }}
                 className="space-y-8"
               >
-                <div className="space-y-4">
+                <div className="space-y-4 sm:space-y-6">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/5 border border-accent/10 mb-2"
+                    className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-accent/5 border border-accent/10 mb-2"
                   >
-                    <Sparkles className="w-4 h-4 text-accent" />
-                    <span className="text-sm font-medium">Plataforma más humana de Chile ❤️</span>
+                    <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
+                    <span className="text-xs sm:text-sm font-medium">Plataforma más humana de Chile ❤️</span>
                   </motion.div>
                   
-                  <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+                  <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
                     En los momentos{" "}
                     <span className="relative inline-block">
                       difíciles,
@@ -159,7 +159,7 @@ const Index = () => {
                         initial={{ width: 0 }}
                         animate={{ width: "100%" }}
                         transition={{ delay: 0.8, duration: 0.6 }}
-                        className="absolute bottom-2 left-0 h-4 bg-gradient-warm opacity-20 -z-10 rounded-full"
+                        className="absolute bottom-1 sm:bottom-2 left-0 h-3 sm:h-4 bg-gradient-warm opacity-20 -z-10 rounded-full"
                       />
                     </span>
                     <br />
@@ -168,46 +168,46 @@ const Index = () => {
                     </span>
                   </h1>
                   
-                  <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
+                  <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl">
                     Encuentra y compara servicios funerarios con dignidad y transparencia en todo Chile 🇨🇱
                   </p>
                 </div>
 
                 {/* Badges */}
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20"
+                    className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-accent/10 border border-accent/20"
                   >
-                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                    <span className="text-sm font-medium">Atención 24/7 💬</span>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent animate-pulse" />
+                    <span className="text-xs sm:text-sm font-medium">Atención 24/7 💬</span>
                   </motion.div>
                   
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="px-4 py-2 rounded-full bg-secondary border border-border"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-secondary border border-border"
                   >
-                    <span className="text-sm font-medium">+500 Funerarias 🏢</span>
+                    <span className="text-xs sm:text-sm font-medium">+500 Funerarias 🏢</span>
                   </motion.div>
                   
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="px-4 py-2 rounded-full bg-secondary border border-border"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-secondary border border-border"
                   >
-                    <span className="text-sm font-medium">Cobertura Nacional 🗺️</span>
+                    <span className="text-xs sm:text-sm font-medium">Cobertura Nacional 🗺️</span>
                   </motion.div>
                 </div>
 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="lg" className="text-base px-8 group shadow-medium hover:shadow-glow transition-all" asChild>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                    <Button size="lg" className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8 group shadow-medium hover:shadow-glow transition-all" asChild>
                       <Link to="/funerarias">
                         Buscar Servicios
                         <motion.span
@@ -220,11 +220,11 @@ const Index = () => {
                       </Link>
                     </Button>
                   </motion.div>
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                     <Button 
                       size="lg" 
                       variant="outline" 
-                      className="text-base px-8 border-2 hover:bg-accent/5"
+                      className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8 border-2 hover:bg-accent/5"
                       onClick={() => {
                         document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' });
                       }}
@@ -232,10 +232,10 @@ const Index = () => {
                       Cómo funciona ✨
                     </Button>
                   </motion.div>
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="lg" variant="secondary" className="text-base px-8" asChild>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                    <Button size="lg" variant="secondary" className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8" asChild>
                       <Link to="/mi-cuenta?demo=true">
-                        <Eye className="mr-2 h-4 w-4" />
+                        <Eye className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                         Ver Panel Demo
                       </Link>
                     </Button>
@@ -243,15 +243,15 @@ const Index = () => {
                 </div>
 
                 {/* Mini Stats */}
-                <div className="grid grid-cols-3 gap-4 pt-4">
+                <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4">
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">100%</div>
-                    <div className="text-xs text-muted-foreground">Transparente</div>
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-0.5 sm:mb-1">100%</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">Transparente</div>
                   </motion.div>
                   
                   <motion.div
@@ -260,8 +260,8 @@ const Index = () => {
                     transition={{ delay: 0.7 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">Gratis</div>
-                    <div className="text-xs text-muted-foreground">Sin costo</div>
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-0.5 sm:mb-1">Gratis</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">Sin costo</div>
                   </motion.div>
                   
                   <motion.div
@@ -270,8 +270,8 @@ const Index = () => {
                     transition={{ delay: 0.8 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">Simple</div>
-                    <div className="text-xs text-muted-foreground">Proceso fácil</div>
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-0.5 sm:mb-1">Simple</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">Proceso fácil</div>
                   </motion.div>
                 </div>
               </motion.div>
@@ -366,8 +366,8 @@ const Index = () => {
         </section>
 
         {/* Quick Search Section */}
-        <section className="py-16 -mt-8 relative z-10">
-          <div className="container mx-auto px-4">
+        <section className="py-8 sm:py-12 md:py-16 -mt-4 sm:-mt-6 md:-mt-8 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

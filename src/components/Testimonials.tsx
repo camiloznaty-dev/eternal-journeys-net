@@ -25,20 +25,20 @@ export const Testimonials = () => {
   ];
 
   return (
-    <section className="py-24 border-t border-border">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16 space-y-3 sm:space-y-4">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold"
           >
             Lo que dicen nuestros usuarios
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}

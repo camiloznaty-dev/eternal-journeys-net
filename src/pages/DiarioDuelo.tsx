@@ -27,9 +27,20 @@ const DiarioDuelo = () => {
     prompt_id: "",
   });
 
+  // Get user session
+  const { data: session } = useQuery({
+    queryKey: ["session"],
+    queryFn: async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      return session;
+    },
+  });
+
   const { data: memorial } = useQuery({
     queryKey: ["memorial", memorialId],
     queryFn: async () => {
+      if (!memorialId) return null;
+      
       const { data, error } = await supabase
         .from("memoriales")
         .select("*")
@@ -39,11 +50,12 @@ const DiarioDuelo = () => {
       if (error) throw error;
       return data;
     },
+    enabled: !!memorialId,
   });
 
   const weeksSince = memorial?.fecha_fallecimiento
     ? differenceInWeeks(new Date(), new Date(memorial.fecha_fallecimiento))
-    : 0;
+    : 4; // Default to week 4 if no memorial
 
   const { data: prompts } = useQuery({
     queryKey: ["prompts", weeksSince],
@@ -62,17 +74,26 @@ const DiarioDuelo = () => {
   });
 
   const { data: entradas } = useQuery({
-    queryKey: ["diario", memorialId],
+    queryKey: ["diario", memorialId, session?.user?.id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      if (!session?.user?.id) return [];
+      
+      let query = supabase
         .from("diario_duelo")
         .select("*")
-        .eq("memorial_id", memorialId)
+        .eq("user_id", session.user.id)
         .order("fecha", { ascending: false });
+
+      if (memorialId) {
+        query = query.eq("memorial_id", memorialId);
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
       return data;
     },
+    enabled: !!session?.user?.id,
   });
 
   const createEntry = useMutation({
@@ -82,7 +103,7 @@ const DiarioDuelo = () => {
 
       const { error } = await supabase.from("diario_duelo").insert({
         user_id: user.id,
-        memorial_id: memorialId,
+        memorial_id: memorialId || null,
         ...newEntry,
         prompt_id: newEntry.prompt_id || null,
       });
@@ -90,7 +111,7 @@ const DiarioDuelo = () => {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["diario", memorialId] });
+      queryClient.invalidateQueries({ queryKey: ["diario", memorialId, session?.user?.id] });
       setNewEntry({ titulo: "", contenido: "", estado_emocional: "", prompt_id: "" });
       setIsWriting(false);
       toast.success("Entrada guardada exitosamente");
@@ -113,23 +134,25 @@ const DiarioDuelo = () => {
         <div className="max-w-4xl mx-auto">
           <Button
             variant="ghost"
-            onClick={() => navigate(`/asistencia/memorial/${memorialId}`)}
+            onClick={() => navigate(memorialId ? `/asistencia/memorial/${memorialId}` : "/mi-cuenta")}
             className="mb-6"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver al Memorial
+            {memorialId ? "Volver al Memorial" : "Volver a Mi Cuenta"}
           </Button>
 
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BookOpen className="h-6 w-6 text-primary" />
-                Diario de Duelo - {memorial?.nombre_ser_querido}
+                {memorial?.nombre_ser_querido 
+                  ? `Diario de Duelo - ${memorial.nombre_ser_querido}`
+                  : "Mi Diario de Duelo"}
               </CardTitle>
               <CardDescription>
-                {weeksSince > 0
+                {weeksSince > 0 && memorial
                   ? `Han pasado ${weeksSince} semana${weeksSince !== 1 ? 's' : ''} desde su partida`
-                  : "Tu espacio personal para reflexionar"}
+                  : "Tu espacio personal para reflexionar sobre tu proceso de duelo"}
               </CardDescription>
             </CardHeader>
           </Card>

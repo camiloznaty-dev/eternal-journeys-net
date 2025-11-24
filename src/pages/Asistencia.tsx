@@ -18,7 +18,7 @@ const Asistencia = () => {
       <AnimatedHero
         title="Asistencia en el Duelo"
         subtitle="Apoyo y Acompañamiento"
-        description="Un espacio seguro para honrar la memoria de tus seres queridos y acompañarte en tu proceso de duelo."
+        description="Guía práctica paso a paso para orientarte en los trámites y decisiones necesarias durante este momento difícil."
         icon={<HeartHandshake className="w-10 h-10" />}
         backgroundImage={heroImage}
       />

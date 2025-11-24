@@ -42,6 +42,7 @@ import AnunciosSepulturas from "./pages/dashboard/AnunciosSepulturas";
 import MiCuenta from "./pages/cliente/MiCuenta";
 import MisMemoriales from "./pages/cliente/MisMemoriales";
 import MiDiario from "./pages/cliente/MiDiario";
+import ProyectoInterno from "./pages/ProyectoInterno";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -97,6 +98,9 @@ const App = () => (
           <Route path="/mi-cuenta" element={<MiCuenta />} />
           <Route path="/mi-cuenta/memoriales" element={<MisMemoriales />} />
           <Route path="/mi-cuenta/diario" element={<MiDiario />} />
+          
+          {/* Internal Management */}
+          <Route path="/proyecto-interno" element={<ProyectoInterno />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

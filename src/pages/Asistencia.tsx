@@ -1,249 +1,210 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Stamp, Heart, MapPin, AlertCircle } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Heart, BookOpen, Plus, Calendar } from "lucide-react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { toast } from "sonner";
 
-export default function Asistencia() {
-  const sections = [
-    {
-      id: "A",
-      title: "Registro Oficial del Deceso",
-      icon: FileText,
-      description: "Es fundamental formalizar el deceso mediante la documentación legal correspondiente. Este es el paso inicial que permite continuar con las siguientes gestiones.",
-      documents: [
-        {
-          title: "Constancia Médica del Deceso:",
-          items: [
-            "Centros de salud donde ocurrió el deceso",
-            "Profesional médico que atendió al paciente en domicilio",
-            "Para situaciones inusuales, es necesario notificar a las autoridades policiales"
-          ]
-        },
-        {
-          title: "Otros documentos:",
-          items: [
-            "Identificación oficial del difunto",
-            "Registro familiar (opcional)",
-            "Comprobante de pensión o previsión si aplica"
-          ]
-        }
-      ],
-      note: "Si lo necesitan, podemos coordinar con profesionales médicos que acuden al domicilio para emitir la documentación requerida."
+const Asistencia = () => {
+  const navigate = useNavigate();
+  const [isCreating, setIsCreating] = useState(false);
+
+  const { data: memoriales, isLoading } = useQuery({
+    queryKey: ["memoriales"],
+    queryFn: async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("No autenticado");
+
+      const { data, error } = await supabase
+        .from("memoriales")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return data;
     },
-    {
-      id: "B",
-      title: "Permiso Legal para el Sepelio",
-      icon: Stamp,
-      description: "Nosotros gestionamos esta autorización incluida en nuestro servicio completo. La tramitación se realiza en la oficina del Registro Civil de la comuna respectiva.",
-      documents: [
-        {
-          title: "Papelería Necesaria:",
-          items: [
-            "Documento médico original o duplicado del deceso (sin correcciones)",
-            "Documento de identificación del difunto",
-            "Registro familiar (sugerido mas no obligatorio)",
-            "Copias extra del acta de defunción para gestiones futuras"
-          ]
-        }
-      ],
-      specialCases: [
-        {
-          title: "Servicio Médico Legal:",
-          description: "Para decesos por circunstancias atípicas, el registro se efectúa en el Servicio Médico Legal. Fuera del horario regular del Registro Civil, los papeles pueden presentarse en el camposanto directamente."
-        },
-        {
-          title: "Días no laborables:",
-          description: "Durante sábados, domingos y festivos, la documentación se entrega en el cementerio seleccionado."
-        }
-      ]
-    },
-    {
-      id: "C",
-      title: "Planificación del Homenaje",
-      icon: Heart,
-      description: "Organizamos cada aspecto de la ceremonia de despedida respetando las tradiciones y deseos familiares.",
-      documents: [
-        {
-          title: "Selección de Espacios:",
-          items: [
-            "Espacio para el velatorio: residencia, templo, capilla u otro sitio",
-            "Servicio religioso: establecer el momento de la ceremonia",
-            "Estas decisiones influyen en la programación del día y momento del sepelio"
-          ]
-        }
-      ]
-    },
-    {
-      id: "D",
-      title: "Inhumación o Cremación",
-      icon: MapPin,
-      description: "Facilitamos todas las gestiones administrativas en el parque memorial o crematorio escogido.",
-      documents: [
-        {
-          title: "Gestiones en el Camposanto:",
-          items: [
-            "Nuestros asesores orientan y apoyan en procedimientos que requieren presencia familiar",
-            "Obtención de espacio de descanso final o coordinación de cremación según preferencia",
-            "Liquidación de costos administrativos del cementerio",
-            "Acompañamiento profesional durante todo el proceso"
-          ]
-        }
-      ],
-      note: "Los costos del cementerio deben ser cubiertos según las tarifas del lugar elegido. Ciertos trámites requieren la presencia de un familiar directo."
-    }
-  ];
+  });
+
+  const handleCreateMemorial = () => {
+    navigate("/asistencia/crear-memorial");
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
       <Header />
       
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-b from-muted/50 to-background">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Guía para Momentos Difíciles
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Te acompañamos paso a paso en cada gestión necesaria. 
-                Esta guía te ayudará a comprender el proceso y los documentos requeridos.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Sections */}
-        <section className="py-16">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <div className="space-y-12">
-              {sections.map((section, index) => {
-                const Icon = section.icon;
-                return (
-                  <motion.div
-                    key={section.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Card className="overflow-hidden">
-                      <CardHeader className="bg-muted/30 border-b">
-                        <div className="flex items-start gap-4">
-                          <div className="bg-primary/10 p-3 rounded-lg">
-                            <Icon className="h-6 w-6 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="text-3xl font-bold text-primary">
-                                {section.id}
-                              </span>
-                              <CardTitle className="text-2xl">
-                                {section.title}
-                              </CardTitle>
-                            </div>
-                            <p className="text-muted-foreground">
-                              {section.description}
-                            </p>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      
-                      <CardContent className="pt-6 space-y-6">
-                        {/* Documents */}
-                        {section.documents?.map((doc, idx) => (
-                          <div key={idx}>
-                            <h3 className="font-semibold mb-3 text-lg">
-                              {doc.title}
-                            </h3>
-                            <ul className="space-y-2 ml-4">
-                              {doc.items.map((item, itemIdx) => (
-                                <li
-                                  key={itemIdx}
-                                  className="flex items-start gap-2 text-muted-foreground"
-                                >
-                                  <span className="text-accent mt-1.5">•</span>
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-
-                        {/* Special Cases */}
-                        {section.specialCases && (
-                          <div>
-                            <h3 className="font-semibold mb-3 text-lg">
-                              Casos Especiales:
-                            </h3>
-                            <div className="space-y-4">
-                              {section.specialCases.map((specialCase, idx) => (
-                                <div key={idx} className="ml-4">
-                                  <h4 className="font-medium mb-2">
-                                    {specialCase.title}
-                                  </h4>
-                                  <p className="text-muted-foreground">
-                                    {specialCase.description}
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Note */}
-                        {section.note && (
-                          <Alert>
-                            <AlertCircle className="h-4 w-4" />
-                            <AlertDescription className="ml-2">
-                              <strong>Nota:</strong> {section.note}
-                            </AlertDescription>
-                          </Alert>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-16 bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              ¿Necesitas ayuda adicional?
-            </h2>
-            <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-              Nuestro equipo está disponible 24/7 para orientarte y acompañarte 
-              en cada paso del proceso
+      <main className="flex-1 container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              Asistencia en el Duelo
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Un espacio seguro para honrar la memoria de tus seres queridos y acompañarte en tu proceso de duelo
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:+56-2-2345-6789"
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-11 px-8"
-              >
-                Llamar Ahora
-              </a>
-              <a
-                href="/funerarias"
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8"
-              >
-                Ver Funerarias
-              </a>
-            </div>
           </div>
-        </section>
+
+          {!isLoading && (!memoriales || memoriales.length === 0) && (
+            <Card className="mb-8 border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Heart className="h-6 w-6 text-primary" />
+                  Bienvenido a tu espacio de sanación
+                </CardTitle>
+                <CardDescription>
+                  Aquí podrás crear memoriales digitales para tus seres queridos y llevar un diario guiado de tu proceso de duelo
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid md:grid-cols-2 gap-4">
+                <Card>
+                  <CardHeader>
+                    <Heart className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Memorial Digital</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Guarda fotos y recuerdos especiales</li>
+                      <li>• Escribe cartas a tu ser querido</li>
+                      <li>• Comparte historias y anécdotas</li>
+                      <li>• Invita a familiares a participar</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <BookOpen className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Diario de Duelo</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Reflexiones guiadas semanales</li>
+                      <li>• Seguimiento emocional personal</li>
+                      <li>• Prompts adaptados a tu proceso</li>
+                      <li>• Espacio privado y confidencial</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-semibold">Mis Memoriales</h2>
+            <Button onClick={handleCreateMemorial} disabled={isCreating}>
+              <Plus className="mr-2 h-4 w-4" />
+              Crear Memorial
+            </Button>
+          </div>
+
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 gap-4">
+              {[1, 2].map((i) => (
+                <Card key={i} className="animate-pulse">
+                  <CardHeader>
+                    <div className="h-6 bg-muted rounded w-2/3 mb-2" />
+                    <div className="h-4 bg-muted rounded w-1/2" />
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          ) : memoriales && memoriales.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-4">
+              {memoriales.map((memorial) => (
+                <Card
+                  key={memorial.id}
+                  className="cursor-pointer hover:shadow-lg transition-shadow"
+                  onClick={() => navigate(`/asistencia/memorial/${memorial.id}`)}
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <CardTitle className="flex items-center gap-2 mb-2">
+                          <Heart className="h-5 w-5 text-primary" />
+                          {memorial.nombre_ser_querido}
+                        </CardTitle>
+                        {memorial.relacion && (
+                          <CardDescription className="capitalize">
+                            {memorial.relacion}
+                          </CardDescription>
+                        )}
+                      </div>
+                      {memorial.foto_principal && (
+                        <img
+                          src={memorial.foto_principal}
+                          alt={memorial.nombre_ser_querido}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                      )}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm text-muted-foreground">
+                      {memorial.fecha_nacimiento && memorial.fecha_fallecimiento && (
+                        <p className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4" />
+                          {format(new Date(memorial.fecha_nacimiento), "d 'de' MMMM, yyyy", { locale: es })} - {format(new Date(memorial.fecha_fallecimiento), "d 'de' MMMM, yyyy", { locale: es })}
+                        </p>
+                      )}
+                      {memorial.descripcion && (
+                        <p className="line-clamp-2">{memorial.descripcion}</p>
+                      )}
+                    </div>
+                    <div className="flex gap-2 mt-4">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/asistencia/memorial/${memorial.id}`);
+                        }}
+                      >
+                        <Heart className="mr-1 h-3 w-3" />
+                        Ver Memorial
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/asistencia/diario/${memorial.id}`);
+                        }}
+                      >
+                        <BookOpen className="mr-1 h-3 w-3" />
+                        Diario
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="text-center py-12">
+              <CardContent>
+                <Heart className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <p className="text-muted-foreground mb-4">
+                  Aún no has creado ningún memorial
+                </p>
+                <Button onClick={handleCreateMemorial}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Crear tu Primer Memorial
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </main>
-      
+
       <Footer />
     </div>
   );
-}
+};
+
+export default Asistencia;

@@ -11,6 +11,9 @@ import Obituarios from "./pages/Obituarios";
 import ObituarioDetalle from "./pages/ObituarioDetalle";
 import Planificador from "./pages/Planificador";
 import Asistencia from "./pages/Asistencia";
+import CrearMemorial from "./pages/CrearMemorial";
+import MemorialDetalle from "./pages/MemorialDetalle";
+import DiarioDuelo from "./pages/DiarioDuelo";
 import Auth from "./pages/Auth";
 import FunerariaPublica from "./pages/FunerariaPublica";
 import Terminos from "./pages/Terminos";
@@ -57,6 +60,9 @@ const App = () => (
           <Route path="/obituarios/:id" element={<ObituarioDetalle />} />
           <Route path="/planificador" element={<Planificador />} />
           <Route path="/asistencia" element={<Asistencia />} />
+          <Route path="/asistencia/crear-memorial" element={<CrearMemorial />} />
+          <Route path="/asistencia/memorial/:id" element={<MemorialDetalle />} />
+          <Route path="/asistencia/diario/:memorialId" element={<DiarioDuelo />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/terminos" element={<Terminos />} />
           <Route path="/privacidad" element={<Privacidad />} />

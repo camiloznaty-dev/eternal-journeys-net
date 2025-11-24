@@ -17,8 +17,8 @@ export default defineConfig(({ mode }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'icon-192.png', 'icon-512.png'],
       manifest: {
-        name: 'Sirius - Marketplace Funerario',
-        short_name: 'Sirius',
+        name: 'ConectaFunerarias - Marketplace Funerario',
+        short_name: 'ConectaFunerarias',
         description: 'Encuentra y compara servicios funerarios de calidad',
         theme_color: '#1a1a2e',
         background_color: '#0f0f1e',

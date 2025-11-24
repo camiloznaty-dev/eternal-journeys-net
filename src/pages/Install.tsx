@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, Smartphone, Check } from "lucide-react";
+import { Download, Smartphone, Check, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -56,9 +56,11 @@ const Install = () => {
           className="max-w-2xl mx-auto"
         >
           <div className="text-center mb-8 sm:mb-12">
-            <Download className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 text-primary" />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-primary mb-6">
+              <Heart className="w-10 h-10 text-white" fill="white" />
+            </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
-              Instala Sirius
+              Instala ConectaFunerarias
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground">
               Accede más rápido a nuestros servicios instalando la app en tu dispositivo
@@ -73,7 +75,7 @@ const Install = () => {
                   <div>
                     <CardTitle>¡App Instalada!</CardTitle>
                     <CardDescription>
-                      Sirius ya está instalado en tu dispositivo
+                      ConectaFunerarias ya está instalado en tu dispositivo
                     </CardDescription>
                   </div>
                 </div>

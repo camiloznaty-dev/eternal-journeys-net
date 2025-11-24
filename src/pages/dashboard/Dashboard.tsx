@@ -5,6 +5,7 @@ import { Users, Briefcase, TrendingUp, DollarSign, FileText, Package } from "luc
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useSearchParams } from "react-router-dom";
+import { PlanCard } from "@/components/dashboard/PlanCard";
 
 export default function Dashboard() {
   const [searchParams] = useSearchParams();
@@ -146,38 +147,44 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Actividad Reciente</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="h-2 w-2 rounded-full bg-primary" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Nuevo lead asignado</p>
-                    <p className="text-xs text-muted-foreground">Hace 5 minutos</p>
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="md:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Actividad Reciente</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="h-2 w-2 rounded-full bg-primary" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Nuevo lead asignado</p>
+                      <p className="text-xs text-muted-foreground">Hace 5 minutos</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="h-2 w-2 rounded-full bg-primary" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Cotización enviada</p>
+                      <p className="text-xs text-muted-foreground">Hace 1 hora</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="h-2 w-2 rounded-full bg-primary" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Servicio completado</p>
+                      <p className="text-xs text-muted-foreground">Hace 3 horas</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-2 w-2 rounded-full bg-primary" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Cotización enviada</p>
-                    <p className="text-xs text-muted-foreground">Hace 1 hora</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-2 w-2 rounded-full bg-primary" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Servicio completado</p>
-                    <p className="text-xs text-muted-foreground">Hace 3 horas</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <PlanCard />
+        </div>
 
+        <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
               <CardTitle>Tareas Pendientes</CardTitle>
@@ -203,6 +210,30 @@ export default function Dashboard() {
                   <div className="flex-1">
                     <p className="text-sm font-medium">Actualizar inventario</p>
                     <p className="text-xs text-muted-foreground">Vence en 2 días</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Próximos Eventos</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="h-2 w-2 rounded-full bg-primary" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Ceremonia Familia López</p>
+                    <p className="text-xs text-muted-foreground">Hoy, 15:00</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="h-2 w-2 rounded-full bg-primary" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Reunión con proveedor</p>
+                    <p className="text-xs text-muted-foreground">Mañana, 10:00</p>
                   </div>
                 </div>
               </div>

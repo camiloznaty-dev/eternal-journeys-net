@@ -180,53 +180,6 @@ const Auth = () => {
     }
   };
 
-  const handleDemoAccess = async () => {
-    setLoading(true);
-    const demoEmail = "demo@funeraria.cl";
-    const demoPassword = "Demo123!@#";
-
-    try {
-      // Try to login first
-      const { error: loginError } = await supabase.auth.signInWithPassword({
-        email: demoEmail,
-        password: demoPassword,
-      });
-
-      if (loginError) {
-        // If login fails, create demo account
-        const { error: signupError } = await supabase.auth.signUp({
-          email: demoEmail,
-          password: demoPassword,
-          options: {
-            emailRedirectTo: `${window.location.origin}/dashboard`,
-            data: {
-              full_name: "Demo Funeraria",
-              role: "funeraria",
-              phone: "+56912345678",
-              funeraria_name: "Funeraria Demo",
-              funeraria_rut: "12.345.678-9",
-              funeraria_address: "Av. Demo 123, Santiago",
-              primary_color: "#000000",
-              secondary_color: "#666666",
-              employee_count_range: "1-5",
-              registrant_type: "propietario",
-              comuna: "Santiago",
-            },
-          },
-        });
-
-        if (signupError) throw signupError;
-        toast.success("Accediendo al dashboard demo...");
-      } else {
-        toast.success("¡Bienvenido al dashboard demo!");
-      }
-    } catch (error: any) {
-      toast.error(error.message || "Error al acceder al demo");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -418,21 +371,6 @@ const Auth = () => {
                     {loading ? "Iniciando..." : "Iniciar Sesión"}
                   </Button>
                 </form>
-                
-                <div className="mt-4 pt-4 border-t">
-                  <Button 
-                    type="button" 
-                    variant="outline" 
-                    className="w-full h-12" 
-                    onClick={handleDemoAccess}
-                    disabled={loading}
-                  >
-                    🚀 Acceso Demo Rápido
-                  </Button>
-                  <p className="text-xs text-muted-foreground text-center mt-2">
-                    Entra sin registrarte para explorar el dashboard
-                  </p>
-                </div>
               </TabsContent>
 
               <TabsContent value="signup">

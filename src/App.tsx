@@ -25,6 +25,7 @@ import BlogDetalle from "./pages/BlogDetalle";
 import VendeSepultura from "./pages/VendeSepultura";
 import PublicarSepultura from "./pages/PublicarSepultura";
 import Recursos from "./pages/Recursos";
+import Install from "./pages/Install";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Leads from "./pages/dashboard/Leads";
 import Casos from "./pages/dashboard/Casos";
@@ -86,6 +87,7 @@ const App = () => (
           <Route path="/recursos" element={<Recursos />} />
           <Route path="/vende-sepultura" element={<VendeSepultura />} />
           <Route path="/publicar-sepultura" element={<PublicarSepultura />} />
+          <Route path="/instalar" element={<Install />} />
           
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<Dashboard />} />

@@ -48,6 +48,7 @@ import SuperAdminDashboard from "./pages/superadmin/Dashboard";
 import SuperAdminFunerarias from "./pages/superadmin/Funerarias";
 import SuperAdminUsuarios from "./pages/superadmin/Usuarios";
 import SuperAdminContenido from "./pages/superadmin/Contenido";
+import SuperAdminActividad from "./pages/superadmin/Actividad";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -113,6 +114,7 @@ const App = () => (
           <Route path="/superadmin/funerarias" element={<SuperAdminFunerarias />} />
           <Route path="/superadmin/usuarios" element={<SuperAdminUsuarios />} />
           <Route path="/superadmin/contenido" element={<SuperAdminContenido />} />
+          <Route path="/superadmin/actividad" element={<SuperAdminActividad />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

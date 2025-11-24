@@ -101,6 +101,8 @@ const Auth = () => {
 
         if (roles?.role === "funeraria") {
           navigate("/dashboard");
+        } else if (roles?.role === "cliente") {
+          navigate("/mi-cuenta");
         } else {
           navigate("/");
         }
@@ -119,6 +121,8 @@ const Auth = () => {
 
         if (roles?.role === "funeraria") {
           navigate("/dashboard");
+        } else if (roles?.role === "cliente") {
+          navigate("/mi-cuenta");
         } else {
           navigate("/");
         }

@@ -1,0 +1,187 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { SuperAdminLayout } from "@/components/superadmin/SuperAdminLayout";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Search, Mail, Shield } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+export default function SuperAdminUsuarios() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [usuarios, setUsuarios] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    checkAccessAndFetch();
+  }, []);
+
+  const checkAccessAndFetch = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        navigate("/auth");
+        return;
+      }
+
+      const { data: roleData } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "superadmin")
+        .single();
+
+      if (!roleData) {
+        navigate("/");
+        return;
+      }
+
+      await fetchUsuarios();
+    } catch (error) {
+      console.error("Error checking access:", error);
+      navigate("/");
+    }
+  };
+
+  const fetchUsuarios = async () => {
+    try {
+      const { data: profiles, error: profilesError } = await supabase
+        .from("profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (profilesError) throw profilesError;
+
+      const { data: roles, error: rolesError } = await supabase
+        .from("user_roles")
+        .select("*");
+
+      if (rolesError) throw rolesError;
+
+      const usersWithRoles = profiles?.map((profile) => ({
+        ...profile,
+        roles: roles?.filter((r) => r.user_id === profile.id).map((r) => r.role) || [],
+      }));
+
+      setUsuarios(usersWithRoles || []);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredUsuarios = usuarios.filter((u) =>
+    u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    u.full_name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const getRoleBadgeVariant = (role: string) => {
+    switch (role) {
+      case "superadmin":
+        return "destructive";
+      case "funeraria":
+        return "default";
+      case "cliente":
+        return "secondary";
+      default:
+        return "outline";
+    }
+  };
+
+  return (
+    <SuperAdminLayout>
+      <div className="space-y-6">
+        <div>
+          <h1 className="font-display text-3xl font-bold">Gestión de Usuarios</h1>
+          <p className="text-muted-foreground">
+            Administra todos los usuarios y sus roles en la plataforma
+          </p>
+        </div>
+
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Buscar por email o nombre..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div className="space-y-3">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Skeleton key={i} className="h-16 w-full" />
+                ))}
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Nombre</TableHead>
+                    <TableHead>Roles</TableHead>
+                    <TableHead>Teléfono</TableHead>
+                    <TableHead>Registro</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredUsuarios.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center text-muted-foreground">
+                        No se encontraron usuarios
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    filteredUsuarios.map((usuario) => (
+                      <TableRow key={usuario.id}>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <Mail className="h-4 w-4 text-muted-foreground" />
+                            <span className="font-medium">{usuario.email}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>{usuario.full_name || "-"}</TableCell>
+                        <TableCell>
+                          <div className="flex gap-2">
+                            {usuario.roles.length > 0 ? (
+                              usuario.roles.map((role: string) => (
+                                <Badge key={role} variant={getRoleBadgeVariant(role)}>
+                                  {role === "superadmin" && <Shield className="h-3 w-3 mr-1" />}
+                                  {role}
+                                </Badge>
+                              ))
+                            ) : (
+                              <Badge variant="outline">Sin rol</Badge>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {usuario.phone || "-"}
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {new Date(usuario.created_at).toLocaleDateString("es-CL")}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </SuperAdminLayout>
+  );
+}

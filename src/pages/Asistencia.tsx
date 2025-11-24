@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { toast } from "sonner";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import heroImage from "@/assets/hero-asistencia.jpg";
 
 const Asistencia = () => {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ const Asistencia = () => {
         subtitle="Apoyo y Acompañamiento"
         description="Un espacio seguro para honrar la memoria de tus seres queridos y acompañarte en tu proceso de duelo."
         icon={<HeartHandshake className="w-10 h-10" />}
+        backgroundImage={heroImage}
       />
       
       <main className="flex-1 py-12 bg-muted/30">

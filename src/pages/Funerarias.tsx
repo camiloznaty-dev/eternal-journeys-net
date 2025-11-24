@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import heroImage from "@/assets/hero-funerarias.jpg";
 
 const Funerarias = () => {
   const { data: funerarias, isLoading } = useQuery({
@@ -32,6 +33,7 @@ const Funerarias = () => {
         subtitle="Directorio de Funerarias"
         description="Explora y compara las mejores funerarias de Chile. Transparencia, calidad y confianza en un solo lugar."
         icon={<Building2 className="w-10 h-10" />}
+        backgroundImage={heroImage}
       />
       
       <main className="flex-1 py-12">

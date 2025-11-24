@@ -11,6 +11,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import heroImage from "@/assets/hero-obituarios.jpg";
 
 const Obituarios = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,6 +43,7 @@ const Obituarios = () => {
         subtitle="En Memoria"
         description="Honrando la vida y el legado de nuestros seres queridos. Un espacio de recuerdo y homenaje."
         icon={<BookHeart className="w-10 h-10" />}
+        backgroundImage={heroImage}
       />
       
       <main className="flex-1 py-12 bg-muted/30">

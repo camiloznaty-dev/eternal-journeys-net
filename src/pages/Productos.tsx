@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShoppingBag } from "lucide-react";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import heroImage from "@/assets/hero-productos.jpg";
 
 const Productos = () => {
   // Placeholder product data
@@ -52,6 +53,7 @@ const Productos = () => {
         subtitle="Catálogo Completo"
         description="Explora nuestra selección de productos y servicios funerarios de la más alta calidad."
         icon={<ShoppingBag className="w-10 h-10" />}
+        backgroundImage={heroImage}
       />
       
       <main className="flex-1 py-12 bg-muted/30">

@@ -15,7 +15,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "15 de Marzo, 2024",
       tiempo: "5 min",
-      imagen: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1513628253939-010e64ac66cd?w=1200&q=80&auto=format&fit=crop" // manos sosteniendo una vela
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "10 de Marzo, 2024",
       tiempo: "7 min",
-      imagen: "https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b?w=1200&q=80&auto=format&fit=crop" // paisaje de cementerio con luz suave
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "5 de Marzo, 2024",
       tiempo: "4 min",
-      imagen: "https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1200&q=80&auto=format&fit=crop" // flores y luz suave
     },
     {
       id: 4,
@@ -45,7 +45,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "1 de Marzo, 2024",
       tiempo: "6 min",
-      imagen: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1518831959410-48a934f51e86?w=1200&q=80&auto=format&fit=crop" // carpeta, lápiz y manos planificando
     },
     {
       id: 5,
@@ -55,7 +55,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "25 de Febrero, 2024",
       tiempo: "8 min",
-      imagen: "https://images.unsplash.com/photo-1495653797063-114787b77b23?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1486591038957-19e7c73bdc41?w=1200&q=80&auto=format&fit=crop" // ceremonia íntima con velas
     },
     {
       id: 6,
@@ -65,7 +65,7 @@ export default function Blog() {
       autor: "Equipo Sirius",
       fecha: "20 de Febrero, 2024",
       tiempo: "10 min",
-      imagen: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"
+      imagen: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80&auto=format&fit=crop" // documentos y manos escribiendo
     }
   ];
 

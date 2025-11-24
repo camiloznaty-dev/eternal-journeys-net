@@ -44,6 +44,9 @@ import MiCuenta from "./pages/cliente/MiCuenta";
 import MisMemoriales from "./pages/cliente/MisMemoriales";
 import MiDiario from "./pages/cliente/MiDiario";
 import ProyectoInterno from "./pages/ProyectoInterno";
+import SuperAdminDashboard from "./pages/superadmin/Dashboard";
+import SuperAdminFunerarias from "./pages/superadmin/Funerarias";
+import SuperAdminUsuarios from "./pages/superadmin/Usuarios";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -103,6 +106,11 @@ const App = () => (
           
           {/* Internal Management */}
           <Route path="/proyecto-interno" element={<ProyectoInterno />} />
+          
+          {/* SuperAdmin Routes */}
+          <Route path="/superadmin" element={<SuperAdminDashboard />} />
+          <Route path="/superadmin/funerarias" element={<SuperAdminFunerarias />} />
+          <Route path="/superadmin/usuarios" element={<SuperAdminUsuarios />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

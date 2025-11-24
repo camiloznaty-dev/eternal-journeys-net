@@ -5,10 +5,11 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Heart, Music, Flower2, Users, BookOpen, Camera, MessageCircle, Download, Save } from "lucide-react";
+import { Heart, Music, Flower2, Users, BookOpen, Camera, MessageCircle, Download, Save, Calendar } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { AnimatedHero } from "@/components/AnimatedHero";
 
 const Planificador = () => {
   const [formData, setFormData] = useState({
@@ -67,21 +68,15 @@ const Planificador = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-1 py-12">
+      <AnimatedHero
+        title="Planificador Funeral"
+        subtitle="Planifica con Anticipación"
+        description="Organiza y planifica tu servicio funeral. Define preferencias concretas y facilita la toma de decisiones para tu familia."
+        icon={<Calendar className="w-10 h-10" />}
+      />
+      
+      <main className="flex-1 py-12 bg-muted/30">
         <div className="container mx-auto px-4 max-w-4xl">
-          {/* Hero */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Planificador Funeral
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Organiza y planifica tu servicio funeral. Define preferencias concretas y facilita la toma de decisiones para tu familia.
-            </p>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}

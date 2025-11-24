@@ -3,6 +3,8 @@ import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ShoppingBag } from "lucide-react";
+import { AnimatedHero } from "@/components/AnimatedHero";
 
 const Productos = () => {
   // Placeholder product data
@@ -45,14 +47,15 @@ const Productos = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-1 py-12">
+      <AnimatedHero
+        title="Productos y Servicios"
+        subtitle="Catálogo Completo"
+        description="Explora nuestra selección de productos y servicios funerarios de la más alta calidad."
+        icon={<ShoppingBag className="w-10 h-10" />}
+      />
+      
+      <main className="flex-1 py-12 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">Productos y Servicios</h1>
-            <p className="text-lg text-muted-foreground">
-              Explora nuestro catálogo completo
-            </p>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {productos.map((producto) => (

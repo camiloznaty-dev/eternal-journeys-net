@@ -9,10 +9,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AnuncioSepulturaCard } from "@/components/AnuncioSepulturaCard";
 import { supabase } from "@/integrations/supabase/client";
-import { Search, Plus } from "lucide-react";
+import { Search, Plus, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import { todasLasComunas } from "@/data/comunas";
 import { motion } from "framer-motion";
+import { AnimatedHero } from "@/components/AnimatedHero";
 
 const tiposSepultura = ["Todos", "Perpetua", "Temporal", "Nicho", "Mausoleo", "Columbario"];
 
@@ -50,39 +51,23 @@ export default function VendeSepultura() {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-primary/5 to-background py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Vende tu Sepultura
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8">
-                Conectamos vendedores y compradores de sepulturas. 
-                Te asesoramos en todo el proceso de manera profesional y segura.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild>
-                  <Link to="/publicar-sepultura">
-                    <Plus className="mr-2 h-5 w-5" />
-                    Publicar Anuncio
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link to="/contacto">Asesoría Gratuita</Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+      <AnimatedHero
+        title="Sepulturas Disponibles"
+        subtitle="Marketplace de Sepulturas"
+        description="Encuentra o vende sepulturas en los mejores cementerios de Chile. Transparencia y confianza garantizada."
+        icon={<Home className="w-10 h-10" />}
+      >
+        <Link to="/publicar-sepultura">
+          <Button size="lg" className="gap-2">
+            <Plus className="w-5 h-5" />
+            Publicar Sepultura
+          </Button>
+        </Link>
+      </AnimatedHero>
 
+      <main className="flex-1">
         {/* Filtros */}
-        <section className="py-8 border-b">
+        <section className="py-8 border-b bg-background">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
@@ -120,7 +105,7 @@ export default function VendeSepultura() {
         </section>
 
         {/* Resultados */}
-        <section className="py-12">
+        <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4">
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -170,7 +155,7 @@ export default function VendeSepultura() {
         </section>
 
         {/* Cómo funciona */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">¿Cómo funciona?</h2>
             <div className="grid md:grid-cols-3 gap-8">

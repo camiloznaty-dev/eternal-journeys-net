@@ -3,13 +3,14 @@ import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Heart, Search } from "lucide-react";
+import { Heart, Search, BookHeart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { AnimatedHero } from "@/components/AnimatedHero";
 
 const Obituarios = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,25 +37,26 @@ const Obituarios = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
+      <AnimatedHero
+        title="Obituarios"
+        subtitle="En Memoria"
+        description="Honrando la vida y el legado de nuestros seres queridos. Un espacio de recuerdo y homenaje."
+        icon={<BookHeart className="w-10 h-10" />}
+      />
+      
       <main className="flex-1 py-12 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="mb-12 text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Obituarios</h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              En memoria de nuestros seres queridos
-            </p>
             
-            {/* Buscador */}
-            <div className="relative max-w-md mx-auto">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Buscar por nombre..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12"
-              />
-            </div>
+          {/* Buscador */}
+          <div className="relative max-w-md mx-auto mb-12">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Buscar por nombre..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 h-12"
+            />
           </div>
 
           {isLoading ? (

@@ -77,11 +77,11 @@ export default function Blog() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+        <section className="py-12 sm:py-16 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-5xl font-bold mb-6">Blog de Sirius</h1>
-              <p className="text-xl text-muted-foreground">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">Blog de Sirius</h1>
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground px-4">
                 Información, guías y recursos para ayudarte en momentos difíciles.
               </p>
             </div>
@@ -89,14 +89,14 @@ export default function Blog() {
         </section>
 
         {/* Filtros */}
-        <section className="py-8 border-b border-border">
+        <section className="py-6 sm:py-8 border-b border-border">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap gap-2 justify-center">
               {categorias.map((categoria) => (
                 <Badge
                   key={categoria}
                   variant={categoria === "Todas" ? "default" : "outline"}
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-4 py-2"
+                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm"
                 >
                   {categoria}
                 </Badge>
@@ -106,49 +106,10 @@ export default function Blog() {
         </section>
 
         {/* Posts Grid */}
-        <section className="py-16">
+        <section className="py-8 sm:py-12 lg:py-16">
           <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <Link key={post.id} to={`/blog/${post.id}`}>
-                  <Card className="h-full hover:shadow-lg transition-all cursor-pointer group">
-                    <div className="h-48 overflow-hidden">
-                      <img
-                        src={post.imagen}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardHeader>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="secondary">{post.categoria}</Badge>
-                      </div>
-                      <CardTitle className="group-hover:text-primary transition-colors">
-                        {post.title}
-                      </CardTitle>
-                      <CardDescription className="line-clamp-2">
-                        {post.excerpt}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <User className="w-4 h-4" />
-                          <span>{post.autor}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          <span>{post.fecha}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{post.tiempo}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+...
             </div>
           </div>
         </section>

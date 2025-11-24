@@ -31,44 +31,44 @@ export const AnuncioSepulturaCard = ({ anuncio }: AnuncioSepulturaCardProps) => 
     : "https://images.unsplash.com/photo-1580130732478-1d2f2f6d5e9f?w=600&h=400&fit=crop";
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
       <div className="relative">
         <img 
           src={imagenPrincipal}
           alt={anuncio.titulo}
-          className="w-full h-48 object-cover"
+          className="w-full h-40 sm:h-48 object-cover"
         />
         {anuncio.destacado && (
-          <Badge className="absolute top-2 right-2 bg-amber-500 hover:bg-amber-600">
+          <Badge className="absolute top-2 right-2 bg-amber-500 hover:bg-amber-600 text-xs">
             <Star className="w-3 h-3 mr-1 fill-current" />
             Destacado
           </Badge>
         )}
-        <Badge className="absolute top-2 left-2 bg-background/90 text-foreground">
+        <Badge className="absolute top-2 left-2 bg-background/90 text-foreground text-xs">
           {anuncio.tipo_sepultura}
         </Badge>
       </div>
       
-      <CardHeader className="pb-3">
-        <h3 className="font-semibold text-lg line-clamp-1">{anuncio.titulo}</h3>
-        <div className="flex items-center text-sm text-muted-foreground">
-          <MapPin className="w-4 h-4 mr-1" />
-          {anuncio.cementerio}, {anuncio.comuna}
+      <CardHeader className="pb-2 sm:pb-3 flex-1">
+        <h3 className="font-semibold text-base sm:text-lg line-clamp-1">{anuncio.titulo}</h3>
+        <div className="flex items-center text-xs sm:text-sm text-muted-foreground">
+          <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1 flex-shrink-0" />
+          <span className="line-clamp-1">{anuncio.cementerio}, {anuncio.comuna}</span>
         </div>
       </CardHeader>
 
-      <CardContent className="pb-3">
+      <CardContent className="pb-2 sm:pb-3">
         {anuncio.descripcion && (
-          <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mb-2 sm:mb-3">
             {anuncio.descripcion}
           </p>
         )}
-        <div className="text-2xl font-bold text-primary">
+        <div className="text-xl sm:text-2xl font-bold text-primary">
           {formatPrecio(anuncio.precio)}
         </div>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="pt-0">
         <ConsultaSepulturaDialog anuncioId={anuncio.id} />
       </CardFooter>
     </Card>

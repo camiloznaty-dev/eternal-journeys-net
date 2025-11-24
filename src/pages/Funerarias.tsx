@@ -36,7 +36,7 @@ const Funerarias = () => {
         backgroundImage={heroImage}
       />
       
-      <main className="flex-1 py-12">
+      <main className="flex-1 py-8 sm:py-12">
         <div className="container mx-auto px-4">
 
           {isLoading ? (
@@ -44,53 +44,53 @@ const Funerarias = () => {
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {funerarias?.map((funeraria) => (
-                <Card key={funeraria.id} className="p-6 card-hover">
-                  <div className="flex gap-4">
+                <Card key={funeraria.id} className="p-4 sm:p-6 card-hover">
+                  <div className="flex flex-col sm:flex-row gap-4">
                     {funeraria.logo_url && (
                       <img
                         src={funeraria.logo_url}
                         alt={`Logo ${funeraria.name}`}
-                        className="w-20 h-20 object-contain rounded-lg flex-shrink-0"
+                        className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-lg flex-shrink-0 mx-auto sm:mx-0"
                       />
                     )}
-                    <div className="flex flex-col gap-4 flex-1">
+                    <div className="flex flex-col gap-3 sm:gap-4 flex-1">
                       <div>
-                        <h3 className="text-2xl font-bold mb-2">{funeraria.name}</h3>
-                        <p className="text-muted-foreground mb-3 line-clamp-2">{funeraria.description}</p>
+                        <h3 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-center sm:text-left">{funeraria.name}</h3>
+                        <p className="text-sm sm:text-base text-muted-foreground mb-2 sm:mb-3 line-clamp-2">{funeraria.description}</p>
                       </div>
 
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm">
-                          <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <div className="space-y-1.5 sm:space-y-2">
+                        <div className="flex items-center gap-2 text-xs sm:text-sm">
+                          <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground flex-shrink-0" />
                           <span className="line-clamp-1">{funeraria.address}</span>
                         </div>
                         {funeraria.phone && (
-                          <div className="flex items-center gap-2 text-sm">
-                            <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                          <div className="flex items-center gap-2 text-xs sm:text-sm">
+                            <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground flex-shrink-0" />
                             <span>{funeraria.phone}</span>
                           </div>
                         )}
                         {funeraria.email && (
-                          <div className="flex items-center gap-2 text-sm">
-                            <Mail className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                          <div className="flex items-center gap-2 text-xs sm:text-sm">
+                            <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground flex-shrink-0" />
                             <span className="truncate">{funeraria.email}</span>
                           </div>
                         )}
                         {funeraria.rating > 0 && (
-                          <div className="flex items-center gap-2 text-sm">
-                            <Star className="h-4 w-4 text-accent fill-accent" />
+                          <div className="flex items-center gap-2 text-xs sm:text-sm">
+                            <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent fill-accent" />
                             <span className="font-semibold">{funeraria.rating}</span>
                           </div>
                         )}
                       </div>
 
-                      <div className="flex gap-3 mt-auto">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-auto">
                         <Link to={`/f/${funeraria.slug}`} className="flex-1">
-                          <Button className="w-full">Ver Detalles</Button>
+                          <Button className="w-full" size="sm">Ver Detalles</Button>
                         </Link>
-                        <Button variant="outline">Contactar</Button>
+                        <Button variant="outline" size="sm" className="sm:w-auto">Contactar</Button>
                       </div>
                     </div>
                   </div>

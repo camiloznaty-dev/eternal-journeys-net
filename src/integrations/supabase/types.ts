@@ -730,6 +730,64 @@ export type Database = {
           },
         ]
       }
+      funeraria_planes: {
+        Row: {
+          created_at: string | null
+          estado: string | null
+          fecha_fin: string | null
+          fecha_inicio: string
+          funeraria_id: string
+          id: string
+          plan_id: string
+          tipo_pago: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          estado?: string | null
+          fecha_fin?: string | null
+          fecha_inicio?: string
+          funeraria_id: string
+          id?: string
+          plan_id: string
+          tipo_pago?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          estado?: string | null
+          fecha_fin?: string | null
+          fecha_inicio?: string
+          funeraria_id?: string
+          id?: string
+          plan_id?: string
+          tipo_pago?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funeraria_planes_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_stats"
+            referencedColumns: ["funeraria_id"]
+          },
+          {
+            foreignKeyName: "funeraria_planes_funeraria_id_fkey"
+            columns: ["funeraria_id"]
+            isOneToOne: false
+            referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "funeraria_planes_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "planes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       funerarias: {
         Row: {
           about_text: string | null
@@ -1159,6 +1217,60 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      planes: {
+        Row: {
+          activo: boolean | null
+          caracteristicas: Json | null
+          created_at: string | null
+          descripcion: string | null
+          destacado: boolean | null
+          id: string
+          limite_casos: number | null
+          limite_empleados: number | null
+          limite_leads: number | null
+          limite_obituarios: number | null
+          nombre: string
+          orden: number | null
+          precio_anual: number | null
+          precio_mensual: number
+          updated_at: string | null
+        }
+        Insert: {
+          activo?: boolean | null
+          caracteristicas?: Json | null
+          created_at?: string | null
+          descripcion?: string | null
+          destacado?: boolean | null
+          id?: string
+          limite_casos?: number | null
+          limite_empleados?: number | null
+          limite_leads?: number | null
+          limite_obituarios?: number | null
+          nombre: string
+          orden?: number | null
+          precio_anual?: number | null
+          precio_mensual: number
+          updated_at?: string | null
+        }
+        Update: {
+          activo?: boolean | null
+          caracteristicas?: Json | null
+          created_at?: string | null
+          descripcion?: string | null
+          destacado?: boolean | null
+          id?: string
+          limite_casos?: number | null
+          limite_empleados?: number | null
+          limite_leads?: number | null
+          limite_obituarios?: number | null
+          nombre?: string
+          orden?: number | null
+          precio_anual?: number | null
+          precio_mensual?: number
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       productos: {
         Row: {

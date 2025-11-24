@@ -18,6 +18,7 @@ import {
   Settings,
   Database,
   Activity,
+  Crown,
 } from "lucide-react";
 
 const menuItems = [
@@ -35,6 +36,11 @@ const menuItems = [
     title: "Usuarios",
     url: "/superadmin/usuarios",
     icon: Users,
+  },
+  {
+    title: "Planes",
+    url: "/superadmin/planes",
+    icon: Crown,
   },
   {
     title: "Contenido",

@@ -13,6 +13,8 @@ import Planificador from "./pages/Planificador";
 import Asistencia from "./pages/Asistencia";
 import Auth from "./pages/Auth";
 import FunerariaPublica from "./pages/FunerariaPublica";
+import Terminos from "./pages/Terminos";
+import Privacidad from "./pages/Privacidad";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Leads from "./pages/dashboard/Leads";
 import Casos from "./pages/dashboard/Casos";
@@ -50,6 +52,8 @@ const App = () => (
           <Route path="/planificador" element={<Planificador />} />
           <Route path="/asistencia" element={<Asistencia />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/terminos" element={<Terminos />} />
+          <Route path="/privacidad" element={<Privacidad />} />
           
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<Dashboard />} />

@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Search, Mail, Shield } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AssignPlanDialog } from "@/components/superadmin/AssignPlanDialog";
 
 export default function SuperAdminUsuarios() {
   const navigate = useNavigate();
@@ -63,10 +64,37 @@ export default function SuperAdminUsuarios() {
 
       if (rolesError) throw rolesError;
 
-      const usersWithRoles = profiles?.map((profile) => ({
-        ...profile,
-        roles: roles?.filter((r) => r.user_id === profile.id).map((r) => r.role) || [],
-      }));
+      // Get funerarias and empleados data
+      const { data: empleados, error: empleadosError } = await supabase
+        .from("empleados")
+        .select("user_id, funeraria_id, funerarias(id, name)");
+
+      if (empleadosError) throw empleadosError;
+
+      // Get funeraria plans
+      const funerariaIds = empleados?.map(e => e.funeraria_id).filter(Boolean) || [];
+      const { data: funerariaPlanes, error: planesError } = await supabase
+        .from("funeraria_planes")
+        .select("*, planes(nombre)")
+        .in("funeraria_id", funerariaIds)
+        .eq("estado", "activo");
+
+      if (planesError) throw planesError;
+
+      const usersWithRoles = profiles?.map((profile) => {
+        const userRoles = roles?.filter((r) => r.user_id === profile.id).map((r) => r.role) || [];
+        const empleado = empleados?.find(e => e.user_id === profile.id);
+        const funeraria = empleado?.funerarias;
+        const plan = funerariaPlanes?.find(fp => fp.funeraria_id === empleado?.funeraria_id);
+
+        return {
+          ...profile,
+          roles: userRoles,
+          funeraria: funeraria,
+          funerariaId: empleado?.funeraria_id,
+          currentPlan: plan
+        };
+      });
 
       setUsuarios(usersWithRoles || []);
     } catch (error) {
@@ -132,14 +160,17 @@ export default function SuperAdminUsuarios() {
                     <TableHead>Email</TableHead>
                     <TableHead>Nombre</TableHead>
                     <TableHead>Roles</TableHead>
+                    <TableHead>Funeraria</TableHead>
+                    <TableHead>Plan Actual</TableHead>
                     <TableHead>Teléfono</TableHead>
                     <TableHead>Registro</TableHead>
+                    <TableHead>Acciones</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredUsuarios.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={5} className="text-center text-muted-foreground">
+                      <TableCell colSpan={8} className="text-center text-muted-foreground">
                         No se encontraron usuarios
                       </TableCell>
                     </TableRow>
@@ -167,11 +198,39 @@ export default function SuperAdminUsuarios() {
                             )}
                           </div>
                         </TableCell>
+                        <TableCell>
+                          {usuario.funeraria ? (
+                            <span className="font-medium">{usuario.funeraria.name}</span>
+                          ) : (
+                            <span className="text-muted-foreground">-</span>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {usuario.currentPlan ? (
+                            <Badge variant="default">
+                              {usuario.currentPlan.planes?.nombre || "Plan Asignado"}
+                            </Badge>
+                          ) : usuario.roles.includes("funeraria") ? (
+                            <Badge variant="outline">Sin plan</Badge>
+                          ) : (
+                            <span className="text-muted-foreground">-</span>
+                          )}
+                        </TableCell>
                         <TableCell className="text-muted-foreground">
                           {usuario.phone || "-"}
                         </TableCell>
                         <TableCell className="text-sm text-muted-foreground">
                           {new Date(usuario.created_at).toLocaleDateString("es-CL")}
+                        </TableCell>
+                        <TableCell>
+                          {usuario.roles.includes("funeraria") && usuario.funerariaId && (
+                            <AssignPlanDialog
+                              funerariaId={usuario.funerariaId}
+                              funerariaName={usuario.funeraria?.name || "Funeraria"}
+                              currentPlan={usuario.currentPlan}
+                              onSuccess={fetchUsuarios}
+                            />
+                          )}
                         </TableCell>
                       </TableRow>
                     ))

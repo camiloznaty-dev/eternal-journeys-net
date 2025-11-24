@@ -76,23 +76,28 @@ export default function Facturas() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold">Facturas</h1>
-            <p className="text-muted-foreground">Gestiona tus facturas</p>
+            <h1 className="text-2xl sm:text-3xl font-bold">Facturas</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">Gestiona tus facturas</p>
           </div>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} size="sm" className="w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" />Nueva Factura
           </Button>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Buscar facturas..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10" />
+            <Input 
+              placeholder="Buscar facturas..." 
+              value={searchTerm} 
+              onChange={(e) => setSearchTerm(e.target.value)} 
+              className="pl-10 h-9 sm:h-10" 
+            />
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10">
               <SelectValue placeholder="Estado" />
             </SelectTrigger>
             <SelectContent>
@@ -107,34 +112,73 @@ export default function Facturas() {
         {loading ? (
           <Card className="p-6"><div className="h-32 bg-muted rounded animate-pulse" /></Card>
         ) : filteredFacturas.length === 0 ? (
-          <Card className="p-12 text-center">
-            <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No hay facturas</h3>
-            <Button onClick={() => setDialogOpen(true)}><Plus className="mr-2 h-4 w-4" />Agregar Factura</Button>
+          <Card className="p-8 sm:p-12 text-center">
+            <FileText className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mx-auto mb-3 sm:mb-4" />
+            <h3 className="text-base sm:text-lg font-semibold mb-2">No hay facturas</h3>
+            <Button onClick={() => setDialogOpen(true)} size="sm" className="w-full sm:w-auto">
+              <Plus className="mr-2 h-4 w-4" />Agregar Factura
+            </Button>
           </Card>
         ) : (
-          <Card>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Número</TableHead>
-                  <TableHead>Fecha</TableHead>
-                  <TableHead>Monto</TableHead>
-                  <TableHead>Estado</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredFacturas.map((factura) => (
-                  <TableRow key={factura.id} className="cursor-pointer" onClick={() => { setEditingFactura(factura); setDialogOpen(true); }}>
-                    <TableCell className="font-medium">{factura.numero_factura}</TableCell>
-                    <TableCell>{new Date(factura.fecha_emision).toLocaleDateString("es-CL")}</TableCell>
-                    <TableCell>${factura.total.toLocaleString("es-CL")}</TableCell>
-                    <TableCell><Badge className={getStatusColor(factura.status)}>{factura.status}</Badge></TableCell>
+          <>
+            {/* Vista móvil - Cards */}
+            <div className="block sm:hidden space-y-3">
+              {filteredFacturas.map((factura) => (
+                <Card 
+                  key={factura.id} 
+                  className="p-4 cursor-pointer hover:shadow-md transition-shadow"
+                  onClick={() => { setEditingFactura(factura); setDialogOpen(true); }}
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <p className="font-semibold text-sm mb-1">{factura.numero_factura}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(factura.fecha_emision).toLocaleDateString("es-CL")}
+                      </p>
+                    </div>
+                    <Badge className={getStatusColor(factura.status)} variant="outline">
+                      {factura.status}
+                    </Badge>
+                  </div>
+                  <div className="text-lg font-bold text-primary">
+                    ${factura.total.toLocaleString("es-CL")}
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Vista desktop - Tabla */}
+            <Card className="hidden sm:block">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Número</TableHead>
+                    <TableHead>Fecha</TableHead>
+                    <TableHead>Monto</TableHead>
+                    <TableHead>Estado</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
+                </TableHeader>
+                <TableBody>
+                  {filteredFacturas.map((factura) => (
+                    <TableRow 
+                      key={factura.id} 
+                      className="cursor-pointer" 
+                      onClick={() => { setEditingFactura(factura); setDialogOpen(true); }}
+                    >
+                      <TableCell className="font-medium">{factura.numero_factura}</TableCell>
+                      <TableCell>{new Date(factura.fecha_emision).toLocaleDateString("es-CL")}</TableCell>
+                      <TableCell>${factura.total.toLocaleString("es-CL")}</TableCell>
+                      <TableCell>
+                        <Badge className={getStatusColor(factura.status)} variant="outline">
+                          {factura.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
+          </>
         )}
       </div>
       <FacturaDialog open={dialogOpen} onOpenChange={handleDialogClose} factura={editingFactura} onSuccess={handleDialogClose} />

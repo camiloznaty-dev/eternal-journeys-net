@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import siriusLogo from "@/assets/sirius-logo.png";
+import { Heart } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -7,11 +7,22 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="md:col-span-2">
-            <img 
-              src={siriusLogo} 
-              alt="Sirius" 
-              className="h-12 w-auto mb-4"
-            />
+            <Link to="/" className="flex items-center gap-3 group mb-4 w-fit">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-xl rounded-full transition-opacity duration-300 group-hover:opacity-30" />
+                <div className="relative bg-gradient-primary p-2 rounded-xl shadow-elegant">
+                  <Heart className="h-6 w-6 text-white" fill="white" />
+                </div>
+              </div>
+              <div className="flex flex-col leading-none">
+                <span className="font-display text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                  Conecta
+                </span>
+                <span className="font-display text-sm font-medium text-foreground/70 tracking-wider">
+                  FUNERARIAS
+                </span>
+              </div>
+            </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Conectando familias con servicios funerarios de calidad y dignidad. Modernizando la industria funeraria en Latinoamérica.
             </p>
@@ -51,7 +62,7 @@ export const Footer = () => {
         </div>
         
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Sirius. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} ConectaFunerarias. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

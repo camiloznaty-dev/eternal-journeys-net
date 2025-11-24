@@ -34,29 +34,29 @@ export const Stats = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-gradient-subtle relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-28 bg-gradient-subtle relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-10 md:mb-12"
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">
             Nuestro compromiso contigo
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-base sm:text-lg px-4">
             Servicio transparente y accesible cuando más lo necesitas
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -67,11 +67,11 @@ export const Stats = () => {
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
               className="relative group"
             >
-              <div className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 md:p-8 text-center shadow-soft hover:shadow-medium transition-all duration-300">
+              <div className="bg-card/80 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 text-center shadow-soft hover:shadow-medium transition-all duration-300">
                 {/* Icon */}
-                <div className="flex justify-center mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-warm flex items-center justify-center ${stat.color} shadow-soft group-hover:scale-110 transition-transform duration-300`}>
-                    <stat.icon className="w-6 h-6 text-white" />
+                <div className="flex justify-center mb-3 sm:mb-4">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-warm flex items-center justify-center ${stat.color} shadow-soft group-hover:scale-110 transition-transform duration-300`}>
+                    <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                 </div>
 
@@ -81,16 +81,16 @@ export const Stats = () => {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 + 0.2, type: "spring" }}
-                  className={`font-display text-4xl md:text-5xl font-bold mb-2 ${stat.color}`}
+                  className={`font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-1.5 sm:mb-2 ${stat.color}`}
                 >
                   {stat.value}
                 </motion.div>
 
                 {/* Label */}
-                <div className="text-sm md:text-base text-foreground font-semibold mb-1">
+                <div className="text-xs sm:text-sm md:text-base text-foreground font-semibold mb-0.5 sm:mb-1">
                   {stat.label}
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-[10px] sm:text-xs text-muted-foreground">
                   {stat.description}
                 </div>
 

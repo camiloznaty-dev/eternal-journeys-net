@@ -232,14 +232,6 @@ const Index = () => {
                       Cómo funciona ✨
                     </Button>
                   </motion.div>
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
-                    <Button size="lg" variant="secondary" className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8" asChild>
-                      <Link to="/mi-cuenta?demo=true">
-                        <Eye className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                        Ver Panel Demo
-                      </Link>
-                    </Button>
-                  </motion.div>
                 </div>
 
                 {/* Mini Stats */}

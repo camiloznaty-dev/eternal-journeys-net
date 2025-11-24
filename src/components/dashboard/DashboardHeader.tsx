@@ -30,7 +30,7 @@ export function DashboardHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 sm:h-16 items-center gap-2 sm:gap-4 px-3 sm:px-6">
-        <SidebarTrigger>
+        <SidebarTrigger className="h-9 w-9 sm:h-10 sm:w-10">
           <Menu className="h-5 w-5" />
         </SidebarTrigger>
 

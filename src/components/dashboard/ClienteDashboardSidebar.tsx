@@ -1,7 +1,8 @@
 import { Home, Heart, BookOpen, MessageSquare, Settings, LogOut } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
   SidebarContent,
@@ -12,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 const menuItems = [
@@ -23,6 +25,8 @@ const menuItems = [
 
 export function ClienteDashboardSidebar() {
   const navigate = useNavigate();
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
 
   const handleLogout = async () => {
     try {
@@ -35,7 +39,7 @@ export function ClienteDashboardSidebar() {
   };
 
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon" className="border-r">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Mi Cuenta</SidebarGroupLabel>
@@ -44,10 +48,15 @@ export function ClienteDashboardSidebar() {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link to={item.url}>
-                      <item.icon className="mr-2 h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
+                    <NavLink
+                      to={item.url}
+                      end={item.url === "/mi-cuenta"}
+                      className="flex items-center gap-3 hover:bg-accent hover:text-accent-foreground"
+                      activeClassName="bg-accent text-accent-foreground font-medium"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -61,10 +70,14 @@ export function ClienteDashboardSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link to="/mi-cuenta/configuracion">
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Configuración</span>
-                  </Link>
+                  <NavLink
+                    to="/mi-cuenta/configuracion"
+                    className="flex items-center gap-3 hover:bg-accent hover:text-accent-foreground"
+                    activeClassName="bg-accent text-accent-foreground font-medium"
+                  >
+                    <Settings className="h-4 w-4" />
+                    {!isCollapsed && <span>Configuración</span>}
+                  </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -76,8 +89,8 @@ export function ClienteDashboardSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Cerrar Sesión</span>
+              <LogOut className="h-4 w-4" />
+              {!isCollapsed && <span>Cerrar Sesión</span>}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

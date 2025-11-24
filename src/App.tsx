@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Funerarias from "./pages/Funerarias";
 import Comparar from "./pages/Comparar";
+import Productos from "./pages/Productos";
 import Obituarios from "./pages/Obituarios";
 import ObituarioDetalle from "./pages/ObituarioDetalle";
 import Planificador from "./pages/Planificador";
@@ -69,6 +70,7 @@ const App = () => (
           <Route path="/f/:slug" element={<FunerariaPublica />} />
           <Route path="/funerarias/:slug" element={<FunerariaPublica />} />
           <Route path="/comparar" element={<Comparar />} />
+          <Route path="/productos" element={<Productos />} />
           <Route path="/obituarios" element={<Obituarios />} />
           <Route path="/obituarios/:id" element={<ObituarioDetalle />} />
           <Route path="/planificador" element={<Planificador />} />

@@ -25,25 +25,25 @@ const Index = () => {
       title: "Traslados",
       description: "Servicios de traslado seguros y respetuosos",
       icon: Truck,
-      href: "/funerarias?category=traslado",
+      href: "/productos?category=traslado",
     },
     {
       title: "Ataúdes",
       description: "Amplia selección de ataúdes de calidad",
       icon: Package,
-      href: "/funerarias?category=ataud",
+      href: "/productos?category=ataud",
     },
     {
       title: "Cremaciones",
       description: "Servicios de cremación con dignidad",
       icon: Heart,
-      href: "/funerarias?category=cremacion",
+      href: "/productos?category=cremacion",
     },
     {
       title: "Arreglos Florales",
       description: "Hermosos arreglos para honrar la memoria",
       icon: Flower2,
-      href: "/funerarias?category=flores",
+      href: "/productos?category=flores",
     },
   ];
 

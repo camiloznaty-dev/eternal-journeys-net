@@ -101,6 +101,7 @@ export default function ProyectoInterno() {
       { path: "/funerarias", name: "Directorio Funerarias", status: "✅" },
       { path: "/f/:slug", name: "Perfil Funeraria Público", status: "✅" },
       { path: "/comparar", name: "Comparador", status: "⚠️" },
+      { path: "/productos", name: "Catálogo Productos", status: "✅" },
       { path: "/obituarios", name: "Obituarios", status: "✅" },
       { path: "/obituarios/:id", name: "Detalle Obituario", status: "✅" },
       { path: "/planificador", name: "Planificador Funeral", status: "✅" },

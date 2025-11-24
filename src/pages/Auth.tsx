@@ -96,12 +96,14 @@ const Auth = () => {
         const { data: roles } = await supabase
           .from("user_roles")
           .select("role")
-          .eq("user_id", session.user.id)
-          .single();
+          .eq("user_id", session.user.id);
 
-        if (roles?.role === "funeraria") {
+        const hasFunerariaRole = roles?.some(r => r.role === "funeraria");
+        const hasClienteRole = roles?.some(r => r.role === "cliente");
+
+        if (hasFunerariaRole) {
           navigate("/dashboard");
-        } else if (roles?.role === "cliente") {
+        } else if (hasClienteRole) {
           navigate("/mi-cuenta");
         } else {
           navigate("/");
@@ -116,12 +118,14 @@ const Auth = () => {
         const { data: roles } = await supabase
           .from("user_roles")
           .select("role")
-          .eq("user_id", session.user.id)
-          .single();
+          .eq("user_id", session.user.id);
 
-        if (roles?.role === "funeraria") {
+        const hasFunerariaRole = roles?.some(r => r.role === "funeraria");
+        const hasClienteRole = roles?.some(r => r.role === "cliente");
+
+        if (hasFunerariaRole) {
           navigate("/dashboard");
-        } else if (roles?.role === "cliente") {
+        } else if (hasClienteRole) {
           navigate("/mi-cuenta");
         } else {
           navigate("/");

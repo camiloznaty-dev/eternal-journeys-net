@@ -3,13 +3,14 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Check, X, Search, Plus, MapPin, Phone, Mail, Clock, Filter, ArrowUpDown } from "lucide-react";
+import { Check, X, Search, Plus, MapPin, Phone, Mail, Clock, Filter, ArrowUpDown, Scale } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { AnimatedHero } from "@/components/AnimatedHero";
 import {
   Select,
   SelectContent,
@@ -61,29 +62,20 @@ const Comparar = () => {
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
       
+      <AnimatedHero
+        title="Comparador de Funerarias"
+        subtitle="Comparación Inteligente"
+        description="Compara servicios, precios y ubicaciones lado a lado. Toma decisiones informadas con total transparencia."
+        icon={<Scale className="w-10 h-10" />}
+      >
+        <div className="flex flex-wrap justify-center gap-3">
+          <Badge variant="secondary" className="text-sm px-4 py-2">Hasta 3 funerarias</Badge>
+          <Badge variant="secondary" className="text-sm px-4 py-2">100% Gratis</Badge>
+          <Badge variant="secondary" className="text-sm px-4 py-2">Sin registro</Badge>
+        </div>
+      </AnimatedHero>
+      
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="py-16 md:py-20 bg-gradient-hero border-b border-border">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="max-w-4xl mx-auto text-center space-y-4"
-            >
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold">
-                Comparador de Funerarias
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground">
-                Compara servicios, precios y ubicaciones lado a lado. Decisiones informadas con total transparencia.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3 pt-4">
-                <Badge variant="secondary" className="text-sm">Hasta 3 funerarias</Badge>
-                <Badge variant="secondary" className="text-sm">100% Gratis</Badge>
-                <Badge variant="secondary" className="text-sm">Sin registro</Badge>
-              </div>
-            </motion.div>
-          </div>
-        </section>
 
         <div className="container mx-auto px-4 py-12">
           {/* Search and Filters */}

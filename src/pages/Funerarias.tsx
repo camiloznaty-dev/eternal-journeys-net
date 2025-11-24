@@ -2,10 +2,11 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Star, Mail, Loader2 } from "lucide-react";
+import { MapPin, Phone, Star, Mail, Loader2, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { AnimatedHero } from "@/components/AnimatedHero";
 
 const Funerarias = () => {
   const { data: funerarias, isLoading } = useQuery({
@@ -26,14 +27,15 @@ const Funerarias = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
+      <AnimatedHero
+        title="Encuentra la Funeraria Perfecta"
+        subtitle="Directorio de Funerarias"
+        description="Explora y compara las mejores funerarias de Chile. Transparencia, calidad y confianza en un solo lugar."
+        icon={<Building2 className="w-10 h-10" />}
+      />
+      
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">Funerarias</h1>
-            <p className="text-lg text-muted-foreground">
-              Encuentra la funeraria perfecta para tus necesidades
-            </p>
-          </div>
 
           {isLoading ? (
             <div className="flex justify-center py-12">

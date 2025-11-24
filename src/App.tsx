@@ -39,6 +39,8 @@ import Mensajes from "./pages/dashboard/Mensajes";
 import Perfil from "./pages/dashboard/Perfil";
 import Configuracion from "./pages/dashboard/Configuracion";
 import AnunciosSepulturas from "./pages/dashboard/AnunciosSepulturas";
+import MiCuenta from "./pages/cliente/MiCuenta";
+import MisMemoriales from "./pages/cliente/MisMemoriales";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -89,6 +91,11 @@ const App = () => (
           <Route path="/dashboard/perfil" element={<Perfil />} />
           <Route path="/dashboard/configuracion" element={<Configuracion />} />
           <Route path="/dashboard/sepulturas" element={<AnunciosSepulturas />} />
+          
+          {/* Cliente Dashboard Routes */}
+          <Route path="/mi-cuenta" element={<MiCuenta />} />
+          <Route path="/mi-cuenta/memoriales" element={<MisMemoriales />} />
+          <Route path="/mi-cuenta/diario" element={<DiarioDuelo />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

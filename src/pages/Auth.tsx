@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { comunasPorRegion } from "@/data/comunas";
+import { validateRut, formatRut } from "@/lib/rutValidator";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ const Auth = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [funerariaRutError, setFunerariaRutError] = useState("");
+  const [legalRepRutError, setLegalRepRutError] = useState("");
 
   // Funeraria-specific fields
   const [funerariaName, setFunerariaName] = useState("");
@@ -85,6 +88,28 @@ const Auth = () => {
       setPasswordError("Las contraseñas no coinciden");
     } else {
       setPasswordError("");
+    }
+  };
+
+  const handleFunerariaRutChange = (value: string) => {
+    const formatted = formatRut(value);
+    setFunerariaRut(formatted);
+    
+    if (formatted && !validateRut(formatted)) {
+      setFunerariaRutError("RUT inválido. Verifique el número y dígito verificador");
+    } else {
+      setFunerariaRutError("");
+    }
+  };
+
+  const handleLegalRepRutChange = (value: string) => {
+    const formatted = formatRut(value);
+    setLegalRepRut(formatted);
+    
+    if (formatted && !validateRut(formatted)) {
+      setLegalRepRutError("RUT inválido. Verifique el número y dígito verificador");
+    } else {
+      setLegalRepRutError("");
     }
   };
 
@@ -229,9 +254,24 @@ const Auth = () => {
         toast.error("Por favor complete todos los campos de la funeraria");
         return;
       }
-      if (registrantType === "representante_legal" && (!legalRepName || !legalRepRut || !legalRepPosition)) {
-        toast.error("Por favor complete los datos del representante legal");
+      
+      // Validate funeraria RUT
+      if (!validateRut(funerariaRut)) {
+        toast.error("El RUT de la funeraria es inválido");
         return;
+      }
+      
+      if (registrantType === "representante_legal") {
+        if (!legalRepName || !legalRepRut || !legalRepPosition) {
+          toast.error("Por favor complete los datos del representante legal");
+          return;
+        }
+        
+        // Validate legal representative RUT
+        if (!validateRut(legalRepRut)) {
+          toast.error("El RUT del representante legal es inválido");
+          return;
+        }
       }
     }
 
@@ -487,10 +527,16 @@ const Auth = () => {
                           type="text"
                           placeholder="12.345.678-9"
                           value={funerariaRut}
-                          onChange={(e) => setFunerariaRut(e.target.value)}
+                          onChange={(e) => handleFunerariaRutChange(e.target.value)}
                           required
-                          className="h-11"
+                          className={cn("h-11", funerariaRutError && "border-destructive")}
                         />
+                        {funerariaRutError && (
+                          <p className="text-xs text-destructive flex items-center gap-1">
+                            <X className="h-3 w-3" />
+                            {funerariaRutError}
+                          </p>
+                        )}
                       </div>
 
                       <div className="space-y-2">
@@ -564,10 +610,16 @@ const Auth = () => {
                                 type="text"
                                 placeholder="12.345.678-9"
                                 value={legalRepRut}
-                                onChange={(e) => setLegalRepRut(e.target.value)}
+                                onChange={(e) => handleLegalRepRutChange(e.target.value)}
                                 required
-                                className="h-11"
+                                className={cn("h-11", legalRepRutError && "border-destructive")}
                               />
+                              {legalRepRutError && (
+                                <p className="text-xs text-destructive flex items-center gap-1">
+                                  <X className="h-3 w-3" />
+                                  {legalRepRutError}
+                                </p>
+                              )}
                             </div>
 
                             <div className="space-y-2">

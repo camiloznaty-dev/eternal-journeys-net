@@ -451,6 +451,53 @@ export type Database = {
           },
         ]
       }
+      diario_duelo: {
+        Row: {
+          contenido: string
+          created_at: string
+          estado_emocional: string | null
+          fecha: string
+          id: string
+          memorial_id: string | null
+          prompt_id: string | null
+          titulo: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          contenido: string
+          created_at?: string
+          estado_emocional?: string | null
+          fecha?: string
+          id?: string
+          memorial_id?: string | null
+          prompt_id?: string | null
+          titulo?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          contenido?: string
+          created_at?: string
+          estado_emocional?: string | null
+          fecha?: string
+          id?: string
+          memorial_id?: string | null
+          prompt_id?: string | null
+          titulo?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "diario_duelo_memorial_id_fkey"
+            columns: ["memorial_id"]
+            isOneToOne: false
+            referencedRelation: "memoriales"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       empleados: {
         Row: {
           activo: boolean | null
@@ -507,6 +554,50 @@ export type Database = {
             columns: ["funeraria_id"]
             isOneToOne: false
             referencedRelation: "funerarias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      entradas_memorial: {
+        Row: {
+          archivo_url: string | null
+          autor_id: string | null
+          autor_nombre: string
+          contenido: string | null
+          created_at: string
+          id: string
+          memorial_id: string
+          tipo: string
+          visible: boolean | null
+        }
+        Insert: {
+          archivo_url?: string | null
+          autor_id?: string | null
+          autor_nombre: string
+          contenido?: string | null
+          created_at?: string
+          id?: string
+          memorial_id: string
+          tipo: string
+          visible?: boolean | null
+        }
+        Update: {
+          archivo_url?: string | null
+          autor_id?: string | null
+          autor_nombre?: string
+          contenido?: string | null
+          created_at?: string
+          id?: string
+          memorial_id?: string
+          tipo?: string
+          visible?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entradas_memorial_memorial_id_fkey"
+            columns: ["memorial_id"]
+            isOneToOne: false
+            referencedRelation: "memoriales"
             referencedColumns: ["id"]
           },
         ]
@@ -807,6 +898,48 @@ export type Database = {
           },
         ]
       }
+      memoriales: {
+        Row: {
+          created_at: string
+          descripcion: string | null
+          fecha_fallecimiento: string | null
+          fecha_nacimiento: string | null
+          foto_principal: string | null
+          id: string
+          nombre_ser_querido: string
+          privado: boolean | null
+          relacion: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          descripcion?: string | null
+          fecha_fallecimiento?: string | null
+          fecha_nacimiento?: string | null
+          foto_principal?: string | null
+          id?: string
+          nombre_ser_querido: string
+          privado?: boolean | null
+          relacion?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          descripcion?: string | null
+          fecha_fallecimiento?: string | null
+          fecha_nacimiento?: string | null
+          foto_principal?: string | null
+          id?: string
+          nombre_ser_querido?: string
+          privado?: boolean | null
+          relacion?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       movimientos_inventario: {
         Row: {
           cantidad: number
@@ -1082,6 +1215,39 @@ export type Database = {
           id?: string
           phone?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      prompts_duelo: {
+        Row: {
+          activo: boolean | null
+          created_at: string
+          descripcion: string | null
+          etapa: string
+          id: string
+          orden: number
+          pregunta: string
+          semana: number
+        }
+        Insert: {
+          activo?: boolean | null
+          created_at?: string
+          descripcion?: string | null
+          etapa: string
+          id?: string
+          orden: number
+          pregunta: string
+          semana: number
+        }
+        Update: {
+          activo?: boolean | null
+          created_at?: string
+          descripcion?: string | null
+          etapa?: string
+          id?: string
+          orden?: number
+          pregunta?: string
+          semana?: number
         }
         Relationships: []
       }

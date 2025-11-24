@@ -72,9 +72,10 @@ const menuItems = [
 
 export function SuperAdminSidebar() {
   const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar className={state === "collapsed" ? "w-14" : "w-60"}>
+    <Sidebar collapsible="icon" className="border-r">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Gestión del Sistema</SidebarGroupLabel>
@@ -86,11 +87,11 @@ export function SuperAdminSidebar() {
                     <NavLink
                       to={item.url}
                       end
-                      className="hover:bg-accent/10"
-                      activeClassName="bg-accent/20 text-primary font-medium"
+                      className="flex items-center gap-3 hover:bg-accent hover:text-accent-foreground"
+                      activeClassName="bg-accent text-accent-foreground font-medium"
                     >
                       <item.icon className="h-4 w-4" />
-                      {state !== "collapsed" && <span>{item.title}</span>}
+                      {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

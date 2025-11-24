@@ -10,6 +10,8 @@ import { Testimonials } from "@/components/Testimonials";
 import { Stats } from "@/components/Stats";
 import { FAQ } from "@/components/FAQ";
 import { FeaturedFunerarias } from "@/components/FeaturedFunerarias";
+import { ComoFunciona } from "@/components/ComoFunciona";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { Button } from "@/components/ui/button";
 import { Flower2, Truck, Package, Heart, Sparkles, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -219,7 +221,14 @@ const Index = () => {
                     </Button>
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="lg" variant="outline" className="text-base px-8 border-2 hover:bg-accent/5">
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="text-base px-8 border-2 hover:bg-accent/5"
+                      onClick={() => {
+                        document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
                       Cómo funciona ✨
                     </Button>
                   </motion.div>
@@ -241,8 +250,8 @@ const Index = () => {
                     transition={{ delay: 0.6 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">24/7 🕐</div>
-                    <div className="text-xs text-muted-foreground">365 días del año</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">100%</div>
+                    <div className="text-xs text-muted-foreground">Transparente</div>
                   </motion.div>
                   
                   <motion.div
@@ -251,8 +260,8 @@ const Index = () => {
                     transition={{ delay: 0.7 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">Verificado ✓</div>
-                    <div className="text-xs text-muted-foreground">Funerarias confiables</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">Gratis</div>
+                    <div className="text-xs text-muted-foreground">Sin costo</div>
                   </motion.div>
                   
                   <motion.div
@@ -261,8 +270,8 @@ const Index = () => {
                     transition={{ delay: 0.8 }}
                     className="text-center"
                   >
-                    <div className="text-2xl md:text-3xl font-bold mb-1">4.9★ ✨</div>
-                    <div className="text-xs text-muted-foreground">Calificación</div>
+                    <div className="text-2xl md:text-3xl font-bold mb-1">Simple</div>
+                    <div className="text-xs text-muted-foreground">Proceso fácil</div>
                   </motion.div>
                 </div>
               </motion.div>
@@ -374,8 +383,8 @@ const Index = () => {
 
         <FeaturedFunerarias />
         
-        <Testimonials />
         <Stats />
+        <ComoFunciona />
         
         {/* Categories Section */}
         <section className="py-24 border-t border-border">
@@ -423,6 +432,7 @@ const Index = () => {
       </main>
       
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 };

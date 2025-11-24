@@ -9,7 +9,7 @@ interface SuperAdminLayoutProps {
 
 export function SuperAdminLayout({ children }: SuperAdminLayoutProps) {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen flex w-full bg-background">
         <SuperAdminSidebar />
         <div className="flex-1 flex flex-col">

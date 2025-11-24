@@ -9,12 +9,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Search, ExternalLink, Mail, Phone, MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AssignPlanDialog } from "@/components/superadmin/AssignPlanDialog";
 
 export default function SuperAdminFunerarias() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [funerarias, setFunerarias] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [funerariaPlanes, setFunerariaPlanes] = useState<Record<string, any>>({});
 
   useEffect(() => {
     checkAccessAndFetch();
@@ -57,6 +59,30 @@ export default function SuperAdminFunerarias() {
 
       if (error) throw error;
       setFunerarias(data || []);
+
+      // Fetch planes for all funerarias
+      if (data) {
+        const { data: planesData, error: planesError } = await supabase
+          .from("funeraria_planes")
+          .select(`
+            *,
+            planes:plan_id (
+              nombre,
+              precio_mensual,
+              precio_anual
+            )
+          `)
+          .eq("estado", "activo")
+          .in("funeraria_id", data.map(f => f.id));
+
+        if (!planesError && planesData) {
+          const planesMap: Record<string, any> = {};
+          planesData.forEach(plan => {
+            planesMap[plan.funeraria_id] = plan;
+          });
+          setFunerariaPlanes(planesMap);
+        }
+      }
     } catch (error) {
       console.error("Error fetching funerarias:", error);
     } finally {
@@ -109,6 +135,7 @@ export default function SuperAdminFunerarias() {
                     <TableHead>Nombre</TableHead>
                     <TableHead>Contacto</TableHead>
                     <TableHead>Ubicación</TableHead>
+                    <TableHead>Plan Actual</TableHead>
                     <TableHead>Estado</TableHead>
                     <TableHead>Registro</TableHead>
                     <TableHead className="text-right">Acciones</TableHead>
@@ -117,7 +144,7 @@ export default function SuperAdminFunerarias() {
                 <TableBody>
                   {filteredFunerarias.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center text-muted-foreground">
+                      <TableCell colSpan={7} className="text-center text-muted-foreground">
                         No se encontraron funerarias
                       </TableCell>
                     </TableRow>
@@ -148,6 +175,20 @@ export default function SuperAdminFunerarias() {
                           </div>
                         </TableCell>
                         <TableCell>
+                          {funerariaPlanes[funeraria.id] ? (
+                            <div className="space-y-1">
+                              <Badge variant="default">
+                                {funerariaPlanes[funeraria.id].planes?.nombre}
+                              </Badge>
+                              <p className="text-xs text-muted-foreground">
+                                {funerariaPlanes[funeraria.id].tipo_pago === "anual" ? "Anual" : "Mensual"}
+                              </p>
+                            </div>
+                          ) : (
+                            <Badge variant="outline">Sin plan</Badge>
+                          )}
+                        </TableCell>
+                        <TableCell>
                           <Badge variant={funeraria.website_active ? "default" : "secondary"}>
                             {funeraria.website_active ? "Activo" : "Inactivo"}
                           </Badge>
@@ -156,13 +197,21 @@ export default function SuperAdminFunerarias() {
                           {new Date(funeraria.created_at).toLocaleDateString("es-CL")}
                         </TableCell>
                         <TableCell className="text-right">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => window.open(`/f/${funeraria.slug}`, "_blank")}
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
+                          <div className="flex items-center justify-end gap-2">
+                            <AssignPlanDialog
+                              funerariaId={funeraria.id}
+                              funerariaName={funeraria.name}
+                              currentPlan={funerariaPlanes[funeraria.id]}
+                              onSuccess={fetchFunerarias}
+                            />
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => window.open(`/f/${funeraria.slug}`, "_blank")}
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))

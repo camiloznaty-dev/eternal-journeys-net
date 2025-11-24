@@ -40,9 +40,9 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Empresa</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Nosotros</Link></li>
-              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Contacto</Link></li>
-              <li><Link to="/asistencia" className="hover:text-accent transition-colors">Blog</Link></li>
+              <li><Link to="/nosotros" className="hover:text-accent transition-colors">Nosotros</Link></li>
+              <li><Link to="/contacto" className="hover:text-accent transition-colors">Contacto</Link></li>
+              <li><Link to="/blog" className="hover:text-accent transition-colors">Blog</Link></li>
               <li><Link to="/privacidad" className="hover:text-accent transition-colors">Privacidad</Link></li>
               <li><Link to="/terminos" className="hover:text-accent transition-colors">Términos</Link></li>
             </ul>

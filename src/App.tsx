@@ -15,6 +15,9 @@ import Auth from "./pages/Auth";
 import FunerariaPublica from "./pages/FunerariaPublica";
 import Terminos from "./pages/Terminos";
 import Privacidad from "./pages/Privacidad";
+import Nosotros from "./pages/Nosotros";
+import Contacto from "./pages/Contacto";
+import Blog from "./pages/Blog";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Leads from "./pages/dashboard/Leads";
 import Casos from "./pages/dashboard/Casos";
@@ -54,6 +57,9 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/terminos" element={<Terminos />} />
           <Route path="/privacidad" element={<Privacidad />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/blog" element={<Blog />} />
           
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<Dashboard />} />

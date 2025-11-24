@@ -155,24 +155,24 @@ export default function Productos() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold">Productos</h1>
-            <p className="text-muted-foreground">Gestiona tu inventario de productos</p>
+            <h1 className="text-2xl sm:text-3xl font-bold">Productos</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">Gestiona tu inventario de productos</p>
           </div>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} size="sm" className="w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" />
             Nuevo Producto
           </Button>
         </div>
 
         {lowStockCount > 0 && (
-          <Card className="border-amber-200 bg-amber-50/50">
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 text-amber-700">
-                <AlertCircle className="h-5 w-5" />
-                <p className="font-medium">
+          <Card className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/20">
+            <CardContent className="pt-4 sm:pt-6 p-4 sm:p-6">
+              <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
+                <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <p className="font-medium text-xs sm:text-sm">
                   {lowStockCount} producto{lowStockCount !== 1 ? 's' : ''} con stock bajo
                 </p>
               </div>
@@ -180,18 +180,18 @@ export default function Productos() {
           </Card>
         )}
 
-        <div className="flex gap-4 flex-col sm:flex-row">
+        <div className="flex gap-3 flex-col sm:flex-row">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Buscar productos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 h-9 sm:h-10"
             />
           </div>
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10">
               <SelectValue placeholder="Categoría" />
             </SelectTrigger>
             <SelectContent>
@@ -204,7 +204,7 @@ export default function Productos() {
             </SelectContent>
           </Select>
           <Select value={stockFilter} onValueChange={setStockFilter}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10">
               <SelectValue placeholder="Stock" />
             </SelectTrigger>
             <SelectContent>
@@ -216,7 +216,7 @@ export default function Productos() {
         </div>
 
         {loading ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
               <Card key={i} className="animate-pulse">
                 <div className="aspect-video bg-muted" />
@@ -228,17 +228,17 @@ export default function Productos() {
             ))}
           </div>
         ) : filteredProducts.length === 0 ? (
-          <Card className="p-12">
+          <Card className="p-8 sm:p-12">
             <div className="flex flex-col items-center justify-center text-center">
-              <Package className="h-12 w-12 text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No hay productos</h3>
-              <p className="text-muted-foreground mb-4">
+              <Package className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-semibold mb-2">No hay productos</h3>
+              <p className="text-sm sm:text-base text-muted-foreground mb-4">
                 {searchTerm || categoryFilter !== "all" || stockFilter !== "all"
                   ? "No se encontraron productos con los filtros aplicados"
                   : "Comienza agregando tu primer producto"}
               </p>
               {!searchTerm && categoryFilter === "all" && stockFilter === "all" && (
-                <Button onClick={() => setDialogOpen(true)}>
+                <Button onClick={() => setDialogOpen(true)} size="sm">
                   <Plus className="mr-2 h-4 w-4" />
                   Agregar Producto
                 </Button>
@@ -246,13 +246,13 @@ export default function Productos() {
             </div>
           </Card>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.map((product) => {
               const stockLow = product.stock !== null && product.stock_minimo !== null && product.stock <= product.stock_minimo;
               const stockOut = product.stock === 0;
 
               return (
-                <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
                   {product.images && product.images.length > 0 ? (
                     <div className="aspect-video w-full overflow-hidden bg-muted">
                       <img
@@ -263,35 +263,35 @@ export default function Productos() {
                     </div>
                   ) : (
                     <div className="aspect-video w-full bg-muted flex items-center justify-center">
-                      <ImageIcon className="h-12 w-12 text-muted-foreground" />
+                      <ImageIcon className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground" />
                     </div>
                   )}
-                  <CardHeader>
+                  <CardHeader className="flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1">
-                        <CardTitle className="line-clamp-1">{product.name}</CardTitle>
+                      <div className="flex-1 min-w-0">
+                        <CardTitle className="line-clamp-1 text-base sm:text-lg">{product.name}</CardTitle>
                         {product.sku && (
                           <p className="text-xs text-muted-foreground mt-1">SKU: {product.sku}</p>
                         )}
                       </div>
-                      <Badge className={categoryColors[product.category] || categoryColors.otro}>
+                      <Badge className={`${categoryColors[product.category] || categoryColors.otro} text-xs flex-shrink-0`} variant="outline">
                         {categoryLabels[product.category] || "Otro"}
                       </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold">
+                  <CardContent className="space-y-2 sm:space-y-3">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <span className="text-xl sm:text-2xl font-bold">
                         ${product.price.toLocaleString("es-CL")}
                       </span>
                       {product.costo && (
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-xs sm:text-sm text-muted-foreground">
                           Costo: ${product.costo.toLocaleString("es-CL")}
                         </span>
                       )}
                     </div>
                     {product.stock !== null && (
-                      <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center justify-between text-xs sm:text-sm">
                         <span className="text-muted-foreground">Stock:</span>
                         <span className={stockOut ? "text-destructive font-medium" : stockLow ? "text-amber-600 font-medium" : ""}>
                           {product.stock} unidades
@@ -306,8 +306,9 @@ export default function Productos() {
                       className="flex-1"
                       onClick={() => handleEdit(product)}
                     >
-                      <Edit className="mr-2 h-4 w-4" />
-                      Editar
+                      <Edit className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                      <span className="hidden sm:inline">Editar</span>
+                      <span className="sm:hidden">Edit</span>
                     </Button>
                     <Button
                       variant="outline"
@@ -318,7 +319,7 @@ export default function Productos() {
                         setDeleteDialogOpen(true);
                       }}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </CardFooter>
                 </Card>
@@ -336,16 +337,16 @@ export default function Productos() {
       />
 
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-w-md">
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Eliminar producto?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-lg">¿Eliminar producto?</AlertDialogTitle>
+            <AlertDialogDescription className="text-sm">
               Esta acción no se puede deshacer. El producto será eliminado permanentemente del inventario.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+          <AlertDialogFooter className="gap-2 sm:gap-0">
+            <AlertDialogCancel className="w-full sm:w-auto">Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90 w-full sm:w-auto">
               Eliminar
             </AlertDialogAction>
           </AlertDialogFooter>

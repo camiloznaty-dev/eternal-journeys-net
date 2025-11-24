@@ -96,32 +96,32 @@ export default function Leads() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold">Leads</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold">Leads</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Gestiona tus clientes potenciales
             </p>
           </div>
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button onClick={() => setDialogOpen(true)} size="sm" className="w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" />
             Nuevo Lead
           </Button>
         </div>
 
-        <div className="flex gap-4 flex-col sm:flex-row">
+        <div className="flex gap-3 flex-col sm:flex-row">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Buscar leads..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 h-9 sm:h-10"
             />
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10">
               <SelectValue placeholder="Estado" />
             </SelectTrigger>
             <SelectContent>
@@ -135,7 +135,7 @@ export default function Leads() {
             </SelectContent>
           </Select>
           <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10">
               <SelectValue placeholder="Prioridad" />
             </SelectTrigger>
             <SelectContent>
@@ -149,10 +149,10 @@ export default function Leads() {
         </div>
 
         {loading ? (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {[1, 2, 3].map((i) => (
               <Card key={i} className="animate-pulse">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="h-6 bg-muted rounded w-3/4 mb-2" />
                   <div className="h-4 bg-muted rounded w-1/2" />
                 </CardContent>
@@ -160,16 +160,16 @@ export default function Leads() {
             ))}
           </div>
         ) : filteredLeads.length === 0 ? (
-          <Card className="p-12">
+          <Card className="p-8 sm:p-12">
             <div className="flex flex-col items-center justify-center text-center">
-              <h3 className="text-lg font-semibold mb-2">No hay leads</h3>
-              <p className="text-muted-foreground mb-4">
+              <h3 className="text-base sm:text-lg font-semibold mb-2">No hay leads</h3>
+              <p className="text-sm sm:text-base text-muted-foreground mb-4">
                 {searchTerm || statusFilter !== "all" || priorityFilter !== "all"
                   ? "No se encontraron leads con los filtros aplicados"
                   : "Comienza agregando tu primer lead"}
               </p>
               {!searchTerm && statusFilter === "all" && priorityFilter === "all" && (
-                <Button onClick={() => setDialogOpen(true)}>
+                <Button onClick={() => setDialogOpen(true)} size="sm">
                   <Plus className="mr-2 h-4 w-4" />
                   Agregar Lead
                 </Button>
@@ -177,7 +177,7 @@ export default function Leads() {
             </div>
           </Card>
         ) : (
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4">
             {filteredLeads.map((lead) => (
               <Card
                 key={lead.id}
@@ -187,35 +187,35 @@ export default function Leads() {
                   setDialogOpen(true);
                 }}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2 flex-wrap">
-                        <h3 className="font-semibold text-lg">{lead.name}</h3>
-                        <Badge className={getStatusColor(lead.status)}>
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <h3 className="font-semibold text-base sm:text-lg break-words">{lead.name}</h3>
+                        <Badge className={`${getStatusColor(lead.status)} text-xs`} variant="outline">
                           {lead.status}
                         </Badge>
-                        <Badge className={getPriorityColor(lead.priority)}>
+                        <Badge className={`${getPriorityColor(lead.priority)} text-xs`} variant="outline">
                           {lead.priority}
                         </Badge>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-                        <span>{lead.phone}</span>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
+                        <span className="break-all">{lead.phone}</span>
                         {lead.email && (
                           <>
-                            <span>•</span>
-                            <span>{lead.email}</span>
+                            <span className="hidden sm:inline">•</span>
+                            <span className="break-all">{lead.email}</span>
                           </>
                         )}
                         {lead.source && (
                           <>
-                            <span>•</span>
+                            <span className="hidden sm:inline">•</span>
                             <span>Fuente: {lead.source}</span>
                           </>
                         )}
                         {lead.asignado && (
                           <>
-                            <span>•</span>
+                            <span className="hidden sm:inline">•</span>
                             <span>Asignado: {lead.asignado.nombre}</span>
                           </>
                         )}

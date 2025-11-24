@@ -105,16 +105,16 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Panel Principal</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold">Panel Principal</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Bienvenido a tu dashboard. Aquí tienes un resumen de tu actividad.
           </p>
         </div>
 
         {loading ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
             {[1, 2, 3, 4].map((i) => (
               <Card key={i} className="animate-pulse">
                 <CardHeader className="pb-2">
@@ -127,18 +127,18 @@ export default function Dashboard() {
             ))}
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
             {statsCards.map((stat) => (
               <Card key={stat.title}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4 sm:p-6">
+                  <CardTitle className="text-xs sm:text-sm font-medium line-clamp-2">
                     {stat.title}
                   </CardTitle>
-                  <stat.icon className="h-4 w-4 text-muted-foreground" />
+                  <stat.icon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stat.value}</div>
-                  <p className="text-xs text-muted-foreground">
+                <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
+                  <div className="text-xl sm:text-2xl font-bold">{stat.value}</div>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">
                     {stat.change}
                   </p>
                 </CardContent>
@@ -147,33 +147,33 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-3">
           <div className="md:col-span-2">
             <Card>
-              <CardHeader>
-                <CardTitle>Actividad Reciente</CardTitle>
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="text-base sm:text-lg">Actividad Reciente</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="h-2 w-2 rounded-full bg-primary" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">Nuevo lead asignado</p>
-                      <p className="text-xs text-muted-foreground">Hace 5 minutos</p>
+              <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm font-medium truncate">Nuevo lead asignado</p>
+                      <p className="text-[10px] sm:text-xs text-muted-foreground">Hace 5 minutos</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="h-2 w-2 rounded-full bg-primary" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">Cotización enviada</p>
-                      <p className="text-xs text-muted-foreground">Hace 1 hora</p>
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm font-medium truncate">Cotización enviada</p>
+                      <p className="text-[10px] sm:text-xs text-muted-foreground">Hace 1 hora</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="h-2 w-2 rounded-full bg-primary" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">Servicio completado</p>
-                      <p className="text-xs text-muted-foreground">Hace 3 horas</p>
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm font-medium truncate">Servicio completado</p>
+                      <p className="text-[10px] sm:text-xs text-muted-foreground">Hace 3 horas</p>
                     </div>
                   </div>
                 </div>
@@ -184,32 +184,32 @@ export default function Dashboard() {
           <PlanCard />
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2">
           <Card>
-            <CardHeader>
-              <CardTitle>Tareas Pendientes</CardTitle>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Tareas Pendientes</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Llamar a familia González</p>
-                    <p className="text-xs text-muted-foreground">Vence hoy</p>
+            <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <input type="checkbox" className="h-4 w-4 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium truncate">Llamar a familia González</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">Vence hoy</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Preparar ceremonia</p>
-                    <p className="text-xs text-muted-foreground">Vence mañana</p>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <input type="checkbox" className="h-4 w-4 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium truncate">Preparar ceremonia</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">Vence mañana</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Actualizar inventario</p>
-                    <p className="text-xs text-muted-foreground">Vence en 2 días</p>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <input type="checkbox" className="h-4 w-4 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium truncate">Actualizar inventario</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">Vence en 2 días</p>
                   </div>
                 </div>
               </div>
@@ -217,23 +217,23 @@ export default function Dashboard() {
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>Próximos Eventos</CardTitle>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Próximos Eventos</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="h-2 w-2 rounded-full bg-primary" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Ceremonia Familia López</p>
-                    <p className="text-xs text-muted-foreground">Hoy, 15:00</p>
+            <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium truncate">Ceremonia Familia López</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">Hoy, 15:00</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-2 w-2 rounded-full bg-primary" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Reunión con proveedor</p>
-                    <p className="text-xs text-muted-foreground">Mañana, 10:00</p>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium truncate">Reunión con proveedor</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">Mañana, 10:00</p>
                   </div>
                 </div>
               </div>

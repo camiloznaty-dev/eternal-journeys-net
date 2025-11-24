@@ -134,6 +134,69 @@ export type Database = {
           },
         ]
       }
+      blog_posts: {
+        Row: {
+          autor_id: string | null
+          autor_nombre: string | null
+          bajada: string | null
+          contenido: string
+          created_at: string | null
+          estado: string | null
+          fecha_publicacion: string | null
+          id: string
+          imagen_portada: string | null
+          meta_descripcion: string | null
+          meta_keywords: string[] | null
+          meta_titulo: string | null
+          og_image: string | null
+          slug: string
+          subtitulo: string | null
+          titulo: string
+          updated_at: string | null
+          views: number | null
+        }
+        Insert: {
+          autor_id?: string | null
+          autor_nombre?: string | null
+          bajada?: string | null
+          contenido: string
+          created_at?: string | null
+          estado?: string | null
+          fecha_publicacion?: string | null
+          id?: string
+          imagen_portada?: string | null
+          meta_descripcion?: string | null
+          meta_keywords?: string[] | null
+          meta_titulo?: string | null
+          og_image?: string | null
+          slug: string
+          subtitulo?: string | null
+          titulo: string
+          updated_at?: string | null
+          views?: number | null
+        }
+        Update: {
+          autor_id?: string | null
+          autor_nombre?: string | null
+          bajada?: string | null
+          contenido?: string
+          created_at?: string | null
+          estado?: string | null
+          fecha_publicacion?: string | null
+          id?: string
+          imagen_portada?: string | null
+          meta_descripcion?: string | null
+          meta_keywords?: string[] | null
+          meta_titulo?: string | null
+          og_image?: string | null
+          slug?: string
+          subtitulo?: string | null
+          titulo?: string
+          updated_at?: string | null
+          views?: number | null
+        }
+        Relationships: []
+      }
       caso_documentos: {
         Row: {
           archivo_size: number | null

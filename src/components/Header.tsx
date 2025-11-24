@@ -2,13 +2,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Search, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import conectaLogoLight from "@/assets/conecta-logo-light.png";
-import conectaLogoDark from "@/assets/conecta-logo-dark.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { useTheme } from "next-themes";
 
 export const Header = () => {
-  const { theme } = useTheme();
   const navItems = [
     { label: "Inicio", href: "/" },
     { label: "Funerarias", href: "/funerarias" },
@@ -26,11 +22,9 @@ export const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center group">
-            <img
-              src={theme === "dark" ? conectaLogoDark : conectaLogoLight}
-              alt="ConectaFunerarias"
-              className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-            />
+            <span className="font-display text-2xl font-bold text-foreground transition-transform duration-300 group-hover:scale-105">
+              ConectaFunerarias
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

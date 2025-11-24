@@ -56,12 +56,12 @@ const Productos = () => {
         backgroundImage={heroImage}
       />
       
-      <main className="flex-1 py-12 bg-muted/30">
+      <main className="flex-1 py-8 sm:py-12 bg-muted/30">
         <div className="container mx-auto px-4">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {productos.map((producto) => (
-              <Card key={producto.id} className="overflow-hidden card-hover">
+              <Card key={producto.id} className="overflow-hidden card-hover h-full flex flex-col">
                 <div className="aspect-video relative overflow-hidden bg-muted">
                   <img
                     src={producto.image}
@@ -69,18 +69,18 @@ const Productos = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-4">
-                  <Badge variant="secondary" className="mb-2">
+                <div className="p-3 sm:p-4 flex flex-col flex-1">
+                  <Badge variant="secondary" className="mb-2 text-xs w-fit">
                     {producto.category}
                   </Badge>
-                  <h3 className="font-semibold text-lg mb-2">{producto.name}</h3>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-2xl font-bold text-accent">{producto.price}</span>
-                    <span className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold text-base sm:text-lg mb-2 line-clamp-2 flex-1">{producto.name}</h3>
+                  <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2">
+                    <span className="text-xl sm:text-2xl font-bold text-accent">{producto.price}</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
                       Stock: {producto.stock}
                     </span>
                   </div>
-                  <Button className="w-full">Ver Detalles</Button>
+                  <Button className="w-full" size="sm">Ver Detalles</Button>
                 </div>
               </Card>
             ))}

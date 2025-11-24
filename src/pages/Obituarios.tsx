@@ -46,18 +46,18 @@ const Obituarios = () => {
         backgroundImage={heroImage}
       />
       
-      <main className="flex-1 py-12 bg-muted/30">
+      <main className="flex-1 py-8 sm:py-12 bg-muted/30">
         <div className="container mx-auto px-4">
             
           {/* Buscador */}
-          <div className="relative max-w-md mx-auto mb-12">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <div className="relative max-w-md mx-auto mb-8 sm:mb-12">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Buscar por nombre..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-9 sm:pl-10 h-10 sm:h-12 text-sm sm:text-base"
             />
           </div>
 
@@ -66,7 +66,7 @@ const Obituarios = () => {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
           ) : filteredObituarios && filteredObituarios.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
               {filteredObituarios.map((obituario) => (
                 <Link key={obituario.id} to={`/obituarios/${obituario.id}`}>
                   <Card className="overflow-hidden card-hover h-full hover:shadow-xl transition-all">
@@ -81,27 +81,27 @@ const Obituarios = () => {
                         </div>
                       )}
                       {obituario.is_premium && (
-                        <Badge className="absolute top-4 right-4 bg-accent">
+                        <Badge className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-accent text-xs">
                           Premium
                         </Badge>
                       )}
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2 line-clamp-2">{obituario.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-1">
+                    <div className="p-4 sm:p-6">
+                      <h3 className="text-lg sm:text-xl font-bold mb-1.5 sm:mb-2 line-clamp-2">{obituario.name}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-0.5 sm:mb-1">
                         {format(new Date(obituario.birth_date), "yyyy", { locale: es })} -{" "}
                         {format(new Date(obituario.death_date), "yyyy", { locale: es })}
                       </p>
-                      <p className="text-xs text-muted-foreground mb-4">
+                      <p className="text-[10px] sm:text-xs text-muted-foreground mb-3 sm:mb-4">
                         Def. {format(new Date(obituario.death_date), "d/MM/yyyy", { locale: es })}
                       </p>
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mb-3 sm:mb-4">
                         {obituario.biography}
                       </p>
-                      <div className="flex items-center justify-between text-sm text-muted-foreground pt-4 border-t">
-                        <span>{obituario.funerarias?.name}</span>
-                        <div className="flex items-center gap-1">
-                          <Heart className="h-4 w-4" />
+                      <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground pt-3 sm:pt-4 border-t">
+                        <span className="line-clamp-1 flex-1 mr-2">{obituario.funerarias?.name}</span>
+                        <div className="flex items-center gap-1 flex-shrink-0">
+                          <Heart className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span>{obituario.views || 0}</span>
                         </div>
                       </div>
@@ -111,8 +111,8 @@ const Obituarios = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
+            <div className="text-center py-12 px-4">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 {searchTerm ? "No se encontraron obituarios con ese nombre" : "No hay obituarios disponibles"}
               </p>
             </div>

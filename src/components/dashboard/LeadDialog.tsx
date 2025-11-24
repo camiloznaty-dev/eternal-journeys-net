@@ -154,22 +154,23 @@ export function LeadDialog({ open, onOpenChange, lead, onSuccess }: LeadDialogPr
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{lead ? "Editar Lead" : "Nuevo Lead"}</DialogTitle>
+          <DialogTitle className="text-lg sm:text-xl">{lead ? "Editar Lead" : "Nuevo Lead"}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           <div>
-            <Label htmlFor="name">Nombre Completo *</Label>
+            <Label htmlFor="name" className="text-sm">Nombre Completo *</Label>
             <Input
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
+              className="h-9 sm:h-10"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <Label htmlFor="phone">Teléfono *</Label>
+              <Label htmlFor="phone" className="text-sm">Teléfono *</Label>
               <Input
                 id="phone"
                 type="tel"
@@ -177,27 +178,29 @@ export function LeadDialog({ open, onOpenChange, lead, onSuccess }: LeadDialogPr
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+56912345678"
                 required
+                className="h-9 sm:h-10"
               />
             </div>
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm">Email</Label>
               <Input
                 id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="email@ejemplo.com"
+                className="h-9 sm:h-10"
               />
             </div>
           </div>
 
           <div>
-            <Label htmlFor="comuna">Comuna</Label>
+            <Label htmlFor="comuna" className="text-sm">Comuna</Label>
             <Select
               value={formData.comuna}
               onValueChange={(value) => setFormData({ ...formData, comuna: value })}
             >
-              <SelectTrigger>
+              <SelectTrigger className="h-9 sm:h-10">
                 <SelectValue placeholder="Seleccionar comuna" />
               </SelectTrigger>
               <SelectContent>
@@ -210,14 +213,14 @@ export function LeadDialog({ open, onOpenChange, lead, onSuccess }: LeadDialogPr
             </Select>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <Label htmlFor="source">Fuente</Label>
+              <Label htmlFor="source" className="text-sm">Fuente</Label>
               <Select
                 value={formData.source}
                 onValueChange={(value) => setFormData({ ...formData, source: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className="h-9 sm:h-10">
                   <SelectValue placeholder="Seleccionar fuente" />
                 </SelectTrigger>
                 <SelectContent>
@@ -231,12 +234,12 @@ export function LeadDialog({ open, onOpenChange, lead, onSuccess }: LeadDialogPr
               </Select>
             </div>
             <div>
-              <Label htmlFor="priority">Prioridad</Label>
+              <Label htmlFor="priority" className="text-sm">Prioridad</Label>
               <Select
                 value={formData.priority}
                 onValueChange={(value) => setFormData({ ...formData, priority: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className="h-9 sm:h-10">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -249,14 +252,14 @@ export function LeadDialog({ open, onOpenChange, lead, onSuccess }: LeadDialogPr
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <Label htmlFor="status">Estado</Label>
+              <Label htmlFor="status" className="text-sm">Estado</Label>
               <Select
                 value={formData.status}
                 onValueChange={(value) => setFormData({ ...formData, status: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className="h-9 sm:h-10">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -270,25 +273,26 @@ export function LeadDialog({ open, onOpenChange, lead, onSuccess }: LeadDialogPr
               </Select>
             </div>
             <div>
-              <Label htmlFor="estimated_value">Valor Estimado (CLP)</Label>
+              <Label htmlFor="estimated_value" className="text-sm">Valor Estimado (CLP)</Label>
               <Input
                 id="estimated_value"
                 type="number"
                 value={formData.estimated_value}
                 onChange={(e) => setFormData({ ...formData, estimated_value: e.target.value })}
                 placeholder="0"
+                className="h-9 sm:h-10"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <Label htmlFor="assigned_to">Asignado a</Label>
+              <Label htmlFor="assigned_to" className="text-sm">Asignado a</Label>
               <Select
                 value={formData.assigned_to}
                 onValueChange={(value) => setFormData({ ...formData, assigned_to: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className="h-9 sm:h-10">
                   <SelectValue placeholder="Sin asignar" />
                 </SelectTrigger>
                 <SelectContent>
@@ -301,32 +305,34 @@ export function LeadDialog({ open, onOpenChange, lead, onSuccess }: LeadDialogPr
               </Select>
             </div>
             <div>
-              <Label htmlFor="next_followup_date">Próximo Seguimiento</Label>
+              <Label htmlFor="next_followup_date" className="text-sm">Próximo Seguimiento</Label>
               <Input
                 id="next_followup_date"
                 type="date"
                 value={formData.next_followup_date}
                 onChange={(e) => setFormData({ ...formData, next_followup_date: e.target.value })}
+                className="h-9 sm:h-10"
               />
             </div>
           </div>
 
           <div>
-            <Label htmlFor="notes">Notas</Label>
+            <Label htmlFor="notes" className="text-sm">Notas</Label>
             <Textarea
               id="notes"
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               placeholder="Notas sobre el lead"
               rows={3}
+              className="text-sm"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+          <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} size="sm" className="w-full sm:w-auto">
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} size="sm" className="w-full sm:w-auto">
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {lead ? "Actualizar" : "Crear"} Lead
             </Button>

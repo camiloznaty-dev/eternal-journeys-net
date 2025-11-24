@@ -73,29 +73,30 @@ export const ConsultaSepulturaDialog = ({ anuncioId }: ConsultaSepulturaDialogPr
           Consultar
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Consultar por esta sepultura</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">Consultar por esta sepultura</DialogTitle>
+            <DialogDescription className="text-sm">
               Completa el formulario y el vendedor se pondrá en contacto contigo.
             </DialogDescription>
           </DialogHeader>
           
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="nombre">Nombre completo *</Label>
+          <div className="space-y-3 sm:space-y-4 py-4">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="nombre" className="text-sm">Nombre completo *</Label>
               <Input
                 id="nombre"
                 required
                 value={formData.nombre}
                 onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
                 placeholder="Juan Pérez"
+                className="h-9 sm:h-10"
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="telefono">Teléfono *</Label>
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="telefono" className="text-sm">Teléfono *</Label>
               <Input
                 id="telefono"
                 required
@@ -103,37 +104,40 @@ export const ConsultaSepulturaDialog = ({ anuncioId }: ConsultaSepulturaDialogPr
                 value={formData.telefono}
                 onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                 placeholder="+56 9 1234 5678"
+                className="h-9 sm:h-10"
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="email" className="text-sm">Email</Label>
               <Input
                 id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="juan@ejemplo.com"
+                className="h-9 sm:h-10"
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="mensaje">Mensaje</Label>
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="mensaje" className="text-sm">Mensaje</Label>
               <Textarea
                 id="mensaje"
                 value={formData.mensaje}
                 onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
                 placeholder="Hola, estoy interesado en esta sepultura..."
-                rows={4}
+                rows={3}
+                className="text-sm"
               />
             </div>
           </div>
 
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button type="button" variant="outline" onClick={() => setOpen(false)} size="sm" className="flex-1 sm:flex-none">
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} size="sm" className="flex-1 sm:flex-none">
               {loading ? "Enviando..." : "Enviar consulta"}
             </Button>
           </DialogFooter>

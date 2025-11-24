@@ -48,11 +48,11 @@ export default function SuperAdminBlog() {
       const { data: roleData } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "superadmin")
-        .single();
+        .eq("user_id", user.id);
 
-      if (!roleData) {
+      const isSuperAdmin = roleData?.some(r => r.role === "superadmin");
+
+      if (!isSuperAdmin) {
         navigate("/");
         return;
       }
@@ -164,6 +164,7 @@ export default function SuperAdminBlog() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead>Imagen</TableHead>
                     <TableHead>Título</TableHead>
                     <TableHead>Estado</TableHead>
                     <TableHead>Autor</TableHead>
@@ -175,13 +176,28 @@ export default function SuperAdminBlog() {
                 <TableBody>
                   {filteredPosts.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center text-muted-foreground">
+                      <TableCell colSpan={7} className="text-center text-muted-foreground">
                         No se encontraron posts
                       </TableCell>
                     </TableRow>
                   ) : (
                     filteredPosts.map((post) => (
                       <TableRow key={post.id}>
+                        <TableCell>
+                          <div className="w-20 h-14 rounded-md overflow-hidden bg-muted flex items-center justify-center">
+                            {post.imagen_portada ? (
+                              <img 
+                                src={post.imagen_portada} 
+                                alt={post.titulo}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="text-xs text-muted-foreground text-center p-1">
+                                Sin imagen
+                              </div>
+                            )}
+                          </div>
+                        </TableCell>
                         <TableCell>
                           <div>
                             <p className="font-medium">{post.titulo}</p>

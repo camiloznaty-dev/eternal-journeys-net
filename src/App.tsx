@@ -53,6 +53,7 @@ import SuperAdminContenido from "./pages/superadmin/Contenido";
 import SuperAdminActividad from "./pages/superadmin/Actividad";
 import SuperAdminDatabase from "./pages/superadmin/Database";
 import SuperAdminPlanes from "./pages/superadmin/Planes";
+import SuperAdminBlog from "./pages/superadmin/Blog";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -120,6 +121,7 @@ const App = () => (
           <Route path="/superadmin/funerarias" element={<SuperAdminFunerarias />} />
           <Route path="/superadmin/usuarios" element={<SuperAdminUsuarios />} />
           <Route path="/superadmin/contenido" element={<SuperAdminContenido />} />
+          <Route path="/superadmin/blog" element={<SuperAdminBlog />} />
           <Route path="/superadmin/actividad" element={<SuperAdminActividad />} />
           <Route path="/superadmin/database" element={<SuperAdminDatabase />} />
           <Route path="/superadmin/planes" element={<SuperAdminPlanes />} />

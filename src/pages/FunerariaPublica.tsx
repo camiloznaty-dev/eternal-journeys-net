@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
@@ -7,6 +7,8 @@ import { Loader2, MapPin, Phone, Mail, Clock, Check, Facebook, Instagram } from 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 export default function FunerariaPublica() {
   const { slug } = useParams<{ slug: string }>();
@@ -37,6 +39,23 @@ export default function FunerariaPublica() {
         .eq("stock_available", true)
         .order("category", { ascending: true })
         .order("price", { ascending: true });
+
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!funeraria?.id,
+  });
+
+  const { data: obituarios } = useQuery({
+    queryKey: ["funeraria-obituarios", funeraria?.id],
+    queryFn: async () => {
+      if (!funeraria?.id) return [];
+      const { data, error } = await supabase
+        .from("obituarios")
+        .select("*")
+        .eq("funeraria_id", funeraria.id)
+        .eq("is_premium", true)
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       return data;
@@ -315,9 +334,45 @@ export default function FunerariaPublica() {
           </div>
         </section>
 
+        {/* Obituarios Premium */}
+        {obituarios && obituarios.length > 0 && (
+          <section className="py-16">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-bold mb-8 text-center">Obituarios</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {obituarios.map((obituario) => (
+                  <Link key={obituario.id} to={`/obituarios/${obituario.id}`}>
+                    <Card className="h-full hover:shadow-lg transition-all cursor-pointer">
+                      <CardContent className="p-0">
+                        {obituario.photo_url && (
+                          <div className="h-64 overflow-hidden">
+                            <img
+                              src={obituario.photo_url}
+                              alt={obituario.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="p-6">
+                          <h3 className="text-xl font-bold mb-2">{obituario.name}</h3>
+                          <p className="text-sm text-muted-foreground">
+                            {format(new Date(obituario.birth_date), "d 'de' MMMM 'de' yyyy", { locale: es })}
+                            {" - "}
+                            {format(new Date(obituario.death_date), "d 'de' MMMM 'de' yyyy", { locale: es })}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Gallery Section */}
         {funeraria.gallery_images && funeraria.gallery_images.length > 0 && (
-          <section className="py-16">
+          <section className="py-16 bg-muted/30">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl font-bold mb-8 text-center">Nuestras Instalaciones</h2>
               <div className="grid md:grid-cols-3 gap-4">

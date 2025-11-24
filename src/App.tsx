@@ -21,6 +21,7 @@ import Privacidad from "./pages/Privacidad";
 import Nosotros from "./pages/Nosotros";
 import Contacto from "./pages/Contacto";
 import Blog from "./pages/Blog";
+import BlogDetalle from "./pages/BlogDetalle";
 import VendeSepultura from "./pages/VendeSepultura";
 import PublicarSepultura from "./pages/PublicarSepultura";
 import Recursos from "./pages/Recursos";
@@ -81,6 +82,7 @@ const App = () => (
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetalle />} />
           <Route path="/recursos" element={<Recursos />} />
           <Route path="/vende-sepultura" element={<VendeSepultura />} />
           <Route path="/publicar-sepultura" element={<PublicarSepultura />} />

@@ -50,7 +50,7 @@ const Index = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-8 md:py-16 overflow-hidden">
+        <section className="relative py-8 md:py-20 overflow-hidden bg-gradient-hero">
           {/* Floating Emojis Background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
@@ -149,7 +149,7 @@ const Index = () => {
                     <span className="text-sm font-medium">Plataforma más humana de Chile ❤️</span>
                   </motion.div>
                   
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+                  <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
                     En los momentos{" "}
                     <span className="relative inline-block">
                       difíciles,
@@ -157,11 +157,11 @@ const Index = () => {
                         initial={{ width: 0 }}
                         animate={{ width: "100%" }}
                         transition={{ delay: 0.8, duration: 0.6 }}
-                        className="absolute bottom-2 left-0 h-3 bg-accent/20 -z-10"
+                        className="absolute bottom-2 left-0 h-4 bg-gradient-warm opacity-20 -z-10 rounded-full"
                       />
                     </span>
                     <br />
-                    <span className="text-accent">
+                    <span className="text-gradient">
                       estamos contigo
                     </span>
                   </h1>
@@ -204,27 +204,33 @@ const Index = () => {
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="text-base px-8 group" asChild>
-                    <Link to="/funerarias">
-                      Buscar Servicios
-                      <motion.span
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 5 }}
-                        className="inline-block ml-2"
-                      >
-                        →
-                      </motion.span>
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" className="text-base px-8">
-                    Cómo funciona ✨
-                  </Button>
-                  <Button size="lg" variant="secondary" className="text-base px-8" asChild>
-                    <Link to="/mi-cuenta?demo=true">
-                      <Eye className="mr-2 h-4 w-4" />
-                      Ver Panel Demo
-                    </Link>
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" className="text-base px-8 group shadow-medium hover:shadow-glow transition-all" asChild>
+                      <Link to="/funerarias">
+                        Buscar Servicios
+                        <motion.span
+                          initial={{ x: 0 }}
+                          whileHover={{ x: 5 }}
+                          className="inline-block ml-2"
+                        >
+                          →
+                        </motion.span>
+                      </Link>
+                    </Button>
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" variant="outline" className="text-base px-8 border-2 hover:bg-accent/5">
+                      Cómo funciona ✨
+                    </Button>
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" variant="secondary" className="text-base px-8" asChild>
+                      <Link to="/mi-cuenta?demo=true">
+                        <Eye className="mr-2 h-4 w-4" />
+                        Ver Panel Demo
+                      </Link>
+                    </Button>
+                  </motion.div>
                 </div>
 
                 {/* Mini Stats */}
@@ -351,7 +357,7 @@ const Index = () => {
         </section>
 
         {/* Quick Search Section */}
-        <section className="py-16 -mt-8 relative z-10 bg-gradient-to-b from-background/50 to-background">
+        <section className="py-16 -mt-8 relative z-10">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -359,7 +365,9 @@ const Index = () => {
               viewport={{ once: true }}
               className="max-w-4xl mx-auto"
             >
-              <SearchBar />
+              <div className="bg-card/80 backdrop-blur-sm shadow-large rounded-2xl p-2 border border-border/50">
+                <SearchBar />
+              </div>
             </motion.div>
           </div>
         </section>
@@ -372,12 +380,12 @@ const Index = () => {
         {/* Categories Section */}
         <section className="py-24 border-t border-border">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16 space-y-2">
+            <div className="text-center mb-16 space-y-4">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-3xl md:text-5xl font-bold"
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold"
               >
                 Servicios y productos
               </motion.h2>
@@ -386,9 +394,9 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-lg text-muted-foreground"
+                className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
               >
-                Todo lo que necesitas en un solo lugar
+                Todo lo que necesitas en un solo lugar, con transparencia y dignidad
               </motion.p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">

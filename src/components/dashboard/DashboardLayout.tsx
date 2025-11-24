@@ -76,11 +76,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <DashboardSidebar />
         <div className="flex flex-1 flex-col">
           <DashboardHeader />
-          <main className="flex-1 overflow-y-auto p-6">
+          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
             {isDemoMode && (
-              <Alert className="mb-6 border-primary/50 bg-primary/5">
+              <Alert className="mb-4 sm:mb-6 border-primary/50 bg-primary/5">
                 <Eye className="h-4 w-4" />
-                <AlertDescription>
+                <AlertDescription className="text-xs sm:text-sm">
                   Estás viendo el panel en modo demostración. Los datos mostrados son de ejemplo.{" "}
                   <button 
                     onClick={() => navigate("/auth?tab=register")}

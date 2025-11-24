@@ -2,373 +2,425 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle2, Calendar, Calculator, FileText, Download, Save } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Heart, Music, Flower2, Users, BookOpen, Camera, MessageCircle, Download, Save } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 const Planificador = () => {
-  const [completedTasks, setCompletedTasks] = useState<string[]>([]);
+  const [formData, setFormData] = useState({
+    // Ceremonia
+    tipoCeremonia: "",
+    lugarCeremonia: "",
+    atmosfera: "",
+    
+    // Música
+    cancionesFavoritas: "",
+    musicaAmbiente: "",
+    
+    // Flores y decoración
+    floresPreferidas: "",
+    colores: "",
+    
+    // Personas importantes
+    personasInvitar: "",
+    personaHablar: "",
+    
+    // Legado
+    mensajeDespedida: "",
+    valoresCompartir: "",
+    historiaContar: "",
+    
+    // Recuerdos
+    fotosCompartir: "",
+    objetosSignificativos: "",
+    
+    // Preferencia final
+    preferenciaFinal: "",
+    lugarDescanso: "",
+  });
 
-  const toggleTask = (taskId: string) => {
-    setCompletedTasks(prev => 
-      prev.includes(taskId) 
-        ? prev.filter(id => id !== taskId)
-        : [...prev, taskId]
-    );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
   };
 
-  const tramitesTasks = [
-    { id: "cert-defuncion", title: "Obtener certificado de defunción", category: "Documentos" },
-    { id: "registro-civil", title: "Inscribir defunción en Registro Civil", category: "Documentos" },
-    { id: "notificar-banco", title: "Notificar a instituciones bancarias", category: "Financiero" },
-    { id: "cancelar-servicios", title: "Cancelar servicios (luz, agua, internet)", category: "Administrativo" },
-    { id: "pensiones", title: "Tramitar pensión de sobrevivencia", category: "Financiero" },
-    { id: "testamento", title: "Revisar testamento y herencia", category: "Legal" },
-    { id: "seguros", title: "Reclamar seguros de vida", category: "Financiero" },
-    { id: "propiedad", title: "Transferencia de propiedades", category: "Legal" },
-  ];
-
-  const servicios = [
-    { nombre: "Ataúd básico", precio: 150000 },
-    { nombre: "Ataúd intermedio", precio: 350000 },
-    { nombre: "Ataúd premium", precio: 800000 },
-    { nombre: "Cremación", precio: 250000 },
-    { nombre: "Sala velatorio", precio: 180000 },
-    { nombre: "Flores", precio: 50000 },
-    { nombre: "Música", precio: 30000 },
-    { nombre: "Ceremonia", precio: 120000 },
-    { nombre: "Traslado", precio: 80000 },
-  ];
-
-  const [selectedServices, setSelectedServices] = useState<string[]>([]);
-
-  const toggleService = (serviceName: string) => {
-    setSelectedServices(prev =>
-      prev.includes(serviceName)
-        ? prev.filter(s => s !== serviceName)
-        : [...prev, serviceName]
-    );
+  const handleSave = () => {
+    toast.success("Tus preferencias han sido guardadas");
   };
 
-  const totalCost = servicios
-    .filter(s => selectedServices.includes(s.nombre))
-    .reduce((sum, s) => sum + s.precio, 0);
+  const handleDownload = () => {
+    toast.success("Descargando tu planificación...");
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
       <main className="flex-1 py-12">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-4xl">
           {/* Hero */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12 max-w-3xl mx-auto"
+            className="text-center mb-12"
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Planificador para Familias 📋
+              Mi Despedida Ideal
             </h1>
-            <p className="text-lg text-muted-foreground">
-              Organiza todo lo necesario en un solo lugar. Planifica con anticipación o gestiona trámites post-funeral.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Comparte tus deseos, preferencias y cómo quieres ser recordado. 
+              Este es un espacio para expresar lo que realmente importa.
             </p>
           </motion.div>
 
-          {/* Tabs */}
-          <Tabs defaultValue="planificador" className="max-w-6xl mx-auto">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
-              <TabsTrigger value="planificador" className="gap-2">
-                <Calendar className="w-4 h-4" />
-                Planificador
-              </TabsTrigger>
-              <TabsTrigger value="tramites" className="gap-2">
-                <CheckCircle2 className="w-4 h-4" />
-                Trámites
-              </TabsTrigger>
-              <TabsTrigger value="calculadora" className="gap-2">
-                <Calculator className="w-4 h-4" />
-                Calculadora
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Planificador Anticipado */}
-            <TabsContent value="planificador">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="space-y-6"
-              >
-                <Card className="p-6">
-                  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                    <FileText className="w-6 h-6 text-accent" />
-                    Preferencias y Deseos
-                  </h2>
-                  
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Tipo de Ceremonia</label>
-                        <select className="w-full p-3 rounded-lg border border-border bg-muted">
-                          <option>Seleccionar...</option>
-                          <option>Ceremonia religiosa</option>
-                          <option>Ceremonia laica</option>
-                          <option>Ceremonia íntima</option>
-                          <option>Sin ceremonia</option>
-                        </select>
-                      </div>
-                      
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Preferencia Final</label>
-                        <select className="w-full p-3 rounded-lg border border-border bg-muted">
-                          <option>Seleccionar...</option>
-                          <option>Entierro tradicional</option>
-                          <option>Cremación</option>
-                          <option>Cremación con cenizas al mar</option>
-                          <option>Mausoleo familiar</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Música Preferida</label>
-                        <input 
-                          type="text" 
-                          placeholder="Ej: Ave María, música clásica..."
-                          className="w-full p-3 rounded-lg border border-border bg-muted"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Flores Preferidas</label>
-                        <input 
-                          type="text" 
-                          placeholder="Ej: Rosas blancas, lirios..."
-                          className="w-full p-3 rounded-lg border border-border bg-muted"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Vestimenta</label>
-                        <input 
-                          type="text" 
-                          placeholder="Ej: Traje azul, vestido favorito..."
-                          className="w-full p-3 rounded-lg border border-border bg-muted"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Notas Adicionales</label>
-                        <textarea 
-                          rows={3}
-                          placeholder="Cualquier otro deseo o preferencia especial..."
-                          className="w-full p-3 rounded-lg border border-border bg-muted"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3 mt-6">
-                    <Button className="gap-2">
-                      <Save className="w-4 h-4" />
-                      Guardar Preferencias
-                    </Button>
-                    <Button variant="outline" className="gap-2">
-                      <Download className="w-4 h-4" />
-                      Descargar PDF
-                    </Button>
-                  </div>
-                </Card>
-
-                <Card className="p-6">
-                  <h3 className="text-xl font-bold mb-4">Documentos Importantes 📄</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                      <span>Testamento</span>
-                      <Button variant="outline" size="sm">Subir</Button>
-                    </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                      <span>Póliza de Seguro</span>
-                      <Button variant="outline" size="sm">Subir</Button>
-                    </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                      <span>Documentos de Propiedad</span>
-                      <Button variant="outline" size="sm">Subir</Button>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            </TabsContent>
-
-            {/* Checklist de Trámites */}
-            <TabsContent value="tramites">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                <Card className="p-6">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-bold flex items-center gap-2">
-                      <CheckCircle2 className="w-6 h-6 text-accent" />
-                      Checklist de Trámites Post-Funeral
-                    </h2>
-                    <div className="text-sm text-muted-foreground">
-                      {completedTasks.length} de {tramitesTasks.length} completados
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    {tramitesTasks.map((task) => (
-                      <motion.div
-                        key={task.id}
-                        whileHover={{ x: 4 }}
-                        className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-accent/50 transition-colors cursor-pointer"
-                        onClick={() => toggleTask(task.id)}
-                      >
-                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
-                          completedTasks.includes(task.id) 
-                            ? 'bg-accent border-accent' 
-                            : 'border-muted-foreground'
-                        }`}>
-                          {completedTasks.includes(task.id) && (
-                            <CheckCircle2 className="w-4 h-4 text-accent-foreground" />
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <div className={completedTasks.includes(task.id) ? 'line-through text-muted-foreground' : ''}>
-                            {task.title}
-                          </div>
-                          <div className="text-xs text-muted-foreground">{task.category}</div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  <div className="mt-6 p-4 rounded-lg bg-accent/5 border border-accent/20">
-                    <p className="text-sm text-muted-foreground">
-                      💡 <strong>Consejo:</strong> Algunos trámites tienen plazos legales. Consulta con un asesor si tienes dudas.
-                    </p>
-                  </div>
-                </Card>
-              </motion.div>
-            </TabsContent>
-
-            {/* Calculadora de Costos */}
-            <TabsContent value="calculadora">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="grid md:grid-cols-2 gap-6"
-              >
-                <Card className="p-6">
-                  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                    <Calculator className="w-6 h-6 text-accent" />
-                    Selecciona Servicios
-                  </h2>
-                  
-                  <div className="space-y-2">
-                    {servicios.map((servicio) => (
-                      <motion.div
-                        key={servicio.nombre}
-                        whileHover={{ x: 4 }}
-                        className="flex items-center justify-between p-4 rounded-lg border border-border hover:border-accent/50 transition-colors cursor-pointer"
-                        onClick={() => toggleService(servicio.nombre)}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
-                            selectedServices.includes(servicio.nombre)
-                              ? 'bg-accent border-accent'
-                              : 'border-muted-foreground'
-                          }`}>
-                            {selectedServices.includes(servicio.nombre) && (
-                              <CheckCircle2 className="w-4 h-4 text-accent-foreground" />
-                            )}
-                          </div>
-                          <span>{servicio.nombre}</span>
-                        </div>
-                        <span className="font-semibold">
-                          ${servicio.precio.toLocaleString('es-CL')}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </Card>
-
-                <div className="space-y-6">
-                  <Card className="p-6 sticky top-6">
-                    <h3 className="text-xl font-bold mb-4">Resumen de Costos 💰</h3>
-                    
-                    <div className="space-y-3 mb-6">
-                      {selectedServices.length === 0 ? (
-                        <p className="text-muted-foreground text-center py-8">
-                          Selecciona servicios para ver el resumen
-                        </p>
-                      ) : (
-                        selectedServices.map(serviceName => {
-                          const servicio = servicios.find(s => s.nombre === serviceName);
-                          return (
-                            <div key={serviceName} className="flex justify-between text-sm">
-                              <span>{serviceName}</span>
-                              <span>${servicio?.precio.toLocaleString('es-CL')}</span>
-                            </div>
-                          );
-                        })
-                      )}
-                    </div>
-
-                    {selectedServices.length > 0 && (
-                      <>
-                        <div className="border-t border-border pt-4 mb-4">
-                          <div className="flex justify-between items-center text-2xl font-bold">
-                            <span>Total:</span>
-                            <span className="text-accent">
-                              ${totalCost.toLocaleString('es-CL')} CLP
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="space-y-2 text-sm text-muted-foreground mb-4">
-                          <p>• IVA incluido</p>
-                          <p>• Precios referenciales</p>
-                          <p>• Consulta con funerarias para cotización exacta</p>
-                        </div>
-
-                        <Button className="w-full gap-2">
-                          <Download className="w-4 h-4" />
-                          Descargar Cotización
-                        </Button>
-                      </>
-                    )}
-                  </Card>
-
-                  <Card className="p-6">
-                    <h4 className="font-bold mb-3">Opciones de Financiamiento 💳</h4>
-                    <div className="space-y-2 text-sm">
-                      <div className="p-3 rounded bg-muted/50">
-                        <div className="font-medium">3 cuotas sin interés</div>
-                        <div className="text-muted-foreground">
-                          ${(totalCost / 3).toLocaleString('es-CL')} CLP/mes
-                        </div>
-                      </div>
-                      <div className="p-3 rounded bg-muted/50">
-                        <div className="font-medium">6 cuotas</div>
-                        <div className="text-muted-foreground">
-                          ${(totalCost / 6).toLocaleString('es-CL')} CLP/mes
-                        </div>
-                      </div>
-                      <div className="p-3 rounded bg-muted/50">
-                        <div className="font-medium">12 cuotas</div>
-                        <div className="text-muted-foreground">
-                          ${(totalCost / 12).toLocaleString('es-CL')} CLP/mes
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-8"
+          >
+            {/* La Ceremonia */}
+            <Card className="p-8 border-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Heart className="w-6 h-6 text-primary" />
                 </div>
-              </motion.div>
-            </TabsContent>
-          </Tabs>
+                <div>
+                  <h2 className="text-2xl font-bold">La Ceremonia</h2>
+                  <p className="text-sm text-muted-foreground">¿Cómo te gustaría que fuera?</p>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="tipoCeremonia">Tipo de ceremonia que prefiero</Label>
+                  <select
+                    id="tipoCeremonia"
+                    name="tipoCeremonia"
+                    value={formData.tipoCeremonia}
+                    onChange={handleChange}
+                    className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
+                  >
+                    <option value="">Seleccionar...</option>
+                    <option value="religiosa">Ceremonia religiosa</option>
+                    <option value="laica">Ceremonia laica o humanista</option>
+                    <option value="intima">Ceremonia íntima con familia cercana</option>
+                    <option value="celebracion">Celebración de vida</option>
+                    <option value="sin">Prefiero algo muy simple, sin ceremonia</option>
+                  </select>
+                </div>
+
+                <div>
+                  <Label htmlFor="lugarCeremonia">Lugar especial (opcional)</Label>
+                  <Input
+                    id="lugarCeremonia"
+                    name="lugarCeremonia"
+                    value={formData.lugarCeremonia}
+                    onChange={handleChange}
+                    placeholder="Ej: En el jardín de mi casa, junto al mar, en la iglesia..."
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="atmosfera">¿Qué atmósfera te gustaría?</Label>
+                  <Textarea
+                    id="atmosfera"
+                    name="atmosfera"
+                    value={formData.atmosfera}
+                    onChange={handleChange}
+                    placeholder="Describe cómo te imaginas el ambiente: solemne, alegre, reflexivo, con naturaleza..."
+                    rows={3}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Música y Sonidos */}
+            <Card className="p-8 border-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Music className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Música y Sonidos</h2>
+                  <p className="text-sm text-muted-foreground">Las canciones que te acompañaron</p>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="cancionesFavoritas">Canciones que me representan</Label>
+                  <Textarea
+                    id="cancionesFavoritas"
+                    name="cancionesFavoritas"
+                    value={formData.cancionesFavoritas}
+                    onChange={handleChange}
+                    placeholder='Ej: "Imagine" de John Lennon, "What a Wonderful World" de Louis Armstrong...'
+                    rows={3}
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="musicaAmbiente">Ambiente musical</Label>
+                  <Input
+                    id="musicaAmbiente"
+                    name="musicaAmbiente"
+                    value={formData.musicaAmbiente}
+                    onChange={handleChange}
+                    placeholder="Ej: Música clásica suave, jazz, música de mi tierra..."
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Flores y Colores */}
+            <Card className="p-8 border-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Flower2 className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Flores y Colores</h2>
+                  <p className="text-sm text-muted-foreground">Los colores y aromas que amas</p>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="floresPreferidas">Mis flores preferidas</Label>
+                  <Input
+                    id="floresPreferidas"
+                    name="floresPreferidas"
+                    value={formData.floresPreferidas}
+                    onChange={handleChange}
+                    placeholder="Ej: Rosas blancas, girasoles, lirios..."
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="colores">Colores que me gustan</Label>
+                  <Input
+                    id="colores"
+                    name="colores"
+                    value={formData.colores}
+                    onChange={handleChange}
+                    placeholder="Ej: Colores pasteles, tonos tierra, mi color favorito es..."
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Las Personas */}
+            <Card className="p-8 border-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Users className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Las Personas</h2>
+                  <p className="text-sm text-muted-foreground">Quiénes son importantes para ti</p>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="personasInvitar">Personas especiales que me gustaría que estuvieran</Label>
+                  <Textarea
+                    id="personasInvitar"
+                    name="personasInvitar"
+                    value={formData.personasInvitar}
+                    onChange={handleChange}
+                    placeholder="Puedes mencionar personas específicas, grupos o simplemente 'mi familia cercana'..."
+                    rows={3}
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="personaHablar">¿Hay alguien especial que quisieras que hable o comparta algo?</Label>
+                  <Input
+                    id="personaHablar"
+                    name="personaHablar"
+                    value={formData.personaHablar}
+                    onChange={handleChange}
+                    placeholder="Ej: Mi mejor amigo, mi hermana..."
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Mi Legado */}
+            <Card className="p-8 border-2 bg-primary/5">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Mi Legado</h2>
+                  <p className="text-sm text-muted-foreground">Lo que quiero compartir y ser recordado</p>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="mensajeDespedida">Un mensaje de despedida</Label>
+                  <Textarea
+                    id="mensajeDespedida"
+                    name="mensajeDespedida"
+                    value={formData.mensajeDespedida}
+                    onChange={handleChange}
+                    placeholder="Unas palabras para quienes amo..."
+                    rows={4}
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="valoresCompartir">Valores que quiero transmitir</Label>
+                  <Textarea
+                    id="valoresCompartir"
+                    name="valoresCompartir"
+                    value={formData.valoresCompartir}
+                    onChange={handleChange}
+                    placeholder="Ej: La importancia de la familia, la bondad, vivir con pasión..."
+                    rows={3}
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="historiaContar">Una historia o anécdota que me representa</Label>
+                  <Textarea
+                    id="historiaContar"
+                    name="historiaContar"
+                    value={formData.historiaContar}
+                    onChange={handleChange}
+                    placeholder="Un momento especial de mi vida que refleja quién fui..."
+                    rows={4}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Recuerdos */}
+            <Card className="p-8 border-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Camera className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Recuerdos Visuales</h2>
+                  <p className="text-sm text-muted-foreground">Las imágenes que cuentan tu historia</p>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="fotosCompartir">Fotos que me gustaría compartir</Label>
+                  <Textarea
+                    id="fotosCompartir"
+                    name="fotosCompartir"
+                    value={formData.fotosCompartir}
+                    onChange={handleChange}
+                    placeholder="Describe qué tipo de fotos: con mi familia, viajando, en momentos felices..."
+                    rows={3}
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="objetosSignificativos">Objetos que tienen significado especial</Label>
+                  <Input
+                    id="objetosSignificativos"
+                    name="objetosSignificativos"
+                    value={formData.objetosSignificativos}
+                    onChange={handleChange}
+                    placeholder="Ej: Un libro, una pintura, mi guitarra..."
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Preferencia Final */}
+            <Card className="p-8 border-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <MessageCircle className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Descanso Final</h2>
+                  <p className="text-sm text-muted-foreground">Tus preferencias sobre el destino final</p>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="preferenciaFinal">Mi preferencia</Label>
+                  <select
+                    id="preferenciaFinal"
+                    name="preferenciaFinal"
+                    value={formData.preferenciaFinal}
+                    onChange={handleChange}
+                    className="w-full mt-2 p-3 rounded-lg border border-border bg-background"
+                  >
+                    <option value="">Seleccionar...</option>
+                    <option value="entierro">Entierro tradicional</option>
+                    <option value="cremacion">Cremación</option>
+                    <option value="cenizas-naturaleza">Cenizas esparcidas en la naturaleza</option>
+                    <option value="cenizas-mar">Cenizas al mar</option>
+                    <option value="mausoleo">Mausoleo o cripta familiar</option>
+                  </select>
+                </div>
+
+                <div>
+                  <Label htmlFor="lugarDescanso">Lugar especial (si lo hay)</Label>
+                  <Input
+                    id="lugarDescanso"
+                    name="lugarDescanso"
+                    value={formData.lugarDescanso}
+                    onChange={handleChange}
+                    placeholder="Ej: Junto a mis padres, en el cementerio de mi pueblo, en las montañas..."
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Botones de Acción */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-6">
+              <Button size="lg" className="flex-1 gap-2" onClick={handleSave}>
+                <Save className="w-5 h-5" />
+                Guardar mis Preferencias
+              </Button>
+              <Button size="lg" variant="outline" className="flex-1 gap-2" onClick={handleDownload}>
+                <Download className="w-5 h-5" />
+                Descargar PDF
+              </Button>
+            </div>
+
+            {/* Mensaje Final */}
+            <Card className="p-6 bg-muted/30 border-primary/20 text-center">
+              <p className="text-sm text-muted-foreground">
+                Esta información es personal y privada. Puedes compartirla con tu familia cuando estés listo,
+                o simplemente guardarla como una guía para que en el futuro tus seres queridos conozcan tus deseos.
+              </p>
+            </Card>
+          </motion.div>
         </div>
       </main>
 

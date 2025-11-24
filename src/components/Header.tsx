@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Search, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import siriusLogo from "@/assets/sirius-logo.png";
+import conectaLogoLight from "@/assets/conecta-logo-light.png";
+import conectaLogoDark from "@/assets/conecta-logo-dark.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useTheme } from "next-themes";
 
 export const Header = () => {
+  const { theme } = useTheme();
   const navItems = [
     { label: "Inicio", href: "/" },
     { label: "Funerarias", href: "/funerarias" },
@@ -24,8 +27,8 @@ export const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img
-              src={siriusLogo}
-              alt="Sirius"
+              src={theme === "dark" ? conectaLogoDark : conectaLogoLight}
+              alt="ConectaFunerarias"
               className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
             />
           </Link>

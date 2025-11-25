@@ -9,12 +9,12 @@ import {
 export const FAQ = () => {
   const faqs = [
     {
-      question: "¿Cómo funciona Sirius?",
-      answer: "Sirius es un marketplace que conecta familias con funerarias. Puedes buscar, comparar servicios y precios, y contactar directamente con las funerarias de tu zona.",
+      question: "¿Cómo funciona ConectaFunerarias?",
+      answer: "ConectaFunerarias es un marketplace que conecta familias con funerarias. Puedes buscar, comparar servicios y precios, y contactar directamente con las funerarias de tu zona.",
     },
     {
       question: "¿Es gratuito para las familias?",
-      answer: "Sí, Sirius es completamente gratuito para las familias. Solo pagas por los servicios que contrates directamente con la funeraria elegida.",
+      answer: "Sí, ConectaFunerarias es completamente gratuito para las familias. Solo pagas por los servicios que contrates directamente con la funeraria elegida.",
     },
     {
       question: "¿Cómo se registra una funeraria?",

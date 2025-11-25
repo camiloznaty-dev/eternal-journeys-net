@@ -171,13 +171,9 @@ const Asistencia = () => {
                           <CardTitle className="text-lg">Cuota Mortuoria</CardTitle>
                         </CardHeader>
                         <CardContent className="text-sm text-muted-foreground">
-                          <p className="mb-2">Beneficio para cubrir gastos funerarios. Pueden solicitarlo:</p>
-                          <ul className="space-y-1 ml-4">
-                            <li>• Cónyuge o conviviente civil</li>
-                            <li>• Hijos mayores de 18 años</li>
-                            <li>• Padres del fallecido</li>
-                          </ul>
-                          <p className="mt-2 font-semibold">Plazo: 6 meses desde el fallecimiento</p>
+                          <p className="mb-2">Beneficio para cubrir gastos funerarios.</p>
+                          <p className="mb-2">Puede ser solicitado por cualquier persona que se haya hecho cargo de los gastos funerarios.</p>
+                          <p className="mt-2 font-semibold">Plazo: hasta 5 años desde el fallecimiento</p>
                         </CardContent>
                       </Card>
 

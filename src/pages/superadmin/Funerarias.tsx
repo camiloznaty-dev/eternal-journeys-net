@@ -204,13 +204,16 @@ export default function SuperAdminFunerarias() {
                               currentPlan={funerariaPlanes[funeraria.id]}
                               onSuccess={fetchFunerarias}
                             />
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => window.open(`/f/${funeraria.slug}`, "_blank")}
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                            </Button>
+                            {funeraria.slug && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => window.open(`/funeraria/${funeraria.slug}`, "_blank")}
+                                title="Ver página pública"
+                              >
+                                <ExternalLink className="h-4 w-4" />
+                              </Button>
+                            )}
                           </div>
                         </TableCell>
                       </TableRow>

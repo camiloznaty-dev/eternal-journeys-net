@@ -222,6 +222,396 @@ const emailTemplates: Record<string, (firma: string, mensaje?: string) => string
   </div>
 </body>
 </html>`,
+
+  san_valentin: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#fff0f5;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#ff6b9d 0%,#c44569 100%);padding:60px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:20px;">💕💝💖</div>
+      <h1 style="color:white;margin:0;font-size:32px;">Feliz San Valentín</h1>
+      <p style="color:#ffd6e0;margin:15px 0 0;">Con cariño, de Conecta Funerarias</p>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <div style="background:#fff0f5;border-radius:12px;padding:25px;margin-bottom:30px;">
+        <p style="color:#c44569;margin:0;font-size:16px;line-height:1.8;">
+          ${mensaje || "En este día especial, queremos recordarte que estamos aquí para ti y tu familia. Gracias por confiar en nosotros."}
+        </p>
+      </div>
+      <div style="font-size:36px;">💐🌹❤️</div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  semana_santa: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f5f0e8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#8B4513 0%,#D2691E 100%);padding:60px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:20px;">✝️🕊️🙏</div>
+      <h1 style="color:white;margin:0;font-size:32px;">Semana Santa</h1>
+      <p style="color:#ffecd2;margin:15px 0 0;">Tiempo de reflexión y esperanza</p>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "En estos días de recogimiento, te deseamos paz y serenidad. Que esta Semana Santa renueve tu espíritu y fortalezca tus lazos familiares."}
+      </p>
+      <div style="font-size:36px;margin:30px 0;">🌿🌸☀️</div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  dia_madre: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#fff5f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#ff85a2 0%,#f953c6 100%);padding:60px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:20px;">👩‍👧‍👦💐🌷</div>
+      <h1 style="color:white;margin:0;font-size:32px;">¡Feliz Día de la Madre!</h1>
+      <p style="color:#ffe4ec;margin:15px 0 0;">Un homenaje a todas las madres</p>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <div style="background:#fff0f5;border-radius:12px;padding:25px;margin-bottom:30px;">
+        <p style="color:#d63384;margin:0;font-size:16px;line-height:1.8;">
+          ${mensaje || "A todas las madres que nos acompañan y a las que guardamos en nuestro corazón. Gracias por su amor incondicional."}
+        </p>
+      </div>
+      <div style="font-size:36px;">🌹💝🌺</div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  dia_padre: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4ff;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#1e3a5f 0%,#2c5282 100%);padding:60px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:20px;">👨‍👧‍👦🎖️💙</div>
+      <h1 style="color:white;margin:0;font-size:32px;">¡Feliz Día del Padre!</h1>
+      <p style="color:#bee3f8;margin:15px 0 0;">Celebramos a todos los padres</p>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <div style="background:#ebf8ff;border-radius:12px;padding:25px;margin-bottom:30px;">
+        <p style="color:#2c5282;margin:0;font-size:16px;line-height:1.8;">
+          ${mensaje || "A todos los padres que nos guían con su ejemplo y sabiduría. Gracias por su fortaleza y dedicación."}
+        </p>
+      </div>
+      <div style="font-size:36px;">🏆👔⭐</div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  fiestas_patrias: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#0033a0 0%,#d52b1e 100%);padding:60px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:20px;">🇨🇱🎉🎊</div>
+      <h1 style="color:white;margin:0;font-size:32px;">¡Felices Fiestas Patrias!</h1>
+      <p style="color:#ffd700;margin:15px 0 0;">¡Viva Chile!</p>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <div style="background:#fff8dc;border-radius:12px;padding:25px;margin-bottom:30px;border-left:4px solid #d52b1e;">
+        <p style="color:#8b4513;margin:0;font-size:16px;line-height:1.8;">
+          ${mensaje || "En este 18 de Septiembre, celebremos juntos nuestra identidad y tradiciones. Que la alegría y el espíritu chileno nos acompañen siempre."}
+        </p>
+      </div>
+      <div style="font-size:36px;">🎪💃🌽🍷</div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  halloween: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#1a1a2e;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:#2d2d44;">
+    <div style="background:linear-gradient(135deg,#ff6b00 0%,#8b0000 100%);padding:60px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:20px;">🎃👻🦇</div>
+      <h1 style="color:white;margin:0;font-size:32px;">¡Feliz Halloween!</h1>
+      <p style="color:#ffd700;margin:15px 0 0;">Una noche de misterio y diversión</p>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <div style="background:#3d3d5c;border-radius:12px;padding:25px;margin-bottom:30px;">
+        <p style="color:#f0f0f0;margin:0;font-size:16px;line-height:1.8;">
+          ${mensaje || "En esta noche especial, recordamos a quienes ya no están con nosotros. Que sus memorias sigan vivas en nuestros corazones."}
+        </p>
+      </div>
+      <div style="font-size:36px;">🕯️🌙⭐🕸️</div>
+    </div>
+    <div style="background:#1a1a2e;padding:20px;text-align:center;">
+      <p style="color:#888;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  descuento: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#00c853 0%,#00e676 100%);padding:50px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:15px;">🏷️💰✨</div>
+      <h1 style="color:white;margin:0;font-size:28px;">¡Descuento Especial!</h1>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <div style="background:#e8f5e9;border-radius:12px;padding:30px;margin:20px 0;">
+        <p style="color:#00c853;font-size:48px;font-weight:bold;margin:0;">20% OFF</p>
+        <p style="color:#666;margin:10px 0 0;">En todos nuestros servicios</p>
+      </div>
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Aprovecha esta oferta exclusiva por tiempo limitado. Estamos aquí para ayudarte."}
+      </p>
+      <a href="#" style="background:#00c853;color:white;padding:14px 30px;text-decoration:none;border-radius:8px;display:inline-block;margin-top:20px;">Ver Oferta</a>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  referidos: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:50px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:15px;">🤝🎁👥</div>
+      <h1 style="color:white;margin:0;font-size:28px;">Programa de Referidos</h1>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Invita a tus conocidos y gana beneficios exclusivos. Cada referido que se registre te dará recompensas especiales."}
+      </p>
+      <div style="background:#f0f4ff;border-radius:12px;padding:25px;margin:20px 0;">
+        <p style="color:#667eea;font-weight:600;margin:0;">Por cada referido:</p>
+        <p style="color:#764ba2;font-size:24px;font-weight:bold;margin:10px 0;">1 mes gratis</p>
+      </div>
+      <a href="#" style="background:#667eea;color:white;padding:14px 30px;text-decoration:none;border-radius:8px;display:inline-block;">Invitar Ahora</a>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  actualizacion: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#3b82f6 0%,#1d4ed8 100%);padding:50px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:15px;">🚀✨🔔</div>
+      <h1 style="color:white;margin:0;font-size:28px;">Novedades en la Plataforma</h1>
+    </div>
+    <div style="padding:40px 30px;">
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Hemos realizado mejoras importantes en nuestra plataforma para brindarte una mejor experiencia."}
+      </p>
+      <div style="background:#eff6ff;border-radius:12px;padding:25px;margin:20px 0;">
+        <p style="color:#1d4ed8;font-weight:600;margin:0 0 15px;">Nuevas funcionalidades:</p>
+        <ul style="color:#555;margin:0;padding-left:20px;">
+          <li>Interfaz renovada</li>
+          <li>Mayor velocidad</li>
+          <li>Nuevas herramientas</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  inactividad: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#ec4899 0%,#be185d 100%);padding:50px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:15px;">💔😢👋</div>
+      <h1 style="color:white;margin:0;font-size:28px;">¡Te Extrañamos!</h1>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Ha pasado un tiempo desde tu última visita. Queremos que sepas que seguimos aquí para ayudarte cuando lo necesites."}
+      </p>
+      <div style="background:#fdf2f8;border-radius:12px;padding:25px;margin:20px 0;">
+        <p style="color:#be185d;margin:0;">Vuelve y descubre las novedades que tenemos para ti</p>
+      </div>
+      <a href="#" style="background:#ec4899;color:white;padding:14px 30px;text-decoration:none;border-radius:8px;display:inline-block;">Volver a Conecta</a>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  aniversario: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);padding:50px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:15px;">🎂🎉🥳</div>
+      <h1 style="color:white;margin:0;font-size:28px;">¡Feliz Aniversario!</h1>
+    </div>
+    <div style="padding:40px 30px;text-align:center;">
+      <div style="background:#fffbeb;border-radius:12px;padding:25px;margin-bottom:20px;">
+        <p style="color:#d97706;font-size:24px;font-weight:bold;margin:0;">1 año juntos</p>
+        <p style="color:#92400e;margin:10px 0 0;">¡Gracias por confiar en nosotros!</p>
+      </div>
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Celebramos este tiempo juntos y esperamos seguir acompañándote muchos años más."}
+      </p>
+      <div style="font-size:36px;margin-top:20px;">🎊✨🌟</div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  cuenta_suspendida: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:#dc2626;padding:50px 20px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:15px;">⚠️🔒</div>
+      <h1 style="color:white;margin:0;font-size:28px;">Cuenta Suspendida</h1>
+    </div>
+    <div style="padding:40px 30px;">
+      <div style="background:#fef2f2;border-left:4px solid #dc2626;padding:20px;margin-bottom:20px;">
+        <p style="color:#dc2626;margin:0;font-weight:600;">Tu cuenta ha sido suspendida temporalmente</p>
+      </div>
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Para reactivar tu cuenta, por favor regulariza tu situación de pago o contacta a nuestro equipo de soporte."}
+      </p>
+      <div style="text-align:center;margin-top:30px;">
+        <a href="#" style="background:#dc2626;color:white;padding:14px 30px;text-decoration:none;border-radius:8px;display:inline-block;">Reactivar Cuenta</a>
+      </div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  newsletter: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:40px 20px;text-align:center;">
+      <h1 style="color:white;margin:0;font-size:24px;">📰 Newsletter Mensual</h1>
+      <p style="color:#888;margin:10px 0 0;">Las últimas novedades de Conecta Funerarias</p>
+    </div>
+    <div style="padding:40px 30px;">
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Te compartimos las novedades más importantes del mes y consejos útiles para ti."}
+      </p>
+      <div style="border-bottom:1px solid #eee;padding:20px 0;">
+        <h3 style="color:#1a1a2e;margin:0 0 10px;">📌 Destacado del mes</h3>
+        <p style="color:#666;margin:0;">Nuevas funcionalidades disponibles en tu dashboard.</p>
+      </div>
+      <div style="border-bottom:1px solid #eee;padding:20px 0;">
+        <h3 style="color:#1a1a2e;margin:0 0 10px;">💡 Consejo del mes</h3>
+        <p style="color:#666;margin:0;">Optimiza tu perfil para atraer más clientes.</p>
+      </div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  terminos: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:#374151;padding:40px 20px;text-align:center;">
+      <div style="font-size:36px;margin-bottom:15px;">📋</div>
+      <h1 style="color:white;margin:0;font-size:24px;">Actualización de Términos</h1>
+    </div>
+    <div style="padding:40px 30px;">
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Hemos actualizado nuestros términos y condiciones. Te invitamos a revisarlos para conocer los cambios."}
+      </p>
+      <div style="background:#f3f4f6;border-radius:8px;padding:20px;margin:20px 0;">
+        <p style="color:#374151;margin:0;font-size:14px;">Los cambios entran en vigencia el próximo mes. Si continúas usando nuestros servicios, aceptas los nuevos términos.</p>
+      </div>
+      <div style="text-align:center;">
+        <a href="#" style="background:#374151;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block;">Leer Términos</a>
+      </div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+
+  privacidad: (firma, mensaje) => `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f8;font-family:'Segoe UI',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:white;">
+    <div style="background:#374151;padding:40px 20px;text-align:center;">
+      <div style="font-size:36px;margin-bottom:15px;">🔒</div>
+      <h1 style="color:white;margin:0;font-size:24px;">Política de Privacidad</h1>
+    </div>
+    <div style="padding:40px 30px;">
+      <p style="color:#555;font-size:16px;line-height:1.8;">
+        ${mensaje || "Hemos actualizado nuestra política de privacidad para proteger mejor tus datos personales."}
+      </p>
+      <div style="background:#f3f4f6;border-radius:8px;padding:20px;margin:20px 0;">
+        <p style="color:#374151;margin:0;font-size:14px;">Tu privacidad es nuestra prioridad. Revisa los cambios para conocer cómo protegemos tu información.</p>
+      </div>
+      <div style="text-align:center;">
+        <a href="#" style="background:#374151;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block;">Leer Política</a>
+      </div>
+    </div>
+    <div style="background:#f8f9fa;padding:20px;text-align:center;">
+      <p style="color:#666;margin:0;font-size:14px;">${firma}</p>
+    </div>
+  </div>
+</body>
+</html>`,
 };
 
 // Default template for those without specific HTML

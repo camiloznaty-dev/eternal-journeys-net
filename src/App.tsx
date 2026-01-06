@@ -56,6 +56,7 @@ import SuperAdminDatabase from "./pages/superadmin/Database";
 import SuperAdminPlanes from "./pages/superadmin/Planes";
 import SuperAdminBlog from "./pages/superadmin/Blog";
 import SuperAdminConfiguracion from "./pages/superadmin/Configuracion";
+import SuperAdminEmailMarketing from "./pages/superadmin/EmailMarketing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -129,6 +130,7 @@ const App = () => (
           <Route path="/superadmin/database" element={<SuperAdminDatabase />} />
           <Route path="/superadmin/planes" element={<SuperAdminPlanes />} />
           <Route path="/superadmin/configuracion" element={<SuperAdminConfiguracion />} />
+          <Route path="/superadmin/email-marketing" element={<SuperAdminEmailMarketing />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

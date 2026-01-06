@@ -20,6 +20,7 @@ import {
   Activity,
   Crown,
   BookOpen,
+  Mail,
 } from "lucide-react";
 
 const menuItems = [
@@ -47,6 +48,11 @@ const menuItems = [
     title: "Blog",
     url: "/superadmin/blog",
     icon: BookOpen,
+  },
+  {
+    title: "Email Marketing",
+    url: "/superadmin/email-marketing",
+    icon: Mail,
   },
   {
     title: "Contenido",

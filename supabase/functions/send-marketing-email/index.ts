@@ -54,7 +54,7 @@ const handler = async (req: Request): Promise<Response> => {
               Authorization: `Bearer ${RESEND_API_KEY}`,
             },
             body: JSON.stringify({
-              from: "Conecta Funerarias <onboarding@resend.dev>",
+              from: "Conecta Funerarias <noreply@conectafunerarias.cl>",
               to: [email],
               subject: subject,
               html: html,
